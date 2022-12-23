@@ -9,7 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { ChannelComponent } from './channel/channel.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
-
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -25,7 +25,8 @@ import { DirectMessageComponent } from './direct-message/direct-message.componen
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
