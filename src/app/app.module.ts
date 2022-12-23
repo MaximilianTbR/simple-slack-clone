@@ -7,13 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { ChannelComponent } from './channel/channel.component';
+import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChannelComponent,
+    DirectMessageComponent
   ],
   imports: [
     BrowserModule,
