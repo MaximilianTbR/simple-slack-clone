@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create Channel</h1>
+
+
+<div mat-dialog-content class="flexColumn">
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput>
+    </mat-form-field>
+</div>
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Create new Channel</button>
+</div>
