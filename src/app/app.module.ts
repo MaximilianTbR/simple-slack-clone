@@ -20,6 +20,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -45,6 +46,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
+    MatCardModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }

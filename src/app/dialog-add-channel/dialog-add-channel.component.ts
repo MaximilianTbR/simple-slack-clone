@@ -25,6 +25,7 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   createNewChannel() {
+    console.log(this.channel)
     //commands for creating new channel
     this.loading = true;
     this.firestore
