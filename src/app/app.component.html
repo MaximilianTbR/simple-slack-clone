@@ -5,7 +5,10 @@
         </div>
         <ul class="menu-items">
             <li routerLink="/channel">
-                <mat-icon>3p</mat-icon>Channel
+                <div>
+                    <mat-icon>3p</mat-icon>Channel
+                </div>
+                <div class="single-channel" *ngFor="let channel of allChannels"></div>
             </li>
             <li routerLink="/directMessage">
                 <mat-icon>#</mat-icon>Direct Chat
@@ -16,8 +19,7 @@
     <div class="example-sidenav-content">
         <p>
             <mat-toolbar color="primary">
-                <button (click)="drawer.toggle()" mat-icon-button class="example-icon"
-                    aria-label="Example icon-button with heart icon">
+                <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
                     <mat-icon class="menu-icon">menu</mat-icon>
                 </button>
                 <span>Slack</span>

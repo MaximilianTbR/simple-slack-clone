@@ -17,5 +17,5 @@
 
 <div mat-dialog-actions>
     <button mat-button (click)="close()">Cancel</button>
-    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Create new Channel</button>
+    <button mat-button [mat-dialog-close]="" cdkFocusInitial (click)="createNewChannel()">Create new Channel</button>
 </div>
