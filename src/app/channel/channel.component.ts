@@ -13,11 +13,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
-  allMessages: [] = [];
+  allMessages: any = [];
   messageOfChannel: any;
   userId: any;
-  channel!: Channel;
-  message!: string;
+  channel: Channel;
+  message: string;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
 
@@ -53,13 +53,15 @@ export class ChannelComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       })*/      //this.user.birthDate = this.birthDate.getTime();
-
-    this.firestore
-      .collection('channels')
-      .doc(this.userId)
-      .update(this.channel.toJSON())
-      .then((result: any) => {
-        console.log(this.channel)
-      })
+    /*
+  this.firestore
+    .collection('channels')
+    .doc(this.userId)
+    .update(this.channel.toJSON())
+    .then((result: any) => {
+      console.log(this.channel)
+    })*/
+    this.allMessages.push(this.message);
+    console.log(this.channel.channelMessages);
   }
 }
