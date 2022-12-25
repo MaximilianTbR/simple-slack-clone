@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Firestore } from 'firebase/firestore';
+import { DialogAddUserComponent } from './dialog-add-channel/dialog-add-channel.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,7 @@ export class AppComponent {
   title = 'slack-clone';
   allChannels = [];
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, public dialog: MatDialog) {
 
   }
 
@@ -23,5 +25,9 @@ export class AppComponent {
         this.allChannels = changes;
         console.log(this.allChannels);
       })
+  }
+
+  openDialog(): void {
+    this.dialog.open(DialogAddUserComponent);
   }
 }
