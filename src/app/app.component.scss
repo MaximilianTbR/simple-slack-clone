@@ -2,6 +2,12 @@
     height: 100%;
 }
 
+.li-inner-div {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
 .addButton {
     position: absolute;
     right: 10px;
@@ -60,7 +66,7 @@ mat-toolbar-row {
         flex-direction: column;
         padding-left: 16px;
         padding-right: 16px;
-        height: 48px;
+        height: fit-content;
         display: flex;
         align-items: start;
         cursor: pointer;

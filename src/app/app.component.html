@@ -4,16 +4,8 @@
             <!-- <img src="../../assets/img/1.png"> -->
         </div>
         <ul class="menu-items">
-            <li routerLink="/channel">
-                <div class="li-inner-div">
-                    <mat-icon>3p</mat-icon><span>Channel</span>
-                </div>
-            </li>
             <li>
                 <app-single-channel-sidenav-link class="single-channel" *ngFor="let channel of allChannels; let i = index" [channelName]="this.allChannels[i]['channelName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]"></app-single-channel-sidenav-link>
-            </li>
-            <li routerLink="/directMessage">
-                <mat-icon>#</mat-icon>Direct Chat
             </li>
         </ul>
         <button (click)="openDialog()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
@@ -31,9 +23,6 @@
             </mat-toolbar>
         </p>
     </div>
-
-
-
     <div class="router-container">
         <router-outlet></router-outlet>
     </div>

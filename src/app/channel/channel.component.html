@@ -8,7 +8,7 @@
     </div>
 </mat-card>
 <div class="all-messages">
-    <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="this.allMessages[i]"></app-single-message>
+    <app-single-message *ngFor="message of channel.channelMessages; let i = index" [messageOfChannel]="this.channel.channelMessages[i]"></app-single-message>
 </div>
 <textarea class="inputfield" [(ngModel)]="message"></textarea>
 <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">

@@ -1,7 +1,7 @@
 export class Channel {
     channelName: string;
     channelDescription: string;
-    channelMessages: JSON;
+    channelMessages: Array<any>;
     unread: boolean;
     participants: JSON;
 
@@ -14,6 +14,7 @@ export class Channel {
     }
 
     public toJSON() {
+        console.log('function works!')
         return {
             channelName: this.channelName,
             channelDescription: this.channelDescription,
