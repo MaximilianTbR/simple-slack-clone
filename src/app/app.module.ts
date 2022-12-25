@@ -23,6 +23,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { SingleMessageComponent } from './single-message/single-message.component';
+import { SingleChannelSidenavLinkComponent } from './single-channel-sidenav-link/single-channel-sidenav-link.component';
 
 
 
@@ -32,7 +33,8 @@ import { SingleMessageComponent } from './single-message/single-message.componen
     ChannelComponent,
     DirectMessageComponent,
     DialogAddUserComponent,
-    SingleMessageComponent
+    SingleMessageComponent,
+    SingleChannelSidenavLinkComponent
   ],
   imports: [
     BrowserModule,

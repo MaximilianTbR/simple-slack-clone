@@ -4,13 +4,13 @@
 <div mat-dialog-content class="flexColumn">
     <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="channel.channelName">
     </mat-form-field>
 
 
     <mat-form-field>
         <mat-label>Description</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="channel.channelDescription">
     </mat-form-field>
 </div>
 

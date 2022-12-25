@@ -8,6 +8,13 @@
     bottom: 10px;
 }
 
+.single-channel {
+    margin-top: 10px;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+}
+
 .menu-icon {
     cursor: pointer;
 }
@@ -50,17 +57,15 @@ mat-toolbar-row {
     padding: 0px;
     margin: 0px;
     li {
+        flex-direction: column;
         padding-left: 16px;
         padding-right: 16px;
         height: 48px;
         display: flex;
-        align-items: center;
+        align-items: start;
         cursor: pointer;
         mat-icon {
             margin-right: 16px;
-        }
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.04);
         }
     }
 }
