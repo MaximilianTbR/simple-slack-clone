@@ -5,10 +5,14 @@
     height: 50px;
 }
 
+.header {
+    margin-right: auto;
+}
+
 .channel-name-div {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     position: absolute;
     top: 56px;
     width: 84%;
@@ -26,10 +30,35 @@
     }
 }
 
+.all-messages {
+    overflow: scroll !important;
+    position: absolute;
+    top: 130px;
+    width: fit-content;
+    height: 78vh;
+}
+
 .single-div {
     display: flex;
 }
 
 mat-icon {
     padding-top: 2.5px;
+}
+
+.addButton {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+}
+
+textarea {
+    border: 0.1px solid gray;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-family: Open Sans;
 }

@@ -21,6 +21,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { SingleMessageComponent } from './single-message/single-message.component';
 
 
 
@@ -29,7 +31,8 @@ import { MatCardModule } from '@angular/material/card';
     AppComponent,
     ChannelComponent,
     DirectMessageComponent,
-    DialogAddUserComponent
+    DialogAddUserComponent,
+    SingleMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { MatCardModule } from '@angular/material/card';
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }

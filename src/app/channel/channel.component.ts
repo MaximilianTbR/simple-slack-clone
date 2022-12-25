@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-channel/dialog-add-channel.component';
+import { NgModule } from '@angular/core';
 
 
 @Component({
@@ -9,6 +10,8 @@ import { DialogAddUserComponent } from '../dialog-add-channel/dialog-add-channel
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
+  message: any;
+  allMessages: string[] = [];
 
   constructor(public dialog: MatDialog) { }
 
@@ -20,5 +23,9 @@ export class ChannelComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(DialogAddUserComponent);
+  }
+
+  sendMessage() {
+    this.allMessages.push(this.message);
   }
 }
