@@ -9,7 +9,7 @@ export class SingleMessageComponent implements OnInit {
 
   constructor() { }
 
-  @Input() message: any;
+  @Input() messageOfChannel: any;
 
   ngOnInit(): void {
   }

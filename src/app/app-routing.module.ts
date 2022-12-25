@@ -4,8 +4,10 @@ import { ChannelComponent } from './channel/channel.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 const routes: Routes = [
-  {path: 'channel', component: ChannelComponent},
-  {path: 'directMessage', component: DirectMessageComponent}
+  { path: 'channel', component: ChannelComponent },
+  { path: 'directMessage/:id', component: DirectMessageComponent },
+  { path: 'channel/:id', component: ChannelComponent }
+
 ];
 
 @NgModule({
