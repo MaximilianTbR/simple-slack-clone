@@ -4,6 +4,7 @@ export class Channel {
     channelMessages: Array<any>;
     unread: boolean;
     participants: JSON;
+    messageIndex: number;
 
     constructor(obj?: any) {
         this.channelName = obj ? obj.channelName : '';
@@ -11,6 +12,7 @@ export class Channel {
         this.channelMessages = obj ? obj.channelMessages : [];
         this.unread = obj ? obj.unread : false;
         this.participants = obj ? obj : [];
+        this.messageIndex = obj ? obj.messageIndex : '';
     }
 
     public toJSON() {
@@ -20,7 +22,8 @@ export class Channel {
             channelDescription: this.channelDescription,
             channelMessages: this.channelMessages,
             unread: this.unread,
-            participants: this.participants
+            participants: this.participants,
+            messageIndex: this.messageIndex
         }
     }
 }

@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChannelComponent implements OnInit {
   allMessages: any = [];
+  messageIndex: number = 0;
   messageOfChannel: any;
   userId: any;
   channel: Channel;
@@ -62,7 +63,16 @@ export class ChannelComponent implements OnInit {
     .then((result: any) => {
       console.log(this.channel)
     })*/
-    this.allMessages.push(this.message);
-    console.log(this.channel.channelMessages);
+    if (this.messageIndex > 0) {
+      this.messageIndex + 1;
+    }
+    this.allMessages.push({ [this.messageIndex]: this.message });
+    console.log(this.allMessages[this.messageIndex])
+    this.firestore
+      .collection(this.userId)
+      .add(this.allMessages)
+      .then((result: any) => {
+        console.log(result)
+      })
   }
 }
