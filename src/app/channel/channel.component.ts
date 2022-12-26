@@ -18,17 +18,18 @@ export class ChannelComponent implements OnInit {
   userId: any;
   channel: Channel;
   message: string;
+  allChannels = [];
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
 
 
   ngOnInit(): void {
     this.firestore
-      .collection('users')
+      .collection('channels')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
-        this.allMessages = changes;
-        console.log(this.allMessages);
+        this.allChannels = changes;
+        console.log(this.allChannels);
       })
     this.route.paramMap.subscribe(paramMap => {
       this.userId = paramMap.get('id');
