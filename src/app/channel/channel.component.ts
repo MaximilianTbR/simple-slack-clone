@@ -5,15 +5,27 @@ import { NgModule } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: [
+    Component
+  ]
+})
+export class MyModule { }
 
 
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss']
+  styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent implements OnInit {
-  allMessages: any = [];
+  allMessages = [];
   messageIndex: number = 0;
   messageOfChannel: any;
   userId: any;
@@ -66,8 +78,8 @@ export class ChannelComponent implements OnInit {
     if (this.messageIndex > 0) {
       this.messageIndex + 1;
     }
-    this.allMessages.push({ [this.messageIndex]: this.message });
-    console.log(this.allMessages[this.messageIndex])
+    this.allMessages.push(this.message);
+    console.log(this.allMessages)
     this.firestore
       .collection(this.userId)
       .add(this.allMessages)

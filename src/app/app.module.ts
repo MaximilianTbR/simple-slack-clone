@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { SingleMessageComponent } from './single-message/single-message.component';
 import { SingleChannelSidenavLinkComponent } from './single-channel-sidenav-link/single-channel-sidenav-link.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -52,7 +53,8 @@ import { SingleChannelSidenavLinkComponent } from './single-channel-sidenav-link
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     MatCardModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
