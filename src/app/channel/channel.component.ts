@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -26,14 +27,14 @@ export class MyModule { }
 })
 export class ChannelComponent implements OnInit {
   allMessages = [];
-  messageIndex: number = 0;
   messageOfChannel: any;
-  userId: any;
-  channel: Channel;
+  channelId: any;
+  channel = new Channel();
   message: string;
   allChannels = [];
+  channelData: Channel;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private firestore: AngularFirestore) { }
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) { }
 
 
   ngOnInit(): void {
@@ -42,11 +43,10 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        console.log(this.allChannels);
       })
     this.route.paramMap.subscribe(paramMap => {
-      this.userId = paramMap.get('id');
-      console.log(this.userId);
+      this.channelId = paramMap.get('id');
+      console.log(this.channelId);
     });
   }
 
@@ -56,33 +56,12 @@ export class ChannelComponent implements OnInit {
   }
 
   sendMessage() {
-    //this.user.birthDate = this.birthDate.getTime();
-    /*this.message = this.messageOfChannel;
-    this.allMessages.push(this.message);
-    let index = this.allMessages.indexOf(this.message);
-    this.allMessages.push(this.allMessages[index]);
+    this.allMessages.push(this.message)
+    this.channel.channelMessages = this.allMessages;
     this.firestore
-      .collection('text')
-      .add(this.message)
-      .then((result: any) => {
-        console.log(result)
-      })*/      //this.user.birthDate = this.birthDate.getTime();
-    /*
-  this.firestore
-    .collection('channels')
-    .doc(this.userId)
-    .update(this.channel.toJSON())
-    .then((result: any) => {
-      console.log(this.channel)
-    })*/
-    if (this.messageIndex > 0) {
-      this.messageIndex + 1;
-    }
-    this.allMessages.push(this.message);
-    console.log(this.allMessages)
-    this.firestore
-      .collection(this.userId)
-      .add(this.allMessages)
+      .collection('channels')
+      .doc(this.channelId)
+      .update(this.channel.toJSON())
       .then((result: any) => {
         console.log(result)
       })
