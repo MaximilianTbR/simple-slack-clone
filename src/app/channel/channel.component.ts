@@ -38,22 +38,25 @@ export class ChannelComponent implements OnInit {
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) { }
 
 
-  ngOnInit(): void {
-    this.firestore
+  async ngOnInit(): Promise<void> {
+    await this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
+        console.log(this.allChannels);
       })
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
-      console.log(this.channelId);
+      console.log('got id', this.channelId);
     });
     this.searchForIndex();
   }
 
   searchForIndex() {
+    console.log('searchForIndex works')
     this.allChannels.forEach((channel) => {
+      console.log('got channel', channel)
       if (this.channelId == channel.customIdName) {
         this.getsIndexOfClass(channel);
         this.allChannels[this.index] = this.channel;
