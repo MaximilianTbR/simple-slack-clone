@@ -1,0 +1,42 @@
+html,
+body {
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mr-16 {
+    margin-right: 16px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.mt-32 {
+    margin-top: 32px;
+}
+
+.both-inputs {
+    display: flex;
+}
+
+.dialog-container {
+    position: relative;
+}
+
+.progress-bar {
+    position: absolute;
+    left: -24px;
+    right: -48px;
+    width: calc(100% + 48px);
+    top: -24px;
+}
+
+.flexColumn {
+    display: flex !important;
+    flex-direction: column;
+}

@@ -1,0 +1,64 @@
+.inputfield {
+    position: absolute;
+    bottom: 10px;
+    width: 84%;
+    height: 50px;
+}
+
+.header {
+    margin-right: auto;
+}
+
+.channel-name-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 56px;
+    width: 84%;
+    border-radius: 10px !important;
+    h2 {
+        width: fit-content;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 0px;
+        border-radius: 5px;
+        margin: 0px 0px 0px 0px;
+    }
+     :hover {
+        background-color: rgb(247, 240, 240);
+    }
+}
+
+.all-messages {
+    overflow: scroll !important;
+    position: absolute;
+    top: 130px;
+    width: 89%;
+    height: 78vh;
+}
+
+.single-div {
+    display: flex;
+}
+
+mat-icon {
+    padding-top: 2.5px;
+}
+
+.addButton {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+}
+
+textarea {
+    border: 0.1px solid gray;
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-family: Open Sans;
+}
