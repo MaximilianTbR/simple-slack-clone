@@ -41,7 +41,7 @@
     height: 56px;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     p {
         margin-bottom: 0px;
     }
@@ -68,7 +68,7 @@ mat-toolbar-row {
         padding-right: 16px;
         height: fit-content;
         display: flex;
-        align-items: start;
+        align-items: flex-start;
         cursor: pointer;
         mat-icon {
             margin-right: 16px;
