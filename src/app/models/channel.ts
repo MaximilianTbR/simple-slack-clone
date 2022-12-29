@@ -22,7 +22,7 @@ export class Channel {
             channelMessages: this.channelMessages,
             unread: this.unread,
             participants: this.participants,
-            messageIndex: this.channelIndex
+            channelIndex: this.channelIndex
         }
     }
 }

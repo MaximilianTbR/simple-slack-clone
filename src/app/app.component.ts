@@ -17,6 +17,7 @@ export class AppComponent {
 
   }
 
+  // Nicht beachten <<<===
   ngOnInit(): void {
     this.firestore
       .collection('channels')

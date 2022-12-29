@@ -72,7 +72,8 @@ export class ChannelComponent implements OnInit {
   }
 
   sendMessage() {
-    this.channel.channelMessages.push(this.message);
+    this.allMessages.push(this.message)
+    this.channel.channelMessages = this.allMessages;
     this.firestore
       .collection('channels')
       .doc(this.channelId)
