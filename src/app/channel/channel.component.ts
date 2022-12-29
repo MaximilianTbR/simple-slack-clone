@@ -5,13 +5,11 @@ import { NgModule } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
 
 
 @NgModule({
   imports: [
-    CommonModule
   ],
   declarations: [
     Component
