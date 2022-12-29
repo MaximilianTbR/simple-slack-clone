@@ -35,34 +35,39 @@ export class ChannelComponent implements OnInit {
   channelData: Channel;
   index: any;
 
-  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) { }
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
+  }
 
 
   async ngOnInit(): Promise<void> {
-    await this.firestore
+    this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        console.log(this.allChannels);
+        //console.log(this.allChannels);
+        this.searchForIndex();
+        this.allMessages = this.allChannels[this.index].channelMessages;
       })
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
       console.log('got id', this.channelId);
     });
-    this.searchForIndex();
   }
 
   searchForIndex() {
     console.log('searchForIndex works')
     this.allChannels.forEach((channel) => {
-      console.log('got channel', channel)
       if (this.channelId == channel.customIdName) {
         this.getsIndexOfClass(channel);
-        this.allChannels[this.index] = this.channel;
-        console.log(this.channel)
-      } else {
-        console.log('it did not work')
+        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
+        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
+        this.channel.channelIndex = this.allChannels[this.index].channelIndex;
+        this.channel.unread = this.allChannels[this.index].unread;
+        this.channel.channelName = this.allChannels[this.index].channelName;
+        this.channel.participants = this.allChannels[this.index].participants;
+        console.log('got channel', channel)
+        console.log('IT WORKED', this.channel)
       }
     })
   }
@@ -72,12 +77,13 @@ export class ChannelComponent implements OnInit {
   }
 
   sendMessage() {
-    this.allMessages.push(this.message)
-    this.channel.channelMessages = this.allMessages;
+    this.searchForIndex()
+    this.allMessages.push(this.message);
+    this.allChannels[this.index].channelMessages = this.allMessages;
     this.firestore
       .collection('channels')
       .doc(this.channelId)
-      .update(this.channel.toJSON())
+      .update(this.allChannels)
       .then((result: any) => {
         console.log(result)
       });

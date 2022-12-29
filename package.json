@@ -36,11 +36,7 @@
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.0.0",
-<<<<<<< HEAD
         "typescript": "~4.7.2",
         "firebase": "11.18.0 "
-=======
-        "typescript": "~4.7.2"
->>>>>>> 4bb0d1b347ec54192f3685f363a0181ba524653c
     }
 }
