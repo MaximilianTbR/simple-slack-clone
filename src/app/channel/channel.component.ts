@@ -72,12 +72,6 @@ export class ChannelComponent implements OnInit {
   }
 
   sendMessage() {
-    /*this.allChannels.forEach((channel) => {
-      if (this.channelId == channel.customIdName) {
-        this.getsIndexOfClass(channel);
-        this.allChannels[this.index].push(this.message);
-      }
-    });*/
     this.channel.channelMessages.push(this.message);
     this.firestore
       .collection('channels')
