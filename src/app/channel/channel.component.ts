@@ -7,14 +7,6 @@ import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
 
-
-@NgModule({
-  imports: [
-  ],
-  declarations: [
-    Component
-  ]
-})
 export class MyModule { }
 
 
@@ -81,7 +73,7 @@ export class ChannelComponent implements OnInit {
     this.firestore
       .collection('channels')
       .doc(this.channelId)
-      .update(this.allChannels)
+      .update(this.channel.toJSON())
       .then((result: any) => {
         console.log(result)
       });
