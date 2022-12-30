@@ -24,6 +24,7 @@ export class ChannelComponent implements OnInit {
   allChannels = [];
   channelData: Channel;
   index: any;
+  participantsLength;
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
   }
@@ -56,6 +57,7 @@ export class ChannelComponent implements OnInit {
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
+        this.participantsLength = Object.keys(this.channel.participants).length;
         console.log('got channel', channel)
         console.log('IT WORKED', this.channel)
       }
