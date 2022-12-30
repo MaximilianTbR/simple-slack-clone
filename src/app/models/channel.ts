@@ -4,14 +4,14 @@ export class Channel {
     channelMessages: Array<any>;
     unread: boolean;
     participants: JSON;
-    channelIndex: number;
+    channelIndex: string;
 
     constructor(obj?: any) {
         this.channelName = obj ? obj.channelName : '';
         this.channelDescription = obj ? obj.channelDescription : '';
         this.channelMessages = obj ? obj.channelMessages : [];
         this.unread = obj ? obj.unread : false;
-        this.participants = obj ? obj : [];
+        this.participants = obj ? obj : {};
         this.channelIndex = obj ? obj.messageIndex : '';
     }
 

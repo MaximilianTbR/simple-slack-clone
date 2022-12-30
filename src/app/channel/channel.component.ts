@@ -31,6 +31,8 @@ export class ChannelComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.allMessages.length = 0;
+    this.emptyArray();
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
@@ -44,6 +46,17 @@ export class ChannelComponent implements OnInit {
       this.channelId = paramMap.get('id');
       console.log('got id', this.channelId);
     });
+  }
+
+  emptyArray() {
+    this.channel.channelName = '';
+    this.channel.channelMessages = [];
+    this.channel.channelDescription = '';
+    this.channel.unread = false;
+    Object.keys(this.channel.participants).forEach(key => {
+      delete this.channel.participants[key];
+    });
+    this.channel.channelIndex = '';
   }
 
   searchForIndex() {
