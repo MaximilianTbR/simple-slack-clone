@@ -81,3 +81,33 @@ mat-toolbar-row {
     padding-top: 16px;
     padding-right: 56px;
 }
+
+@media (max-width: 800px) {
+    .mat-drawer-container {
+        height: auto;
+    }
+    .li-inner-div {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .addButton {
+        position: relative;
+        margin-top: 16px;
+    }
+    .single-channel {
+        margin-top: 16px;
+    }
+    .sidenav {
+        width: 100%;
+    }
+    .menu-items {
+        li {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+    }
+    .router-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
