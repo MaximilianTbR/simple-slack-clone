@@ -28,6 +28,7 @@ import { CommonModule } from '@angular/common';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,7 @@ import { CommonModule } from '@angular/common';
     provideFirestore(() => getFirestore()),
     MatCardModule,
     FormsModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }

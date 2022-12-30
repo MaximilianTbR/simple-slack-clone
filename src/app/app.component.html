@@ -3,11 +3,19 @@
         <div class="logo-container">
             <!-- <img src="../../assets/img/1.png"> -->
         </div>
+        <p class="allButtons" (click)="viewAllChannel()">
+            <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
+            <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
+        </p>
         <ul class="menu-items">
-            <li>
+            <li *ngIf="viewAllChannels">
                 <app-single-channel-sidenav-link class="single-channel" *ngFor="let channel of allChannels; let i = index" [channelName]="this.allChannels[i]['channelName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]"></app-single-channel-sidenav-link>
             </li>
         </ul>
+
+
+
+
         <button (click)="openDialog()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>add</mat-icon>
         </button>
