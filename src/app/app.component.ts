@@ -14,7 +14,7 @@ import { DialogAddUserComponent } from './dialog-add-channel/dialog-add-channel.
 export class AppComponent {
   title = 'slack-clone';
   allChannels = [];
-  viewAllChannels = false;
+  viewAllChannels = true;
 
 
   constructor(private firestore: AngularFirestore, public dialog: MatDialog) {
@@ -36,10 +36,10 @@ export class AppComponent {
   }
 
 
-  viewAllChannel(){
-    if(!this.viewAllChannels)
-    this.viewAllChannels = true;
-    else{
+  viewAllChannel() {
+    if (!this.viewAllChannels)
+      this.viewAllChannels = true;
+    else {
       this.viewAllChannels = false;
     }
   }
