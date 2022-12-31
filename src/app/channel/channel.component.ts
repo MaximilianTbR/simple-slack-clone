@@ -56,7 +56,7 @@ export class ChannelComponent implements OnInit {
     Object.keys(this.channel.participants).forEach(key => {
       delete this.channel.participants[key];
     });
-    this.channel.channelIndex = '';
+    //this.channel.channelIndex = '';
   }
 
   searchForIndex() {
@@ -66,7 +66,7 @@ export class ChannelComponent implements OnInit {
         this.getsIndexOfClass(channel);
         this.channel.channelDescription = this.allChannels[this.index].channelDescription;
         this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-        this.channel.channelIndex = this.allChannels[this.index].channelIndex;
+        //this.channel.channelIndex = this.allChannels[this.index].channelIndex;
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
