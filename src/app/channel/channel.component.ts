@@ -25,6 +25,7 @@ export class ChannelComponent implements OnInit {
   channelData: Channel;
   index: any;
   participantsLength;
+  refreshing = false;
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
   }
@@ -56,7 +57,6 @@ export class ChannelComponent implements OnInit {
     Object.keys(this.channel.participants).forEach(key => {
       delete this.channel.participants[key];
     });
-    //this.channel.channelIndex = '';
   }
 
   searchForIndex() {
