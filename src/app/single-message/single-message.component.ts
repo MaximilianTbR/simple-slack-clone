@@ -1,3 +1,4 @@
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -11,7 +12,14 @@ export class SingleMessageComponent implements OnInit {
 
   @Input() messageOfChannel!: any;
 
+  renderedMessage: string;
+  renderedMessage2: string;
+  s1 = "foobar";
+  s2 = this.s1.substring(1);
+
   ngOnInit(): void {
+    this.renderedMessage = this.messageOfChannel.substring(3);
+    this.renderedMessage2 = this.renderedMessage.substring(0, this.renderedMessage.length - 4);
   }
 
 }
