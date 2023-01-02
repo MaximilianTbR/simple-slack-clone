@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { SingleMessageComponent } from './single-message/single-message.component';
 import { SingleChannelSidenavLinkComponent } from './single-channel-sidenav-link/single-channel-sidenav-link.component';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -36,7 +37,8 @@ import { CommonModule } from '@angular/common';
     DirectMessageComponent,
     DialogAddUserComponent,
     SingleMessageComponent,
-    SingleChannelSidenavLinkComponent
+    SingleChannelSidenavLinkComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,7 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     FormsModule,
     CommonModule,
+
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
