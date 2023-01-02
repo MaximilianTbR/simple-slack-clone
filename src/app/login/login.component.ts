@@ -11,10 +11,8 @@ import 'firebaseui/dist/firebaseui.css';
 export class LoginComponent implements OnInit {
 
   constructor() { }
-  ngOnInit(): void {
-  }
 
-  /*uiConfig = {
+  uiConfig = {
     signInSuccessUrl: '<url-to-redirect-to-on-success>',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
@@ -43,5 +41,5 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
-  }*/
+  }
 }
