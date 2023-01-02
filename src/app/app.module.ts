@@ -26,6 +26,7 @@ import { SingleMessageComponent } from './single-message/single-message.componen
 import { SingleChannelSidenavLinkComponent } from './single-channel-sidenav-link/single-channel-sidenav-link.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 
@@ -58,10 +59,11 @@ import { LoginComponent } from './login/login.component';
     MatCardModule,
     FormsModule,
     CommonModule,
-
+    EditorModule
   ],
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ],
   bootstrap: [AppComponent]
 })

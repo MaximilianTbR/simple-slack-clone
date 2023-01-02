@@ -10,7 +10,9 @@
 <div class="all-messages">
     <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="this.allMessages[i]"></app-single-message>
 </div>
-<textarea class="inputfield" [(ngModel)]="message"></textarea>
+<div>
+    <editor class="inputfield" [init]="{ plugins: 'lists link image table code help wordcount' }" [(ngModel)]="message"></editor>
+</div>
 <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
     <mat-icon>send</mat-icon>
 </button>

@@ -40,5 +40,17 @@ body {
     display: flex !important;
     flex-direction: column;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.tox .tox-tinymce {
+    height: 200px !important;
+}

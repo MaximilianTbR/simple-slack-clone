@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css';
+//import 'firebaseui/dist/firebaseui.css';
 
 @Component({
   selector: 'app-login',
