@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
-//import 'firebaseui/dist/firebaseui.css';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,9 @@ import * as firebaseui from 'firebaseui';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(public firestore: AngularFirestore) { }
+
+  allUsers = [];
 
   uiConfig = {
     signInSuccessUrl: '/channel',
@@ -39,7 +41,17 @@ export class LoginComponent implements OnInit {
   // The start method will wait until the DOM is loaded.
 
   ngOnInit(): void {
-
+    this.firestore
+      .collection('users')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allUsers = changes;
+        console.log(this.allUsers);
+      })
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
   }
+  /*
+    addUser(uid: string, data: User) {
+      this.usersCollection.doc(uid).set(data);
+    }*/
 }
