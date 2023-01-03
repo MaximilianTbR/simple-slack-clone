@@ -1,18 +1,55 @@
-<mat-card class="channel-name-div">
-    <div class="single-div header">
-        <mat-icon>lock</mat-icon>
-        <h2>{{this.channel.channelName}}</h2>
+<mat-drawer-container class="mat-drawer-container" autosize>
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+        <div class="logo-container">
+            <!-- <img src="../../assets/img/1.png"> -->
+        </div>
+        <p class="allButtons" (click)="viewAllChannel()">
+            <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
+            <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
+        </p>
+        <ul class="menu-items">
+            <li *ngIf="viewAllChannels">
+                <app-single-channel-sidenav-link class="single-channel" *ngFor="let channel of allChannels; let i = index" [channelName]="this.allChannels[i]['channelName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]"></app-single-channel-sidenav-link>
+            </li>
+        </ul>
+
+
+        <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+            <mat-icon>add</mat-icon>
+        </button>
+
+
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <p>
+            <mat-toolbar color="primary">
+                <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
+                    <mat-icon class="menu-icon">menu</mat-icon>
+                </button>
+                <span>Slack</span>
+            </mat-toolbar>
+        </p>
     </div>
-    <div class="single-div">
-        <span>{{this.participantsLength}} Mitglieder</span>
+    <div class="router-container">
+        <mat-card class="channel-name-div">
+            <div class="single-div header">
+                <mat-icon>lock</mat-icon>
+                <h2>{{this.channel.channelName}}</h2>
+            </div>
+            <div class="single-div">
+                <span>{{this.participantsLength}} Mitglieder</span>
+            </div>
+        </mat-card>
+        <div class="all-messages">
+            <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="this.allMessages[i]"></app-single-message>
+        </div>
+        <div>
+            <editor class="inputfield" [init]="{ plugins: 'lists link image table code help wordcount' }" [(ngModel)]="message"></editor>
+        </div>
+        <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+            <mat-icon>send</mat-icon>
+        </button>
     </div>
-</mat-card>
-<div class="all-messages">
-    <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="this.allMessages[i]"></app-single-message>
-</div>
-<div>
-    <editor class="inputfield" [init]="{ plugins: 'lists link image table code help wordcount' }" [(ngModel)]="message"></editor>
-</div>
-<button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
-    <mat-icon>send</mat-icon>
-</button>
+
+</mat-drawer-container>

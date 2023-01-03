@@ -26,6 +26,7 @@ export class ChannelComponent implements OnInit {
   index: any;
   participantsLength;
   refreshing = false;
+  viewAllChannels = true;
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
   }
@@ -75,6 +76,14 @@ export class ChannelComponent implements OnInit {
         console.log('IT WORKED', this.channel)
       }
     })
+  }
+
+  viewAllChannel() {
+    if (!this.viewAllChannels)
+      this.viewAllChannels = true;
+    else {
+      this.viewAllChannels = false;
+    }
   }
 
   openDialog(): void {
