@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor() { }
 
   uiConfig = {
-    signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    signInSuccessUrl: '/channel',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
