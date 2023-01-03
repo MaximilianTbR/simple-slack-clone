@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from '../models/user';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +11,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(public firestore: AngularFirestore) { }
-
   allUsers = [];
+  user = new User();
+  userId: string;
+
+  constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) this.userId = user.uid;
+      console.log(this.userId);
+    })
+  }
+
+
+
 
   uiConfig = {
     signInSuccessUrl: '/channel',
@@ -49,6 +60,13 @@ export class LoginComponent implements OnInit {
         console.log(this.allUsers);
       })
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
+    this.user.userName;
+    this.firestore
+      .collection('users')
+      .add(this.user.toJSON())
+      .then((result: any) => {
+        console.log(result)
+      })
   }
   /*
     addUser(uid: string, data: User) {
