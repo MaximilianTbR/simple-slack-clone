@@ -27,7 +27,7 @@ export class ChannelComponent implements OnInit {
   participantsLength;
   refreshing = false;
   viewAllChannels = true;
-
+  messageField = '';
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
   }
 
@@ -101,9 +101,17 @@ export class ChannelComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       });
+     this.messageField = '';
   }
 
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
   }
+
+
+
 }
+
+
+
+
