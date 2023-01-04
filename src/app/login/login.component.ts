@@ -7,6 +7,7 @@ import { Router } from "@angular/router"
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from '../register/register.component';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
