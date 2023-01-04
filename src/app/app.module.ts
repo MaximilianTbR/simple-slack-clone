@@ -32,7 +32,6 @@ import { RegisterComponent } from './register/register.component';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +66,8 @@ import { RegisterComponent } from './register/register.component';
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    
   ],
   bootstrap: [AppComponent]
 })

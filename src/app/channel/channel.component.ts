@@ -7,6 +7,7 @@ import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
 
+
 export class MyModule { }
 
 
@@ -101,7 +102,7 @@ export class ChannelComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       });
-     this.messageField = '';
+     this.message = '';
   }
 
   getsIndexOfClass(channel) {
