@@ -14,10 +14,16 @@ export class LoginComponent implements OnInit {
   allUsers = [];
   user = new User();
   userId: string;
+  userMail: string;
 
   constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(user => {
-      if (user) this.userId = user.uid;
+      if (user) {
+        this.userId = user.uid
+        this.userMail = user.email;
+        console.log(this.userId)
+        console.log(this.userMail)
+      };
       console.log(this.userId);
     })
   }
@@ -61,6 +67,12 @@ export class LoginComponent implements OnInit {
       })
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
     this.user.userName;
+    this.firestore.collection('users').doc(this.userId).set({
+      userName: "Los Angeles",
+      userId: "CA",
+      userChannels: "USA",
+      userMail: ''
+    })
     this.firestore
       .collection('users')
       .add(this.user.toJSON())
