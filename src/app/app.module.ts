@@ -28,6 +28,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { DialogAddNewUserComponent } from './dialog-add-new-user/dialog-add-new-user.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -41,7 +42,8 @@ import { DialogAddNewUserComponent } from './dialog-add-new-user/dialog-add-new-
     SingleMessageComponent,
     SingleChannelSidenavLinkComponent,
     LoginComponent,
-    DialogAddNewUserComponent
+    DialogAddNewUserComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '../models/user';
 import { Router } from "@angular/router"
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +20,9 @@ export class LoginComponent implements OnInit {
   userMail: string;
   signInAutomatically = false;
 
-  constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) {
+  constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router, public dialog: MatDialog) {
     this.afAuth.onAuthStateChanged(user => {
-      if (user) {
+      if (!user) {
         // logged in or user exists
         if (this.signInAutomatically) {
           this.router.navigate(['/channel'])
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit {
         console.log('user exists!')
       }
       else {
-
+        //this.createNewUser()
+        this.dialog.open(RegisterComponent);
       }
     })
   }
@@ -37,13 +40,13 @@ export class LoginComponent implements OnInit {
     signInSuccessUrl: '/channel',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      //firebase.auth.GithubAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-      firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+      //firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
     ],
     // tosUrl and privacyPolicyUrl accept either url string or a callback
     // function.
@@ -70,16 +73,6 @@ export class LoginComponent implements OnInit {
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
     this.user.userId = this.userId;
     this.user.userMail = this.userMail;
-
-    this.firestore
-      .collection('users')
-      .doc(this.userId)
-      .set({
-        userName: 'undefined',
-        userId: this.userId,
-        userChannels: [],
-        userMail: this.userMail
-      })
     /*
     this.firestore
       .collection('users')
@@ -87,5 +80,28 @@ export class LoginComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       })*/
+  }
+
+  createNewUser() {
+    this.user.userId = this.userId;
+    this.user.userMail = this.userMail;
+    console.log(this.user)
+    /*
+this.firestore
+.collection('users')
+.doc(this.userId)
+.set({
+userName: 'undefined',
+userId: this.userId,
+userChannels: [],
+userMail: this.userMail
+})*/
+
+    this.firestore
+      .collection('users')
+      .add(this.user.toJSON())
+      .then((result: any) => {
+        console.log(result)
+      })
   }
 }
