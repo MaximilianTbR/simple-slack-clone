@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '../models/user';
+import { Router } from "@angular/router"
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -15,21 +16,22 @@ export class LoginComponent implements OnInit {
   user = new User();
   userId: string;
   userMail: string;
+  signInAutomatically = false;
 
-  constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
-    this.afAuth.authState.subscribe(user => {
+  constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) {
+    this.afAuth.onAuthStateChanged(user => {
       if (user) {
-        this.userId = user.uid
-        this.userMail = user.email;
-        console.log(this.userId)
-        console.log(this.userMail)
-      };
-      console.log(this.userId);
+        // logged in or user exists
+        if (this.signInAutomatically) {
+          this.router.navigate(['/channel'])
+        }
+        console.log('user exists!')
+      }
+      else {
+
+      }
     })
   }
-
-
-
 
   uiConfig = {
     signInSuccessUrl: '/channel',
@@ -66,22 +68,24 @@ export class LoginComponent implements OnInit {
         console.log(this.allUsers);
       })
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
-    this.user.userName;
-    this.firestore.collection('users').doc(this.userId).set({
-      userName: "Los Angeles",
-      userId: "CA",
-      userChannels: "USA",
-      userMail: ''
-    })
+    this.user.userId = this.userId;
+    this.user.userMail = this.userMail;
+
+    this.firestore
+      .collection('users')
+      .doc(this.userId)
+      .set({
+        userName: 'undefined',
+        userId: this.userId,
+        userChannels: [],
+        userMail: this.userMail
+      })
+    /*
     this.firestore
       .collection('users')
       .add(this.user.toJSON())
       .then((result: any) => {
         console.log(result)
-      })
+      })*/
   }
-  /*
-    addUser(uid: string, data: User) {
-      this.usersCollection.doc(uid).set(data);
-    }*/
 }
