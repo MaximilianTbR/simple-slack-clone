@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
 import * as admin from 'firebase-admin/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { User } from '../models/user';
 
 
 
@@ -24,6 +25,7 @@ export class ChannelComponent implements OnInit {
   messageOfChannel: any;
   userId: any;
   channel = new Channel();
+  user = new User()
   message: string;
   allChannels = [];
   allUsers = [];
@@ -45,9 +47,9 @@ export class ChannelComponent implements OnInit {
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
+      .subscribe(async (changes: any) => {
         this.allChannels = changes;
-        this.searchForIndex();
+        await this.searchForIndex();
         this.allMessages = this.allChannels[this.index].channelMessages;
       })
     this.route.paramMap.subscribe(paramMap => {
@@ -81,7 +83,7 @@ export class ChannelComponent implements OnInit {
     });
   }
 
-  searchForIndex() {
+  async searchForIndex() {
     this.allChannels.forEach((channel) => {
       if (this.userId == channel.customIdName) {
         this.getsIndexOfClass(channel);
@@ -99,17 +101,19 @@ export class ChannelComponent implements OnInit {
   searchForUser() {
     this.allUsers.forEach((user) => {
       if (this.userId == user.userId) {
-        /*this.getsIndexOfClass(user);
-        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
-        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-        //this.channel.channelIndex = this.allChannels[this.index].channelIndex;
-        this.channel.unread = this.allChannels[this.index].unread;
-        this.channel.channelName = this.allChannels[this.index].channelName;
-        this.channel.participants = this.allChannels[this.index].participants;
-        this.participantsLength = Object.keys(this.channel.participants).length;*/
-        console.log('Hallo Welt!')
+        this.getsIndexOfUser(user);
+        this.user.userName = this.allUsers[this.index].userName;
+        this.user.userId = this.allUsers[this.index].userId;
+        this.user.userMessages = this.allUsers[this.index].userMessages;
+        this.user.userChannels = this.allUsers[this.index].userChannels;
+        this.user.userMail = this.allUsers[this.index].userMail;
+        console.log(this.user)
       }
     })
+  }
+
+  getsIndexOfUser(user) {
+    return this.index = this.allUsers.indexOf(user);
   }
 
   viewAllChannel() {
@@ -126,8 +130,7 @@ export class ChannelComponent implements OnInit {
 
   sendMessage() {
     this.searchForIndex()
-    this.allMessages.push(this.message);
-    this.allChannels[this.index].channelMessages = this.allMessages;
+    this.allChannels[this.index].channelMessages.push(this.message);
     this.firestore
       .collection('channels')
       .doc(this.userId)
