@@ -112,6 +112,7 @@ export class ChannelComponent implements OnInit {
     })
   }
 
+
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);
   }
