@@ -13,10 +13,6 @@ import { from, take } from 'rxjs';
 import * as admin from 'firebase-admin/app';
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
 import { PERSISTENCE } from '@angular/fire/compat/auth';
-import 'firebase/auth';
-import 'firebase/database';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
 
 
 
@@ -37,51 +33,9 @@ export class LoginComponent implements OnInit {
   userFromFirebase;
 
   constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router, public dialog: MatDialog) {
-    this.afAuth.onAuthStateChanged(user => {
+    this.afAuth.onAuthStateChanged((user) => {
       this.userFromFirebase = user;
-      if (!user) {
-        // logged in or user exists
-        if (this.signInAutomatically) {
-          this.router.navigate(['/channel'])
-        }
-        console.log('user exists!')
-      }
-      else {
-        //this.createNewUser()
-        //this.dialog.open(RegisterComponent);
-        console.log(user.uid)
-        const oldDocRef = this.firestore.doc('user/old-doc-id');
-
-        // Retrieve the data from the old document
-        oldDocRef.valueChanges().pipe(take(1)).subscribe(data => {
-          // Create a reference to the new document
-          const newDocRef = this.firestore.doc('my-collection/new-doc-id');
-
-          // Set the data of the new document to the data from the old document
-          newDocRef.set(data);
-
-          // Delete the old document
-          oldDocRef.delete();
-        });
-      }
     })
-
-    admin.initializeApp();
-
-    // Get a reference to the Firebase Auth service
-    const auth = admin.auth();
-
-    // Get a reference to the Cloud Firestore collection where you want to store the users
-    const usersCollection = this.firestore.collection('users');
-
-    // Get a list of all users in the project
-    auth.listUsers().then(result => {
-      // Iterate through the list of users
-      result.users.forEach(user => {
-        // Add the user data to the Cloud Firestore collection
-        usersCollection.add(user.toJSON());
-      });
-    });
   }
 
 

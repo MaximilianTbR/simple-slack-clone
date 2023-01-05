@@ -6,6 +6,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
+import * as admin from 'firebase-admin/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 
 export class MyModule { }
@@ -19,10 +22,11 @@ export class MyModule { }
 export class ChannelComponent implements OnInit {
   allMessages = [];
   messageOfChannel: any;
-  channelId: any;
+  userId: any;
   channel = new Channel();
   message: string;
   allChannels = [];
+  allUsers = [];
   channelData: Channel;
   index: any;
   participantsLength;
@@ -30,11 +34,12 @@ export class ChannelComponent implements OnInit {
   viewAllChannels = true;
   messageField = '';
 
-  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
 
   }
 
   async ngOnInit(): Promise<void> {
+    await this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
     this.firestore
@@ -42,15 +47,28 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        console.log('def', this.allChannels);
         this.searchForIndex();
         this.allMessages = this.allChannels[this.index].channelMessages;
       })
     this.route.paramMap.subscribe(paramMap => {
-      this.channelId = paramMap.get('id');
-      console.log('got id', this.channelId);
+      this.userId = paramMap.get('id');
     });
+    this.firestore
+      .collection('users')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allUsers = changes;
+        this.searchForUser()
+      })
+    this.searchForUser()
+  }
 
+  async getUserId() {
+    this.afAuth.onAuthStateChanged(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    })
   }
 
   emptyArray() {
@@ -64,9 +82,8 @@ export class ChannelComponent implements OnInit {
   }
 
   searchForIndex() {
-    console.log('searchForIndex works')
     this.allChannels.forEach((channel) => {
-      if (this.channelId == channel.customIdName) {
+      if (this.userId == channel.customIdName) {
         this.getsIndexOfClass(channel);
         this.channel.channelDescription = this.allChannels[this.index].channelDescription;
         this.channel.channelMessages = this.allChannels[this.index].channelMessages;
@@ -75,8 +92,22 @@ export class ChannelComponent implements OnInit {
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
         this.participantsLength = Object.keys(this.channel.participants).length;
-        console.log('got channel', channel);
-        console.log('IT WORKED', this.channel);
+      }
+    })
+  }
+
+  searchForUser() {
+    this.allUsers.forEach((user) => {
+      if (this.userId == user.userId) {
+        /*this.getsIndexOfClass(user);
+        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
+        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
+        //this.channel.channelIndex = this.allChannels[this.index].channelIndex;
+        this.channel.unread = this.allChannels[this.index].unread;
+        this.channel.channelName = this.allChannels[this.index].channelName;
+        this.channel.participants = this.allChannels[this.index].participants;
+        this.participantsLength = Object.keys(this.channel.participants).length;*/
+        console.log('Hallo Welt!')
       }
     })
   }
@@ -99,7 +130,7 @@ export class ChannelComponent implements OnInit {
     this.allChannels[this.index].channelMessages = this.allMessages;
     this.firestore
       .collection('channels')
-      .doc(this.channelId)
+      .doc(this.userId)
       .update(this.channel.toJSON())
       .then((result: any) => {
         console.log(result)
