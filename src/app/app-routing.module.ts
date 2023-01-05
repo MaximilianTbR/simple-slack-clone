@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'channel', component: ChannelComponent },
   { path: 'directMessage/:id', component: DirectMessageComponent },
   { path: 'channel/:id', component: ChannelComponent },
-  { path: '', component: LoginComponent }
+  { path: '', component: LoginComponent },
+
 
 ];
 

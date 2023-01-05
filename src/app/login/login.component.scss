@@ -11,3 +11,32 @@
     align-items: center;
     top: 220px;
 }
+
+.d-none {
+    display: none !important;
+}
+
+.tab-group {
+    width: 500px;
+    height: 100%;
+}
+
+.login-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-tab {
+    height: 300px !important;
+}
+
+.mat-tab-body-content {
+    height: 400px !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
+    height: 400px !important;
+}

@@ -27,7 +27,40 @@
         </p>
     </div>
 </mat-drawer-container>
-<div class="header">
-    <h1>Sign in here</h1>
+<div class="login-div">
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" class="tab-group">
+        <mat-tab label="Login" class="login-tab">
+            <h1>Login</h1>
+            <div class="firebaseui-container" id="firebaseui-auth-container"></div>
+        </mat-tab>
+        <mat-tab label="Register">
+            <h1>Register</h1>
+            <form class="example-form" id="form-1">
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>First name</mat-label>
+                                <input matInput [(ngModel)]="user.userName" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput [(ngModel)]="user.userMail" [ngModelOptions]="{standalone: true}">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <button mat-raised-button color="primary" (click)="addNewUser()">Continue</button>
+            </form>
+            <div id="form-2" class="d-none">
+                <div class="firebaseui-container" id="firebaseui-auth-container-2"></div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>
-<div class="firebaseui-container" id="firebaseui-auth-container"></div>

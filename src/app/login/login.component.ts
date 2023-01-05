@@ -8,6 +8,18 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from '../register/register.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
+import { from, take } from 'rxjs';
+import * as admin from 'firebase-admin/app';
+import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
+import { PERSISTENCE } from '@angular/fire/compat/auth';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -20,9 +32,13 @@ export class LoginComponent implements OnInit {
   userId: string;
   userMail: string;
   signInAutomatically = false;
+  currentUserName: string;
+  currentUserMail: string;
+  userFromFirebase;
 
   constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router, public dialog: MatDialog) {
     this.afAuth.onAuthStateChanged(user => {
+      this.userFromFirebase = user;
       if (!user) {
         // logged in or user exists
         if (this.signInAutomatically) {
@@ -32,10 +48,42 @@ export class LoginComponent implements OnInit {
       }
       else {
         //this.createNewUser()
-        this.dialog.open(RegisterComponent);
+        //this.dialog.open(RegisterComponent);
+        console.log(user.uid)
+        const oldDocRef = this.firestore.doc('user/old-doc-id');
+
+        // Retrieve the data from the old document
+        oldDocRef.valueChanges().pipe(take(1)).subscribe(data => {
+          // Create a reference to the new document
+          const newDocRef = this.firestore.doc('my-collection/new-doc-id');
+
+          // Set the data of the new document to the data from the old document
+          newDocRef.set(data);
+
+          // Delete the old document
+          oldDocRef.delete();
+        });
       }
     })
+
+    admin.initializeApp();
+
+    // Get a reference to the Firebase Auth service
+    const auth = admin.auth();
+
+    // Get a reference to the Cloud Firestore collection where you want to store the users
+    const usersCollection = this.firestore.collection('users');
+
+    // Get a list of all users in the project
+    auth.listUsers().then(result => {
+      // Iterate through the list of users
+      result.users.forEach(user => {
+        // Add the user data to the Cloud Firestore collection
+        usersCollection.add(user.toJSON());
+      });
+    });
   }
+
 
   uiConfig = {
     signInSuccessUrl: '/channel',
@@ -72,8 +120,8 @@ export class LoginComponent implements OnInit {
         console.log(this.allUsers);
       })
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
-    this.user.userId = this.userId;
-    this.user.userMail = this.userMail;
+    //this.user.userId = this.userId;
+    //this.user.userMail = this.userMail;
     /*
     this.firestore
       .collection('users')
@@ -84,25 +132,31 @@ export class LoginComponent implements OnInit {
   }
 
   createNewUser() {
-    this.user.userId = this.userId;
-    this.user.userMail = this.userMail;
+    //this.user.userId = this.userId;
+    //this.user.userMail = this.userMail;
     console.log(this.user)
-    /*
-this.firestore
-.collection('users')
-.doc(this.userId)
-.set({
-userName: 'undefined',
-userId: this.userId,
-userChannels: [],
-userMail: this.userMail
-})*/
-
     this.firestore
       .collection('users')
       .add(this.user.toJSON())
       .then((result: any) => {
         console.log(result)
       })
+  }
+
+  continue() {
+    document.getElementById('form-1').classList.add('d-none');
+    document.getElementById('form-2').classList.remove('d-none');
+  }
+
+  addNewUser() {
+    this.user.userId = this.userFromFirebase.uid
+    this.firestore
+      .collection('users')
+      .add(this.user.toJSON(),)
+      .then((result: any) => {
+        console.log(result)
+      })
+    this.ui.start('#firebaseui-auth-container-2', this.uiConfig);
+    this.continue();
   }
 }

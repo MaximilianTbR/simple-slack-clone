@@ -48,6 +48,7 @@ export class ChannelComponent implements OnInit {
       this.channelId = paramMap.get('id');
       console.log('got id', this.channelId);
     });
+
   }
 
   emptyArray() {
@@ -101,7 +102,7 @@ export class ChannelComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       });
-     this.messageField = '';
+    this.messageField = '';
   }
 
   getsIndexOfClass(channel) {
