@@ -10,12 +10,14 @@
 
     <mat-form-field>
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="channel.channelDescription">
+        <input type="text" matInput [(ngModel)]="channel.channelDescription">
     </mat-form-field>
 </div>
 
 
+
+
 <div mat-dialog-actions>
     <button mat-button (click)="close()">Cancel</button>
-    <button mat-button [mat-dialog-close]="" cdkFocusInitial (click)="createNewChannel()">Create new Channel</button>
+    <button mat-button [mat-dialog-close]="" [disabled]="!channel.channelName" cdkFocusInitial (click)="createNewChannel()">Create new Channel</button>
 </div>

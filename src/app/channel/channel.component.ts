@@ -7,6 +7,7 @@ import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
 
+
 export class MyModule { }
 
 
@@ -28,9 +29,10 @@ export class ChannelComponent implements OnInit {
   refreshing = false;
   viewAllChannels = true;
   messageField = '';
-  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
-  }
 
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
+
+  }
 
   async ngOnInit(): Promise<void> {
     this.allMessages.length = 0;
@@ -40,7 +42,7 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        //console.log(this.allChannels);
+        console.log('def', this.allChannels);
         this.searchForIndex();
         this.allMessages = this.allChannels[this.index].channelMessages;
       })
@@ -73,8 +75,8 @@ export class ChannelComponent implements OnInit {
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
         this.participantsLength = Object.keys(this.channel.participants).length;
-        console.log('got channel', channel)
-        console.log('IT WORKED', this.channel)
+        console.log('got channel', channel);
+        console.log('IT WORKED', this.channel);
       }
     })
   }
@@ -108,9 +110,6 @@ export class ChannelComponent implements OnInit {
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
   }
-
-
-
 }
 
 
