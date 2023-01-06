@@ -85,18 +85,6 @@ export class LoginComponent implements OnInit {
       })*/
   }
 
-  createNewUser() {
-    //this.user.userId = this.userId;
-    //this.user.userMail = this.userMail;
-    console.log(this.user)
-    this.firestore
-      .collection('users')
-      .add(this.user.toJSON())
-      .then((result: any) => {
-        console.log(result)
-      })
-  }
-
   continue() {
     document.getElementById('form-1').classList.add('d-none');
     document.getElementById('form-2').classList.remove('d-none');

@@ -35,13 +35,6 @@ export class RegisterComponent implements OnInit {
       })
     this.user.userId = this.userId;
     this.user.userMail = this.userMail;
-    /*
-    this.firestore
-      .collection('users')
-      .add(this.user.toJSON())
-      .then((result: any) => {
-        console.log(result)
-      })*/
   }
 
   continue() {

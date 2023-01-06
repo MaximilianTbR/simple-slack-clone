@@ -102,12 +102,26 @@ export class ChannelComponent implements OnInit {
     this.allUsers.forEach((user) => {
       if (this.userId == user.userId) {
         this.getsIndexOfUser(user);
-        this.user.userName = this.allUsers[this.index].userName;
-        this.user.userId = this.allUsers[this.index].userId;
-        this.user.userMessages = this.allUsers[this.index].userMessages;
-        this.user.userChannels = this.allUsers[this.index].userChannels;
-        this.user.userMail = this.allUsers[this.index].userMail;
-        console.log(this.user)
+        if (this.allUsers[this.index].userName.length > 0) {
+          this.user.userName = this.allUsers[this.index].userName;
+          this.user.userId = this.allUsers[this.index].userId;
+          this.user.userMail = this.allUsers[this.index].userMail;
+          console.log(this.user)
+          console.log(this.user.userId)
+          console.log(this.userId)
+        } else {
+          console.log('open dialog!')
+        }
+      } else {
+        /*
+        this.user.userId = this.userId;
+
+        this.firestore
+          .collection('users')
+          .add(this.user.toJSON())
+          .then((result: any) => {
+            console.log(result)
+          })*/
       }
     })
   }
