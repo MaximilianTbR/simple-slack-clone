@@ -12,15 +12,12 @@ import { User } from '../models/user';
 
 
 
-export class MyModule { }
-
-
 @Component({
   selector: 'app-channel',
-  templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss'],
+  templateUrl: './startscreen.component.html',
+  styleUrls: ['./startscreen.component.scss'],
 })
-export class ChannelComponent implements OnInit {
+export class StartscreenComponent implements OnInit {
   allMessages = [];
   messageOfChannel: any;
   userId: any;

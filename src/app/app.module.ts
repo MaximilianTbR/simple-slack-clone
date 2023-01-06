@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { ChannelComponent } from './channel/channel.component';
+import { StartscreenComponent } from './Startscreen/startscreen.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -27,21 +27,21 @@ import { SingleChannelSidenavLinkComponent } from './single-channel-sidenav-link
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { DialogAddNewUserComponent } from './dialog-add-new-user/dialog-add-new-user.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SingeChannelComponent } from './singe-channel/singe-channel.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChannelComponent,
     DirectMessageComponent,
     DialogAddUserComponent,
     SingleMessageComponent,
     SingleChannelSidenavLinkComponent,
     LoginComponent,
-    DialogAddNewUserComponent,
+    StartscreenComponent,
+    SingeChannelComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChannelComponent } from './channel/channel.component';
+import { ChannelComponent } from './Startscreen/startscreen.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { LoginComponent } from './login/login.component';
 

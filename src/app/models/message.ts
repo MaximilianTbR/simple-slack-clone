@@ -1,19 +1,30 @@
 export class User {
-    messageText: string;
-    transmitterId: string;
-    sendDate: Date;
+    message: string;
+    docs = [];
+    creator: string;
+    images = [];
+    thread = [];
+    threadAvailable = false;
+    timestamp: Date;
+
 
     constructor(obj?: any) {
-        this.messageText = obj ? obj.messageText : '';
-        this.transmitterId = obj ? obj.transmitterId : '';
-        this.sendDate = obj ? obj.sendDate : '';
+        this.message = obj ? obj.messageText : '';
+        this.creator = obj ? obj.creator : '';
+        this.docs = obj ? obj.docs : [];
+        this.timestamp = obj ? obj.timestamp : '';
+        this.images = obj ? obj.images : [];
+        this.thread = obj ? obj.thread : [];
+        this.threadAvailable = obj ? obj.threadAvailable : false;
+        this.timestamp = obj ? obj.timestamp : 0;
     }
 
     public toJSON() {
         return {
-            messageText: this.messageText,
-            userId: this.transmitterId,
-            sendDate: this.sendDate
+            messageText: this.message,
+            creator: this.creator,
+            timestamp: this.timestamp,
+            images: this.images
         }
     }
 }

@@ -5,11 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Channel } from '../models/channel';
 
 @Component({
-  selector: 'app-dialog-add-new-user',
-  templateUrl: './dialog-add-new-user.component.html',
-  styleUrls: ['./dialog-add-new-user.component.scss']
+  selector: 'app-singe-channel',
+  templateUrl: './singe-channel.component.html',
+  styleUrls: ['./singe-channel.component.scss']
 })
-export class DialogAddNewUserComponent implements OnInit {
+export class SingeChannelComponent implements OnInit {
 
   participantsLength;
   channel: Channel = new Channel;
@@ -20,37 +20,38 @@ export class DialogAddNewUserComponent implements OnInit {
     public firestore: AngularFirestore,
   ) { }
 
-  
+
 
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe( paramMap =>{
+    this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
-        this.getChannel();
+      this.getChannel();
     });
   }
 
-  getChannel(){
-  this.firestore
-  .collection('channels')
-  .doc(this.channelID)
-  .valueChanges()
-  .subscribe((user:any) =>
-  this.channel = new Channel(user))
-  this.participantsLength = Object.keys(this.channel.participants).length;
-}
-
-
-
-  test(){
-    console.log(this.channelID)
-
-  }  
-
-  sendMessage(){
+  getChannel() {
     this.firestore
       .collection('channels')
       .doc(this.channelID)
-      this.message = '';
+      .valueChanges()
+      .subscribe((user: any) =>
+        this.channel = new Channel(user))
+    this.participantsLength = Object.keys(this.channel.participants).length;
   }
+
+
+
+  test() {
+    console.log(this.channelID)
+
+  }
+
+  sendMessage() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+    this.message = '';
+  }
+
 }
