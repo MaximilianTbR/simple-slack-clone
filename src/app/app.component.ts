@@ -3,8 +3,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Firestore } from 'firebase/firestore';
 import { DialogAddUserComponent } from './dialog-add-channel/dialog-add-channel.component';
-import { DialogAddNewUserComponent } from './dialog-add-new-user/dialog-add-new-user.component';
-
 
 @Component({
   selector: 'app-root',
@@ -32,10 +30,6 @@ export class AppComponent {
 
   openDialog(): void {
     this.dialog.open(DialogAddUserComponent);
-  }
-
-  openDialog2(): void {
-    this.dialog.open(DialogAddNewUserComponent);
   }
 
   viewAllChannel() {

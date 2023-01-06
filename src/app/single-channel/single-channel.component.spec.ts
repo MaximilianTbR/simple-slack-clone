@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingeChannelComponent } from './singe-channel.component';
+import { SingleChannelComponent } from './single-channel.component';
 
-describe('SingeChannelComponent', () => {
-  let component: SingeChannelComponent;
-  let fixture: ComponentFixture<SingeChannelComponent>;
+describe('SingleChannelComponent', () => {
+  let component: SingleChannelComponent;
+  let fixture: ComponentFixture<SingleChannelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingeChannelComponent ]
+      declarations: [ SingleChannelComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SingeChannelComponent);
+    fixture = TestBed.createComponent(SingleChannelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

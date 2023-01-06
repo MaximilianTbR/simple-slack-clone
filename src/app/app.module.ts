@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,7 +27,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { MatTabsModule } from '@angular/material/tabs';
-import { SingeChannelComponent } from './singe-channel/singe-channel.component';
+import { SingleChannelComponent } from './single-channel/single-channel.component';
 
 
 
@@ -41,7 +40,7 @@ import { SingeChannelComponent } from './singe-channel/singe-channel.component';
     SingleChannelSidenavLinkComponent,
     LoginComponent,
     StartscreenComponent,
-    SingeChannelComponent
+    SingleChannelComponent
   ],
   imports: [
     BrowserModule,
