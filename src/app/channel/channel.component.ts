@@ -139,7 +139,7 @@ export class ChannelComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       });
-    this.messageField = '';
+    this.message = '';
   }
 
   getsIndexOfClass(channel) {

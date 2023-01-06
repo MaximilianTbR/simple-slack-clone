@@ -20,4 +20,8 @@ export class SingleMessageComponent implements OnInit {
     this.renderedMessage2 = this.renderedMessage.substring(0, this.renderedMessage.length - 4);
   }
 
+  test2(){
+    console.log(this.messageOfChannel)
+  }
+
 }

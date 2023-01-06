@@ -9,7 +9,7 @@ import { Channel } from '../models/channel';
 })
 export class SingleChannelSidenavLinkComponent implements OnInit {
   @Input() channelName: any;
-  channel = new Channel();
+ channel = new Channel();
   channelId;
 
   constructor(public firestore: AngularFirestore) { }
@@ -17,14 +17,14 @@ export class SingleChannelSidenavLinkComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  updateChannel() {
-    this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .set(this.channel.toJSON())
-      .then((result) => {
-        console.log('Work', result)
-      });
-  }
+//  updateChannel() {
+  //  this.firestore
+    //  .collection('channels')
+      // .doc(this.channelId)
+      //  .set(this.channel.toJSON())
+     // .then((result) => {
+      //  console.log('Work', result)
+     // })     ;
+  // }
+ 
 }
