@@ -6,7 +6,6 @@ import { User } from '../models/user';
 import { Router } from "@angular/router"
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog } from '@angular/material/dialog';
-import { RegisterComponent } from '../register/register.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { from, take } from 'rxjs';
@@ -71,18 +70,8 @@ export class LoginComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-        console.log(this.allUsers);
       })
     this.ui.start('#firebaseui-auth-container', this.uiConfig);
-    //this.user.userId = this.userId;
-    //this.user.userMail = this.userMail;
-    /*
-    this.firestore
-      .collection('users')
-      .add(this.user.toJSON())
-      .then((result: any) => {
-        console.log(result)
-      })*/
   }
 
   continue() {
@@ -96,7 +85,7 @@ export class LoginComponent implements OnInit {
       .collection('users')
       .add(this.user.toJSON(),)
       .then((result: any) => {
-        console.log(result)
+
       })
     this.ui.start('#firebaseui-auth-container-2', this.uiConfig);
     this.continue();

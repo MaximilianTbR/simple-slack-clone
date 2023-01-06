@@ -11,9 +11,9 @@ import { Channel } from '../models/channel';
   styleUrls: ['./dialog-add-channel.component.scss']
 })
 export class DialogAddUserComponent implements OnInit {
-    
-   
-  
+
+
+
 
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, private firestore: AngularFirestore) { }
   channel = new Channel();
@@ -23,7 +23,7 @@ export class DialogAddUserComponent implements OnInit {
 
   }
 
-  
+
 
   close() {
     this.dialogRef.close();
@@ -35,7 +35,7 @@ export class DialogAddUserComponent implements OnInit {
       .collection('channels')
       .add(this.channel.toJSON())
       .then((result: any) => {
-        console.log(result)
+
       })
     this.loading = false;
     this.dialogRef.close();

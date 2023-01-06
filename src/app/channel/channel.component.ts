@@ -107,8 +107,6 @@ export class ChannelComponent implements OnInit {
           this.user.userId = this.allUsers[this.index].userId;
           this.user.userMail = this.allUsers[this.index].userMail;
           console.log(this.user)
-          console.log(this.user.userId)
-          console.log(this.userId)
         } else {
           console.log('open dialog!')
         }
@@ -120,7 +118,7 @@ export class ChannelComponent implements OnInit {
           .collection('users')
           .add(this.user.toJSON())
           .then((result: any) => {
-            console.log(result)
+
           })*/
       }
     })
@@ -151,7 +149,7 @@ export class ChannelComponent implements OnInit {
       .doc(this.userId)
       .update(this.channel.toJSON())
       .then((result: any) => {
-        console.log(result)
+
       });
     this.messageField = '';
   }
