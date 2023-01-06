@@ -35,6 +35,7 @@ export class ChannelComponent implements OnInit {
   refreshing = false;
   viewAllChannels = true;
   messageField = '';
+  channelId;
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
 
@@ -49,11 +50,9 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe(async (changes: any) => {
         this.allChannels = changes;
-        await this.searchForIndex();
-        this.allMessages = this.allChannels[this.index].channelMessages;
       })
     this.route.paramMap.subscribe(paramMap => {
-      this.userId = paramMap.get('id');
+      this.channelId = paramMap.get('id');
     });
     this.firestore
       .collection('users')
@@ -85,7 +84,7 @@ export class ChannelComponent implements OnInit {
 
   async searchForIndex() {
     this.allChannels.forEach((channel) => {
-      if (this.userId == channel.customIdName) {
+      if (this.channelId == channel.customIdName) {
         this.getsIndexOfClass(channel);
         this.channel.channelDescription = this.allChannels[this.index].channelDescription;
         this.channel.channelMessages = this.allChannels[this.index].channelMessages;
@@ -94,6 +93,8 @@ export class ChannelComponent implements OnInit {
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
         this.participantsLength = Object.keys(this.channel.participants).length;
+      } else {
+        console.log('undefined!!!')
       }
     })
   }
@@ -143,10 +144,11 @@ export class ChannelComponent implements OnInit {
 
   sendMessage() {
     this.searchForIndex()
-    this.allChannels[this.index].channelMessages.push(this.message);
+    this.allMessages.push(this.message);
+    this.allMessages = this.allChannels[this.index].channelMessages;
     this.firestore
       .collection('channels')
-      .doc(this.userId)
+      .doc(this.channelId)
       .update(this.channel.toJSON())
       .then((result: any) => {
 

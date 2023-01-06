@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   signInAutomatically = false;
   currentUserName: string;
   currentUserMail: string;
-  userFromFirebase;
+  userFromFirebase: firebase.User;
 
   constructor(public firestore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router, public dialog: MatDialog) {
     this.afAuth.onAuthStateChanged((user) => {
