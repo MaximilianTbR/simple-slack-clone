@@ -27,7 +27,6 @@ export class AppComponent {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        console.log(this.allChannels);
       })
   }
 
@@ -35,7 +34,7 @@ export class AppComponent {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  openDialog2():void {
+  openDialog2(): void {
     this.dialog.open(DialogAddNewUserComponent);
   }
 
