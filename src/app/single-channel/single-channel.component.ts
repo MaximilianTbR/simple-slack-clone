@@ -41,46 +41,36 @@ export class SingleChannelComponent implements OnInit {
   async ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
-      //this.getChannel();
     });
-    this.getUserId();
+    await this.downloadChannels();
+    /*this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
-    this.firestore
-      .collection('channels')
-      .doc(this.channelID)
-      .valueChanges()
-      .subscribe((channel: any) => {
-
-      })
     this.firestore
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
         this.searchForUser()
-      })
-    if (this.channel && this.allChannels.length > 0) {
+      })*/
+    /*if (this.channel && this.allChannels.length > 0) {
       this.searchForIndex();
+      console.log()
       this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-    }
+    }*/
 
   }
 
-  async getChannels() {
+  async downloadChannels() {
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
-      .subscribe(async (changes: any) => {
+      .subscribe((changes: any) => {
         this.allChannels = changes;
+        this.searchForIndex();
+        this.channel = this.allChannels[this.index];
+        console.log(this.channel)
       })
-  }
-
-
-
-  test() {
-    console.log(this.channelID)
-
   }
 
   async getUserId() {
@@ -112,8 +102,6 @@ export class SingleChannelComponent implements OnInit {
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
         this.participantsLength = Object.keys(this.channel.participants).length;
-      } else {
-        console.log('undefined!!!')
       }
     })
   }
@@ -136,7 +124,6 @@ export class SingleChannelComponent implements OnInit {
     })
   }
 
-
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);
   }
@@ -151,15 +138,13 @@ export class SingleChannelComponent implements OnInit {
 
   sendMessage() {
     this.searchForIndex()
-    this.allMessages.push(this.message);
-    this.allChannels[this.index].channelMessages = this.allMessages;
-    this.channel = this.allChannels[this.index];
+    this.channel.channelMessages.push(this.message);
     this.firestore
       .collection('channels')
       .doc(this.channelID)
       .update(this.channel)
       .then((result: any) => {
-
+        console.log(result)
       });
     this.message = '';
   }
