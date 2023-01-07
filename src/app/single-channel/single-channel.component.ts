@@ -3,6 +3,7 @@ import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import { Channel } from '../models/channel';
 import { User } from '../models/user';
 
@@ -28,6 +29,8 @@ export class SingleChannelComponent implements OnInit {
   messageField = '';
   channelId;
   channelID = '';
+  channelCollection = this.firestore.collection('channels');
+  filteredChannels: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,14 +38,17 @@ export class SingleChannelComponent implements OnInit {
     private afAuth: AngularFireAuth
   ) { }
 
-
-
-
   async ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
     });
     await this.downloadChannels();
+    this.afAuth.onAuthStateChanged(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+    })
+    this.filterChannels();
     /*this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
@@ -60,6 +66,14 @@ export class SingleChannelComponent implements OnInit {
     }*/
 
   }
+
+  filterChannels() {
+    this.filteredChannels = this.channelCollection.valueChanges().pipe(
+      map(channels => channels.filter(channel => this.channel.participants.includes(this.userId)))
+    );
+    console.log(this.filteredChannels)
+  }
+
 
   async downloadChannels() {
     this.firestore
