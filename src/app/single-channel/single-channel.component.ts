@@ -31,6 +31,7 @@ export class SingleChannelComponent implements OnInit {
   channelID = '';
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
+  filteredChannels2 = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -46,9 +47,9 @@ export class SingleChannelComponent implements OnInit {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
+        console.log(this.userId)
       }
     })
-    this.filterChannels();
     /*this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
@@ -69,9 +70,37 @@ export class SingleChannelComponent implements OnInit {
 
   filterChannels() {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
-      map(channels => channels.filter(channel => this.channel.participants.includes(this.userId)))
+      map((channels: Channel[]) => channels.filter(channel => {
+        // Make sure the `channel` object has a `participants` property
+        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
+          console.log(Object.values(channel.participants).includes(this.userId));
+          this.filteredChannels2.push(channel);
+          console.log(this.filteredChannels2)
+        } else {
+          console.log(channel);
+        }
+        return false;
+      })),
+      map(channels => JSON.stringify(channels))
     );
-    console.log(this.filteredChannels)
+
+    this.filteredChannels.toPromise().then(json => {
+      console.log(json);
+    });
+  }
+
+
+
+  filterChannels2() {
+    this.allChannels.forEach((channel) => {
+      if (channel.participants.includes(this.userId)) {
+        this.filteredChannels2.push(channel);
+        console.log('it worked')
+      } else {
+        console.log(channel.participants, this.userId)
+      }
+    })
+    console.log(this.filteredChannels2);
   }
 
 
@@ -84,6 +113,7 @@ export class SingleChannelComponent implements OnInit {
         this.searchForIndex();
         this.channel = this.allChannels[this.index];
         console.log(this.channel)
+        this.filterChannels();
       })
   }
 
