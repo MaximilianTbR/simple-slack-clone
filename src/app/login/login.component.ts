@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
 
   addNewUser() {
     this.user.userId = this.userFromFirebase.uid
+    console.log(this.user);
     this.firestore
       .collection('users')
       .add(this.user.toJSON(),)
