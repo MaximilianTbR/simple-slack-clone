@@ -30,6 +30,8 @@ export class SingleChannelComponent implements OnInit {
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
   filteredChannels2 = [];
+  automaticallyGeneratedUserIndex = this.allUsers.length - 1;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -49,22 +51,21 @@ export class SingleChannelComponent implements OnInit {
         console.log(this.userId)
       }
     })
-    /*this.getUserId();
-    this.allMessages.length = 0;
-    this.emptyArray();
+    await this.downloadUsers();
+  }
+
+  async downloadUsers() {
     this.firestore
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-        this.searchForUser()
-      })*/
-    /*if (this.channel && this.allChannels.length > 0) {
-      this.searchForIndex();
-      console.log()
-      this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-    }*/
-
+        console.log(this.allUsers);
+        console.log(this.allUsers[this.automaticallyGeneratedUserIndex]);
+        this.user.userId = this.userId;
+        console.log(this.user);
+        //this.searchForUser()
+      })
   }
 
   filterChannels() {
@@ -86,20 +87,6 @@ export class SingleChannelComponent implements OnInit {
     this.filteredChannels.toPromise().then(json => {
       console.log(json);
     });
-  }
-
-
-
-  filterChannels2() {
-    this.allChannels.forEach((channel) => {
-      if (channel.participants.includes(this.userId)) {
-        this.filteredChannels2.push(channel);
-        console.log('it worked')
-      } else {
-        console.log(channel.participants, this.userId)
-      }
-    })
-    console.log(this.filteredChannels2);
   }
 
 
