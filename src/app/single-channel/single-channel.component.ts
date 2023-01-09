@@ -13,7 +13,6 @@ import { User } from '../models/user';
   styleUrls: ['./single-channel.component.scss']
 })
 export class SingleChannelComponent implements OnInit {
-  allMessages = [];
   messageOfChannel: any;
   userId: any;
   channel = new Channel();
@@ -27,7 +26,6 @@ export class SingleChannelComponent implements OnInit {
   refreshing = false;
   viewAllChannels = true;
   messageField = '';
-  channelId;
   channelID = '';
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
@@ -42,6 +40,7 @@ export class SingleChannelComponent implements OnInit {
   async ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
+      this.getChannel();
     });
     await this.downloadChannels();
     this.afAuth.onAuthStateChanged(user => {
@@ -195,6 +194,16 @@ export class SingleChannelComponent implements OnInit {
 
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
+  }
+
+  getChannel(){
+    this.firestore
+    .collection('channels')
+    .doc(this.channelID)
+    .valueChanges()
+    .subscribe((user:any) =>
+    this.channel = new Channel(user))
+    this.participantsLength = Object.keys(this.channel.participants).length;
   }
 
 }
