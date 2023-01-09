@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { from, take } from 'rxjs';
-import * as admin from 'firebase-admin/app';
+// import * as admin from 'firebase-admin/app';
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
 import { PERSISTENCE } from '@angular/fire/compat/auth';
 

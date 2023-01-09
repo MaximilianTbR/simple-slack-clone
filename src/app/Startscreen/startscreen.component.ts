@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Channel } from '../models/channel';
 import { ActivatedRoute } from '@angular/router';
 import { collection, collectionData, DocumentData } from '@angular/fire/firestore';
-import * as admin from 'firebase-admin/app';
+// import * as admin from 'firebase-admin/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
 

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
 import { StartscreenComponent } from './Startscreen/startscreen.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +27,9 @@ import { LoginComponent } from './login/login.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SingleChannelComponent } from './single-channel/single-channel.component';
-
+import { MatIconModule } from '@angular/material/icon';
+import { UploadDataComponent } from './upload-data/upload-data.component';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 
 
 @NgModule({
@@ -40,14 +41,14 @@ import { SingleChannelComponent } from './single-channel/single-channel.componen
     SingleChannelSidenavLinkComponent,
     LoginComponent,
     StartscreenComponent,
-    SingleChannelComponent
+    SingleChannelComponent,
+    UploadDataComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
@@ -62,10 +63,13 @@ import { SingleChannelComponent } from './single-channel/single-channel.componen
     CommonModule,
     EditorModule,
     MatTabsModule,
+    MatIconModule,
+    AngularFireStorageModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    { provide: BUCKET, useValue: 'my-bucket-name' }
   ],
   bootstrap: [AppComponent]
 })

@@ -10,8 +10,6 @@ const routes: Routes = [
   { path: 'directMessage/:id', component: DirectMessageComponent },
   { path: 'channel/:id', component: StartscreenComponent },
   { path: '', component: LoginComponent },
-
-
 ];
 
 @NgModule({
