@@ -32,6 +32,7 @@ export class StartscreenComponent implements OnInit {
   viewAllChannels = true;
   messageField = '';
   channelId;
+  viewAllUsers = true;
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
 
@@ -143,23 +144,21 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  sendMessage() {
-    this.searchForIndex()
-    this.allMessages.push(this.message);
-    this.allMessages = this.allChannels[this.index].channelMessages;
-    this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .update(this.channel.toJSON())
-      .then((result: any) => {
-
-      });
-    this.message = '';
-  }
-
+  
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
   }
+
+
+  viewAllUser() {
+    if (!this.viewAllUsers)
+      this.viewAllUsers = true;
+    else {
+      this.viewAllUsers = false;
+    }
+  }
+
+
 }
 
 

@@ -3,16 +3,30 @@
         <div class="logo-container">
             <!-- <img src="../../assets/img/1.png"> -->
         </div>
-        <p class="allButtons" (click)="viewAllChannel()">
-            <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
-            <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
-        </p>
-        <ul class="menu-items">
-            <li *ngIf="viewAllChannels">
-                <app-single-channel-sidenav-link class="single-channel" *ngFor="let channel of allChannels; let i = index" [channelName]="this.allChannels[i]['channelName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]"></app-single-channel-sidenav-link>
-            </li>
-        </ul>
+        <div>
+            <p class="allButtons" (click)="viewAllChannel()">
+                <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
+                <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
+            </p>
+            <ul class="menu-items">
+                <li *ngIf="viewAllChannels">
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let channel of allChannels; let i = index" [channelName]="this.allChannels[i]['channelName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]"></app-single-channel-sidenav-link>
+                </li>
+            </ul>
+        </div>
 
+        <div>
+            <p class="allButtons" (click)="viewAllUser()">
+                <span *ngIf="!viewAllUsers" class="material-icons arrow">chevron_right</span>
+                <span *ngIf="viewAllUsers" class="material-icons arrow">expand_more</span>Users
+            </p>
+            <ul class="menu-items">
+                <li *ngIf="viewAllUsers">
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let channel of allChannels; let i = index" [channelName]="this.allChannels[i]['channelName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]"></app-single-channel-sidenav-link>
+                </li>
+            </ul>
+
+        </div>
         <div>
             <p (click)="test()">{{userId}}</p>
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
