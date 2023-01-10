@@ -30,7 +30,7 @@ import { SingleChannelComponent } from './single-channel/single-channel.componen
 import { MatIconModule } from '@angular/material/icon';
 import { UploadDataComponent } from './upload-data/upload-data.component';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,8 @@ import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
     EditorModule,
     MatTabsModule,
     MatIconModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MatSlideToggleModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },

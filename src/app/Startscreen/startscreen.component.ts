@@ -11,7 +11,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
 
 
-
 @Component({
   selector: 'app-channel',
   templateUrl: './startscreen.component.html',
@@ -61,10 +60,15 @@ export class StartscreenComponent implements OnInit {
     this.searchForUser()
   }
 
+  test(){
+    console.log(this.userId)
+  }
+
   async getUserId() {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
+        
       }
     })
   }
