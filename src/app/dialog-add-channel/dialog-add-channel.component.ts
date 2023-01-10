@@ -34,9 +34,7 @@ export class DialogAddUserComponent implements OnInit {
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
-      .then((result: any) => {
-
-      })
+     
     this.loading = false;
     this.dialogRef.close();
   }

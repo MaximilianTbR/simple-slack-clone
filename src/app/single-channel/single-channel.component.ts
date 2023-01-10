@@ -24,7 +24,6 @@ export class SingleChannelComponent implements OnInit {
   index: any;
   participantsLength;
   refreshing = false;
-  viewAllChannels = true;
   messageField = '';
   channelID = '';
   channelCollection = this.firestore.collection('channels');
@@ -156,14 +155,6 @@ export class SingleChannelComponent implements OnInit {
 
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);
-  }
-
-  viewAllChannel() {
-    if (!this.viewAllChannels)
-      this.viewAllChannels = true;
-    else {
-      this.viewAllChannels = false;
-    }
   }
 
   sendMessage() {
