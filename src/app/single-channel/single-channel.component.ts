@@ -51,6 +51,13 @@ export class SingleChannelComponent implements OnInit {
       }
     })
     await this.downloadUsers();
+
+    /*
+    if(this.userId) { // wenn die UserId bekannt ist/der aktuelle Nutzer bereits bekannt ist (= also sowohl Name, Email, als auch userId, dann sollen die Channels geladen werden, in welchen dieser User drin ist)
+
+    } else {
+//wenn der aktuelle Nutzer nicht bekannt ist, dann er zu den users im Firestore hinzugfügt werden mit der aktuellen UserId, es soll ein Dialog aufgehen in welchen dann Name und Email eingetragen(= how should we call you?) werden sollen und anschliesend soll dieser User zu allen allgemeinen Channels hinzugefügt werden und diese sollen dann angezeigt werden
+    }*/
   }
 
   async downloadUsers() {
@@ -174,13 +181,13 @@ export class SingleChannelComponent implements OnInit {
     return this.index = this.allChannels.indexOf(channel);
   }
 
-  getChannel(){
+  getChannel() {
     this.firestore
-    .collection('channels')
-    .doc(this.channelID)
-    .valueChanges()
-    .subscribe((user:any) =>
-    this.channel = new Channel(user))
+      .collection('channels')
+      .doc(this.channelID)
+      .valueChanges()
+      .subscribe((user: any) =>
+        this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
   }
 
