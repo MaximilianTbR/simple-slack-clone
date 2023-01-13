@@ -16,7 +16,7 @@ export class SingleChannelComponent implements OnInit {
   messageOfChannel: any;
   userId: any;
   channel = new Channel();
-  user = new User()
+  user = new User();
   message: string;
   allChannels = [];
   allUsers = [];
@@ -47,7 +47,6 @@ export class SingleChannelComponent implements OnInit {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
-        console.log(this.userId)
       }
     })
     await this.downloadUsers();
@@ -66,10 +65,7 @@ export class SingleChannelComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-        console.log(this.allUsers);
-        console.log(this.allUsers[this.automaticallyGeneratedUserIndex]);
         this.user.userId = this.userId;
-        console.log(this.user);
         //this.searchForUser()
       })
   }
@@ -79,11 +75,9 @@ export class SingleChannelComponent implements OnInit {
       map((channels: Channel[]) => channels.filter(channel => {
         // Make sure the `channel` object has a `participants` property
         if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
-          console.log(Object.values(channel.participants).includes(this.userId));
           this.filteredChannels2.push(channel);
-          console.log(this.filteredChannels2)
         } else {
-          console.log(channel);
+          //console.log(channel);
         }
         return false;
       })),
@@ -104,7 +98,6 @@ export class SingleChannelComponent implements OnInit {
         this.allChannels = changes;
         this.searchForIndex();
         this.channel = this.allChannels[this.index];
-        console.log(this.channel)
         this.filterChannels();
       })
   }
@@ -150,7 +143,6 @@ export class SingleChannelComponent implements OnInit {
           this.user.userName = this.allUsers[this.index].userName;
           this.user.userId = this.allUsers[this.index].userId;
           this.user.userMail = this.allUsers[this.index].userMail;
-          console.log(this.user)
         } else {
           console.log('open dialog!')
         }
@@ -165,14 +157,13 @@ export class SingleChannelComponent implements OnInit {
   }
 
   sendMessage() {
-    this.searchForIndex()
+    //this.searchForIndex()
     this.channel.channelMessages.push(this.message);
     this.firestore
       .collection('channels')
       .doc(this.channelID)
-      .update(this.channel)
+      .update(this.channel.toJSON())
       .then((result: any) => {
-        console.log(result)
       });
     this.message = '';
   }
@@ -190,5 +181,4 @@ export class SingleChannelComponent implements OnInit {
         this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
   }
-
 }
