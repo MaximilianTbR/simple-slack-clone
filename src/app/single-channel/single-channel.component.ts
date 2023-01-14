@@ -74,8 +74,9 @@ export class SingleChannelComponent implements OnInit {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
       map((channels: Channel[]) => channels.filter(channel => {
         // Make sure the `channel` object has a `participants` property
-        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
+        if (channel.hasOwnProperty('participants')) {
           this.filteredChannels2.push(channel);
+          //&& Object.values(channel.participants).includes(this.userId)
         } else {
           //console.log(channel);
         }

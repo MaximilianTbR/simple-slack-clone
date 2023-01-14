@@ -56,12 +56,13 @@ export class StartscreenComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
+        console.log(this.allUsers);
         this.searchForUser()
       })
     this.searchForUser()
   }
 
-  test(){
+  test() {
     console.log(this.userId)
   }
 
@@ -69,7 +70,7 @@ export class StartscreenComponent implements OnInit {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
-        
+
       }
     })
   }
@@ -144,7 +145,7 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  
+
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
   }
