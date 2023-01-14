@@ -38,7 +38,7 @@ export class SingleChannelComponent implements OnInit {
     private afAuth: AngularFireAuth
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
       this.getChannel();
@@ -50,13 +50,12 @@ export class SingleChannelComponent implements OnInit {
       }
     })
     await this.downloadUsers();
-
-    /*
-    if(this.userId) { // wenn die UserId bekannt ist/der aktuelle Nutzer bereits bekannt ist (= also sowohl Name, Email, als auch userId, dann sollen die Channels geladen werden, in welchen dieser User drin ist)
+    this.searchForUser();
+    if (this.userId == this.user.userId) { // wenn die UserId bekannt ist/der aktuelle Nutzer bereits bekannt ist (= also sowohl Name, Email, als auch userId, dann sollen die Channels geladen werden, in welchen dieser User drin ist)
 
     } else {
-//wenn der aktuelle Nutzer nicht bekannt ist, dann er zu den users im Firestore hinzugfügt werden mit der aktuellen UserId, es soll ein Dialog aufgehen in welchen dann Name und Email eingetragen(= how should we call you?) werden sollen und anschliesend soll dieser User zu allen allgemeinen Channels hinzugefügt werden und diese sollen dann angezeigt werden
-    }*/
+      //wenn der aktuelle Nutzer nicht bekannt ist, dann er zu den users im Firestore hinzugfügt werden mit der aktuellen UserId, es soll ein Dialog aufgehen in welchen dann Name und Email eingetragen(= how should we call you?) werden sollen und anschliesend soll dieser User zu allen allgemeinen Channels hinzugefügt werden und diese sollen dann angezeigt werden
+    }
   }
 
   async downloadUsers() {
@@ -66,7 +65,6 @@ export class SingleChannelComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allUsers = changes;
         this.user.userId = this.userId;
-        //this.searchForUser()
       })
   }
 
@@ -137,18 +135,21 @@ export class SingleChannelComponent implements OnInit {
   }
 
   searchForUser() {
+    console.log(this.allUsers)
     this.allUsers.forEach((user) => {
       if (this.userId == user.userId) {
         this.getsIndexOfUser(user);
+        console.log(this.allUsers[this.index].userName);
+        /*
         if (this.allUsers[this.index].userName.length > 0) {
           this.user.userName = this.allUsers[this.index].userName;
           this.user.userId = this.allUsers[this.index].userId;
           this.user.userMail = this.allUsers[this.index].userMail;
         } else {
           console.log('open dialog!')
-        }
+        }*/
       } else {
-
+        console.log('didnt work yet!')
       }
     })
   }
