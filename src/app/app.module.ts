@@ -31,6 +31,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { UploadDataComponent } from './upload-data/upload-data.component';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+<<<<<<< HEAD
+=======
+import { NameDialogComponent } from './name-dialog/name-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
 
 @NgModule({
   declarations: [
@@ -43,6 +49,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     StartscreenComponent,
     SingleChannelComponent,
     UploadDataComponent,
+<<<<<<< HEAD
+=======
+    NameDialogComponent,
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
   ],
   imports: [
     BrowserModule,
@@ -65,7 +75,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatTabsModule,
     MatIconModule,
     AngularFireStorageModule,
+<<<<<<< HEAD
     MatSlideToggleModule
+=======
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatSelectModule
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },

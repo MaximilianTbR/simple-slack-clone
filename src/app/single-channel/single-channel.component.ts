@@ -1,11 +1,25 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
+=======
+import { Component, Input, OnInit } from '@angular/core';
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
 import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+<<<<<<< HEAD
 import { map } from 'rxjs';
 import { Channel } from '../models/channel';
 import { User } from '../models/user';
+=======
+import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
+import { map } from 'rxjs';
+import { Channel } from '../models/channel';
+import { MatDialog } from '@angular/material/dialog';
+import { User } from '../models/user';
+import { NameDialogComponent } from '../name-dialog/name-dialog.component';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
 
 @Component({
   selector: 'app-single-channel',
@@ -29,20 +43,42 @@ export class SingleChannelComponent implements OnInit {
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
   filteredChannels2 = [];
+<<<<<<< HEAD
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
 
+=======
+  hallo: any;
+  automaticallyGeneratedUserIndex = this.allUsers.length - 1;
+  userIsNotKnown = 0;
+  @Input() userName: any;
+  @Input() userMail: any;
+
+  allMessages: any = [];
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
 
   constructor(
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
+<<<<<<< HEAD
     private afAuth: AngularFireAuth
   ) { }
 
   async ngOnInit() {
+=======
+    private afAuth: AngularFireAuth,
+    public dialog: MatDialog
+  ) { }
+
+  async ngOnInit(): Promise<void> {
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
       this.getChannel();
     });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
     await this.downloadChannels();
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
@@ -50,6 +86,7 @@ export class SingleChannelComponent implements OnInit {
       }
     })
     await this.downloadUsers();
+<<<<<<< HEAD
 
     /*
     if(this.userId) { // wenn die UserId bekannt ist/der aktuelle Nutzer bereits bekannt ist (= also sowohl Name, Email, als auch userId, dann sollen die Channels geladen werden, in welchen dieser User drin ist)
@@ -57,6 +94,8 @@ export class SingleChannelComponent implements OnInit {
     } else {
 //wenn der aktuelle Nutzer nicht bekannt ist, dann er zu den users im Firestore hinzugfügt werden mit der aktuellen UserId, es soll ein Dialog aufgehen in welchen dann Name und Email eingetragen(= how should we call you?) werden sollen und anschliesend soll dieser User zu allen allgemeinen Channels hinzugefügt werden und diese sollen dann angezeigt werden
     }*/
+=======
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
   }
 
   async downloadUsers() {
@@ -66,7 +105,11 @@ export class SingleChannelComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allUsers = changes;
         this.user.userId = this.userId;
+<<<<<<< HEAD
         //this.searchForUser()
+=======
+        this.searchForUser();
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
       })
   }
 
@@ -137,6 +180,7 @@ export class SingleChannelComponent implements OnInit {
   }
 
   searchForUser() {
+<<<<<<< HEAD
     this.allUsers.forEach((user) => {
       if (this.userId == user.userId) {
         this.getsIndexOfUser(user);
@@ -151,12 +195,34 @@ export class SingleChannelComponent implements OnInit {
 
       }
     })
+=======
+    console.log(this.allUsers)
+    this.allUsers.forEach((user) => {
+      if (this.userId == user.userId) {
+        this.getsIndexOfUser(user);
+      } else {
+        this.userIsNotKnown++;
+      }
+    })
+    if (this.userIsNotKnown == this.allUsers.length) {
+      this.openDialog();
+    }
+  }
+
+  openDialog(): void {
+    this.dialog.open(NameDialogComponent);
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
   }
 
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);
   }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
   sendMessage() {
     //this.searchForIndex()
     this.channel.channelMessages.push(this.message);
@@ -176,10 +242,60 @@ export class SingleChannelComponent implements OnInit {
   getChannel() {
     this.firestore
       .collection('channels')
+<<<<<<< HEAD
       .doc(this.channelID)
+=======
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
+<<<<<<< HEAD
   }
+=======
+    this.test2()
+  }
+
+
+  test2() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .valueChanges()
+      .subscribe(allMessages => {
+        this.allMessages = allMessages
+      });
+  }
+
+
+
+
+  sendMessage2() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .add({
+        text: this.message,
+        user: this.userId,
+      })
+
+    console.log(this.message, this.userId)
+  }
+
+
+
+
+
+  test() {
+
+
+
+    console.log(this.allMessages)
+  }
+
+
+
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
 }

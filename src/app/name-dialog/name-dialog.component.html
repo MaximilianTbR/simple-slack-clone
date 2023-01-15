@@ -1,0 +1,13 @@
+<div class="name-dialog-div">
+    <span class="span-1">How should other members of this workspace call you?</span>
+    <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [(ngModel)]="user.userName">
+    </mat-form-field>
+    <span class="span-1">How should other members of this workspace mail you?</span>
+    <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [(ngModel)]="user.userMail">
+    </mat-form-field>
+    <button (click)="submitNewName()" mat-raised-button color="blue">Okay!</button>
+</div>

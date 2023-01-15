@@ -3,21 +3,37 @@
         <div class="single-div header">
             <mat-icon>lock</mat-icon>
             <h2> {{channel.channelName}}</h2>
+<<<<<<< HEAD
+=======
+            <button (click)="test()"> test</button>
+
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
         </div>
         <div class="single-div">
             <span> {{this.participantsLength}} Mitglieder</span>
         </div>
     </mat-card>
     <div class="all-messages">
+<<<<<<< HEAD
         <app-single-message *ngFor="let message of channel.channelMessages; let i = index"
             [messageOfChannel]="message"></app-single-message>
+=======
+        <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
+        <p *ngFor="let message of allMessages">
+            {{message.userName}} {{message.text}}
+        </p>
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
     </div>
     <div class="keyboard">
         <div class="inputfield">
             <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
         </div>
+<<<<<<< HEAD
         <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary"
             aria-label="Example fab with a heart icon">
+=======
+        <button (click)="sendMessage2()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
             <mat-icon>send</mat-icon>
         </button>
     </div>

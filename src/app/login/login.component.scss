@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     overflow-y: hidden;
 }
@@ -31,4 +32,47 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 60px;
+=======
+.firebaseui-container {
+    top: 200px;
+    width: 100%;
+}
+
+.header {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 220px;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.tab-group {
+    width: 500px;
+    height: 100%;
+}
+
+.login-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-tab {
+    height: 300px !important;
+}
+
+.mat-tab-body-content {
+    height: 400px !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
+    height: 400px !important;
+>>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
 }
