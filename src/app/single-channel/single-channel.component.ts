@@ -3,6 +3,7 @@ import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { map } from 'rxjs';
 import { Channel } from '../models/channel';
 import { User } from '../models/user';
@@ -29,8 +30,9 @@ export class SingleChannelComponent implements OnInit {
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
   filteredChannels2 = [];
+  hallo:any;
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
-
+  allMessages:any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +45,8 @@ export class SingleChannelComponent implements OnInit {
       this.channelID = paramMap.get('id');
       this.getChannel();
     });
-    await this.downloadChannels();
+
+       await this.downloadChannels();
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
@@ -159,7 +162,7 @@ export class SingleChannelComponent implements OnInit {
   }
 
 
-  /*
+
   sendMessage() {
     //this.searchForIndex()
     this.channel.channelMessages.push(this.message);
@@ -170,7 +173,7 @@ export class SingleChannelComponent implements OnInit {
       .then((result: any) => {
       });
     this.message = '';
-  } */
+  } 
 
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
@@ -178,18 +181,54 @@ export class SingleChannelComponent implements OnInit {
 
   getChannel() {
     this.firestore
-    
       .collection('channels')
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
+    this.test2()
   }
+
+
+  test2(){
+    this.firestore
+    .collection('channels')
+    .doc(this.channelID)
+    .collection('channelMessages')
+    .valueChanges()
+    .subscribe(allMessages =>
+      {
+        this.allMessages = allMessages
+      });
+    }
+
+
+
 
   sendMessage2(){
     this.firestore
-    .doc('channels/ntem8pWrc4AnbPzq3DL5')
+    .collection('channels')
+    .doc(this.channelID)
     .collection('channelMessages')
-    .add({'Tag': 'Moin'})
+    .add({
+      text: this.message,
+      user: this.userId,
+    })
+
+    console.log(this.message, this.userId)
   }
+
+
+
+
+
+  test(){
+    
+
+
+    console.log(this.allMessages)
+  }
+
+  
+
 }

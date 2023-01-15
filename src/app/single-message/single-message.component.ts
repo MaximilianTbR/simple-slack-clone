@@ -16,8 +16,8 @@ export class SingleMessageComponent implements OnInit {
   renderedMessage2: string;
 
   ngOnInit(): void {
-    this.renderedMessage = this.messageOfChannel.substring(3);
-    this.renderedMessage2 = this.renderedMessage.substring(0, this.renderedMessage.length - 4);
+  //  this.renderedMessage = this.messageOfChannel.substring(3);
+   // this.renderedMessage2 = this.renderedMessage.substring(0, this.renderedMessage.length - 4);
   }
 
   test2(){
