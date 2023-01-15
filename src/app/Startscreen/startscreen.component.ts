@@ -60,6 +60,7 @@ export class StartscreenComponent implements OnInit {
         this.searchForUser()
       })
     this.searchForUser()
+    this.searchForIndex();
   }
 
   test() {

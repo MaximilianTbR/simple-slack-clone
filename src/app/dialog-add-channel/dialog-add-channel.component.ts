@@ -12,18 +12,13 @@ import { Channel } from '../models/channel';
 })
 export class DialogAddUserComponent implements OnInit {
 
-
-
-
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, private firestore: AngularFirestore) { }
   channel = new Channel();
   loading = false;
 
   ngOnInit(): void {
-      
+
   }
-
-
 
   close() {
     this.dialogRef.close();
@@ -34,9 +29,7 @@ export class DialogAddUserComponent implements OnInit {
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
-     
     this.loading = false;
     this.dialogRef.close();
   }
-
 }

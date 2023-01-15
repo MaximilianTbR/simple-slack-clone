@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { Channel } from '../models/channel';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from '../models/user';
+import { NameDialogComponent } from '../name-dialog/name-dialog.component';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 
 @Component({
   selector: 'app-single-channel',
@@ -30,12 +33,16 @@ export class SingleChannelComponent implements OnInit {
   filteredChannels: any;
   filteredChannels2 = [];
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
+  userIsNotKnown = false;
+  @Input() userName: any;
+  @Input() userMail: any;
 
 
   constructor(
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public dialog: MatDialog
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -50,7 +57,7 @@ export class SingleChannelComponent implements OnInit {
       }
     })
     await this.downloadUsers();
-    this.searchForUser();
+    //this.searchForUser();
     if (this.userId == this.user.userId) { // wenn die UserId bekannt ist/der aktuelle Nutzer bereits bekannt ist (= also sowohl Name, Email, als auch userId, dann sollen die Channels geladen werden, in welchen dieser User drin ist)
 
     } else {
@@ -65,6 +72,7 @@ export class SingleChannelComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allUsers = changes;
         this.user.userId = this.userId;
+        this.searchForUser();
       })
   }
 
@@ -149,9 +157,16 @@ export class SingleChannelComponent implements OnInit {
           console.log('open dialog!')
         }*/
       } else {
-        console.log('didnt work yet!')
+        this.userIsNotKnown = true;
       }
     })
+    if (this.userIsNotKnown == true) {
+      this.openDialog();
+    }
+  }
+
+  openDialog(): void {
+    this.dialog.open(NameDialogComponent);
   }
 
   getsIndexOfUser(user) {
