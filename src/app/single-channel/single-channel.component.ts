@@ -3,6 +3,7 @@ import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { map } from 'rxjs';
 import { Channel } from '../models/channel';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,11 +33,13 @@ export class SingleChannelComponent implements OnInit {
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
   filteredChannels2 = [];
+  hallo: any;
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
   userIsNotKnown = false;
   @Input() userName: any;
   @Input() userMail: any;
 
+  allMessages: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -50,6 +53,7 @@ export class SingleChannelComponent implements OnInit {
       this.channelID = paramMap.get('id');
       this.getChannel();
     });
+
     await this.downloadChannels();
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
@@ -173,6 +177,8 @@ export class SingleChannelComponent implements OnInit {
     return this.index = this.allUsers.indexOf(user);
   }
 
+
+
   sendMessage() {
     //this.searchForIndex()
     this.channel.channelMessages.push(this.message);
@@ -192,10 +198,52 @@ export class SingleChannelComponent implements OnInit {
   getChannel() {
     this.firestore
       .collection('channels')
-      .doc(this.channelID)
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
+    this.test2()
   }
+
+
+  test2() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .valueChanges()
+      .subscribe(allMessages => {
+        this.allMessages = allMessages
+      });
+  }
+
+
+
+
+  sendMessage2() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .add({
+        text: this.message,
+        user: this.userId,
+      })
+
+    console.log(this.message, this.userId)
+  }
+
+
+
+
+
+  test() {
+
+
+
+    console.log(this.allMessages)
+  }
+
+
+
 }
