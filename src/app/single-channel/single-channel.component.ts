@@ -158,6 +158,8 @@ export class SingleChannelComponent implements OnInit {
     return this.index = this.allUsers.indexOf(user);
   }
 
+
+  /*
   sendMessage() {
     //this.searchForIndex()
     this.channel.channelMessages.push(this.message);
@@ -168,7 +170,7 @@ export class SingleChannelComponent implements OnInit {
       .then((result: any) => {
       });
     this.message = '';
-  }
+  } */
 
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
@@ -176,11 +178,18 @@ export class SingleChannelComponent implements OnInit {
 
   getChannel() {
     this.firestore
+    
       .collection('channels')
-      .doc(this.channelID)
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
+  }
+
+  sendMessage2(){
+    this.firestore
+    .doc('channels/ntem8pWrc4AnbPzq3DL5')
+    .collection('channelMessages')
+    .add({'Tag': 'Moin'})
   }
 }

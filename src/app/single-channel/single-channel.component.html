@@ -9,15 +9,13 @@
         </div>
     </mat-card>
     <div class="all-messages">
-        <app-single-message *ngFor="let message of channel.channelMessages; let i = index"
-            [messageOfChannel]="message"></app-single-message>
+        <app-single-message *ngFor="let message of channel.channelMessages; let i = index" [messageOfChannel]="message"></app-single-message>
     </div>
     <div class="keyboard">
         <div class="inputfield">
             <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
         </div>
-        <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary"
-            aria-label="Example fab with a heart icon">
+        <button (click)="sendMessage2()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>send</mat-icon>
         </button>
     </div>
