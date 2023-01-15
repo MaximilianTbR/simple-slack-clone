@@ -13,7 +13,7 @@
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
         <p *ngFor="let message of allMessages">
-            {{message.text}} {{message.user}}
+            {{message.userName}} {{message.text}}
         </p>
     </div>
     <div class="keyboard">

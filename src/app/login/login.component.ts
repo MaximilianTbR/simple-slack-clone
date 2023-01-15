@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
 
   uiConfig = {
-    signInSuccessUrl: '/channel',
+    signInSuccessUrl: '/channel/vsbfzlJW10O3Jvfq7XVF',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
