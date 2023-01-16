@@ -17,6 +17,7 @@ import { User } from '../models/user';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  darkmode = false;
   allMessages = [];
   messageOfChannel: any;
   userId: any;
@@ -159,6 +160,15 @@ export class StartscreenComponent implements OnInit {
     else {
       this.viewAllUsers = false;
     }
+  }
+
+  switchMode(){
+    console.log(this.darkmode)
+    if (this.darkmode) {
+      this.darkmode = false;
+    }
+    else( this.darkmode = true)
+    
   }
 
 

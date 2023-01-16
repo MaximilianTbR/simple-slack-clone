@@ -199,9 +199,13 @@ export class SingleChannelComponent implements OnInit {
       .subscribe(allMessages => {
         this.allMessages = allMessages
       });
+
+      this.allMessages =this.sortByTimestamp(this.allMessages)
   }
 
-
+  sortByTimestamp(messages: any[]): any[] {
+    return messages.sort((a, b) => a.timestamp - b.timestamp);
+  }
 
 
   sendMessage2() {
@@ -212,9 +216,11 @@ export class SingleChannelComponent implements OnInit {
       .add({
         text: this.message,
         user: this.userId,
+        timestampe : new Date().getTime()
       })
 
     console.log(this.message, this.userId)
+    this.message = '';
   }
 
 
@@ -222,8 +228,6 @@ export class SingleChannelComponent implements OnInit {
 
 
   test() {
-
-
 
     console.log(this.allMessages)
   }

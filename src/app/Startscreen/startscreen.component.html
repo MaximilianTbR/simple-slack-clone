@@ -32,7 +32,7 @@
 
         </div>
         <div>
-            <p (click)="test()">{{userId}}</p>
+            <p class="userName" (click)="test()">{{this.user.userName}}</p>
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>add</mat-icon>
         </button>
@@ -42,14 +42,14 @@
 
     <div class="example-sidenav-content">
         <p>
-            <mat-toolbar color="primary">
+            <mat-toolbar color="primary" [class.darkmode]="this.darkmode">
                 <div class="test">
-                    <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
+                    <button (click)=" drawer.toggle() " mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
                     <mat-icon class="menu-icon">menu</mat-icon>
                 </button>
                     <span>Slack</span>
                 </div>
-                <mat-slide-toggle>Darkmode</mat-slide-toggle>
+                <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
             </mat-toolbar>
 
         </p>
