@@ -22,11 +22,11 @@
             </p>
             <ul class="menu-items">
                 <li *ngIf="viewAllUsers">
-                    <<<<<<< HEAD <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]">
-                        </app-single-channel-sidenav-link>
-                        =======
-                        <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']"></app-single-channel-sidenav-link>
-                        >>>>>>> 06497fef039b394df133d5bd255344352bdbf6bb
+                    <!--       <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]">
+             </app-single-channel-sidenav-link>  -->
+
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']"></app-single-channel-sidenav-link>
+
                 </li>
             </ul>
 

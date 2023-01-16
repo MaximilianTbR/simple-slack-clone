@@ -12,6 +12,16 @@
     height: 45vh;
 }
 
+.message {
+    display: flex;
+    word-wrap: break-word;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: rgb(148, 148, 148);
+}
+
 .inputfield {
     position: absolute;
     bottom: 200px;
