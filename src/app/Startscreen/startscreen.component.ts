@@ -98,7 +98,7 @@ export class StartscreenComponent implements OnInit {
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
-        this.participantsLength = Object.keys(this.channel.participants).length;
+     //   this.participantsLength = Object.keys(this.channel.participants).length;
       } else {
         console.log('undefined!!!')
       }

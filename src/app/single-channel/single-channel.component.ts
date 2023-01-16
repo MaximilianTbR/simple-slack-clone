@@ -53,13 +53,15 @@ export class SingleChannelComponent implements OnInit {
       this.channelID = paramMap.get('id');
       this.getChannel();
     });
-    await this.downloadChannels();
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
       }
     })
-    await this.downloadUsers();
+
+  //  await this.downloadChannels();
+ 
+    // await this.downloadUsers(); 
   }
 
   async downloadUsers() {
@@ -106,14 +108,19 @@ export class SingleChannelComponent implements OnInit {
       })
   }
 
-  async getUserId() {
+ /* 
+ wird nirgendwo genutzt
+ 
+ async getUserId() {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
       }
     })
   }
-
+ */
+  /* 
+  wird nirgendwo genutzt
   emptyArray() {
     this.channel.channelName = '';
     this.channel.channelMessages = [];
@@ -122,7 +129,7 @@ export class SingleChannelComponent implements OnInit {
     Object.keys(this.channel.participants).forEach(key => {
       delete this.channel.participants[key];
     });
-  }
+  } */
 
   async searchForIndex() {
     this.allChannels.forEach((channel) => {
@@ -134,7 +141,7 @@ export class SingleChannelComponent implements OnInit {
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
-        this.participantsLength = Object.keys(this.channel.participants).length;
+   //     this.participantsLength = Object.keys(this.channel.participants).length;
       }
     })
   }
