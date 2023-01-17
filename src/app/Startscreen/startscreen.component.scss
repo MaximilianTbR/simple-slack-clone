@@ -205,6 +205,18 @@ mat-toolbar-row {
     }
 }
 
+.darkmode {
+    background-color: black;
+}
+
+.userName {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
 .allButtons {
     display: flex;
     align-items: center;

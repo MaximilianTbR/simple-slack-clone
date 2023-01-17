@@ -12,10 +12,19 @@
     </mat-card>
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
-        <p *ngFor="let message of allMessages">
-            {{message.userName}} {{message.text}}
-        </p>
+
+        <div class="message" *ngFor="let message of allMessages">
+
+
+            <p> {{message.user}}</p>
+            <p>{{message.text}}</p>
+
+
+        </div>
+
+
     </div>
+
     <div class="keyboard">
         <div class="inputfield">
             <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
