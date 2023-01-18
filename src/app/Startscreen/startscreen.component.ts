@@ -60,13 +60,11 @@ export class StartscreenComponent implements OnInit {
         console.log(this.allUsers);
         this.searchForUser()
       })
-<<<<<<< HEAD
+
     this.searchForUser()
-=======
     this.searchForUser();
 
     this.searchForIndex();
->>>>>>> 301670d998d3c9e4ef8f3e8c387c7b0db07eadd0
   }
 
   test() {
