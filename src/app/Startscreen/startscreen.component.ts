@@ -60,13 +60,7 @@ export class StartscreenComponent implements OnInit {
         console.log(this.allUsers);
         this.searchForUser()
       })
-<<<<<<< HEAD
     this.searchForUser()
-=======
-    this.searchForUser();
-
-    this.searchForIndex();
->>>>>>> 301670d998d3c9e4ef8f3e8c387c7b0db07eadd0
   }
 
   test() {
@@ -102,7 +96,7 @@ export class StartscreenComponent implements OnInit {
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
-     //   this.participantsLength = Object.keys(this.channel.participants).length;
+        //   this.participantsLength = Object.keys(this.channel.participants).length;
       } else {
         console.log('undefined!!!')
       }
@@ -166,13 +160,13 @@ export class StartscreenComponent implements OnInit {
     }
   }
 
-  switchMode(){
+  switchMode() {
     console.log(this.darkmode)
     if (this.darkmode) {
       this.darkmode = false;
     }
-    else( this.darkmode = true)
-    
+    else (this.darkmode = true)
+
   }
 
 
