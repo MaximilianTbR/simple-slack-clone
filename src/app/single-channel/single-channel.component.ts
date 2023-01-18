@@ -27,6 +27,7 @@ export class SingleChannelComponent implements OnInit {
   channelData: Channel;
   index: any;
   participantsLength;
+  channelName;
   refreshing = false;
   messageField = '';
   channelID = '';
@@ -51,6 +52,7 @@ export class SingleChannelComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
+      
       this.getChannel();
     });
     this.afAuth.onAuthStateChanged(user => {
@@ -189,11 +191,13 @@ export class SingleChannelComponent implements OnInit {
   getChannel() {
     this.firestore
       .collection('channels')
+      .doc(this.channelID)
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
     this.participantsLength = Object.keys(this.channel.participants).length;
     this.test2()
+    console.log(this.channel)
   }
 
 
@@ -236,7 +240,7 @@ export class SingleChannelComponent implements OnInit {
 
   test() {
 
-    console.log(this.allMessages)
+    console.log(this.channelName)
   }
 
 
