@@ -18,9 +18,7 @@ import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 })
 export class SingleChannelComponent implements OnInit {
 
-  test3 = ['121323','21212112', '45','1212']
-
-  messageOfChannel: any;
+  test3 = ['121323','21212112', '45','1212'];
   userId: any;
   channel = new Channel();
   user = new User();
@@ -35,7 +33,6 @@ export class SingleChannelComponent implements OnInit {
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
   filteredChannels2 = [];
-  hallo: any;
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
   userIsNotKnown = 0;
   @Input() userName: any;
@@ -51,12 +48,15 @@ export class SingleChannelComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
       
       this.getChannel();
     });
-    this.afAuth.onAuthStateChanged(user => {
+
+
+   this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
       }
@@ -64,7 +64,7 @@ export class SingleChannelComponent implements OnInit {
 
   //  await this.downloadChannels();
  
-    // await this.downloadUsers(); 
+     await this.downloadUsers(); 
   }
 
 
@@ -78,6 +78,9 @@ export class SingleChannelComponent implements OnInit {
         this.searchForUser();
       })
   }
+  
+
+
 
   filterChannels() {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
@@ -198,10 +201,12 @@ export class SingleChannelComponent implements OnInit {
       .collection('channelMessages')
       .valueChanges()
       .subscribe(allMessages => {
+        
         this.allMessages = allMessages
+        this.allMessages = this.sortByTimestamp(this.allMessages)
       });
 
-      this.allMessages =this.sortByTimestamp(this.allMessages)
+     
   }
 
   sortByTimestamp(messages: any[]): any[] {
@@ -225,9 +230,7 @@ export class SingleChannelComponent implements OnInit {
   }
 
 
-  test(){
-    console.log()
-  }
+
 
 
 

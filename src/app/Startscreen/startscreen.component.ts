@@ -40,6 +40,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    
     await this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
@@ -57,10 +58,8 @@ export class StartscreenComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-        console.log(this.allUsers);
-        this.searchForUser()
+ //       console.log(this.allUsers);
       })
-    this.searchForUser()
 
 
 
