@@ -17,13 +17,13 @@
 
         <div>
             <p class="allButtons" (click)="viewAllUser()">
+                <button (click)="test()">hallo</button>
                 <span *ngIf="!viewAllUsers" class="material-icons arrow">chevron_right</span>
                 <span *ngIf="viewAllUsers" class="material-icons arrow">expand_more</span>Users
             </p>
             <ul class="menu-items">
                 <li *ngIf="viewAllUsers">
-                    <!--       <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']" [routerLink]="['/channel/'+ this.allChannels[i]['customIdName']]">
-             </app-single-channel-sidenav-link>  -->
+
 
                     <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']"></app-single-channel-sidenav-link>
 
@@ -32,7 +32,7 @@
 
         </div>
         <div>
-            <p class="userName" (click)="test()">{{this.user.userName}}</p>
+            <p class="userName">{{this.user.userName}}</p>
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>add</mat-icon>
         </button>

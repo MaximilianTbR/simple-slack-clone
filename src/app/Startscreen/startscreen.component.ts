@@ -60,19 +60,15 @@ export class StartscreenComponent implements OnInit {
         console.log(this.allUsers);
         this.searchForUser()
       })
-<<<<<<< HEAD
     this.searchForUser()
-=======
 
-    this.searchForUser()
-    this.searchForUser();
+
 
     this.searchForIndex();
->>>>>>> 9f6beb15784c74f7b702bdb1881964a145e9ff8e
   }
 
   test() {
-    console.log(this.userId)
+    console.log(this.allChannels)
   }
 
   async getUserId() {

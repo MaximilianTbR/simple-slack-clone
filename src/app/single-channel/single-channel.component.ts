@@ -17,6 +17,9 @@ import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
   styleUrls: ['./single-channel.component.scss']
 })
 export class SingleChannelComponent implements OnInit {
+
+  test3 = ['121323','21212112', '45','1212']
+
   messageOfChannel: any;
   userId: any;
   channel = new Channel();
@@ -27,9 +30,7 @@ export class SingleChannelComponent implements OnInit {
   channelData: Channel;
   index: any;
   participantsLength;
-  channelName;
   refreshing = false;
-  messageField = '';
   channelID = '';
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
@@ -65,6 +66,7 @@ export class SingleChannelComponent implements OnInit {
  
     // await this.downloadUsers(); 
   }
+
 
   async downloadUsers() {
     this.firestore
@@ -172,17 +174,7 @@ export class SingleChannelComponent implements OnInit {
 
 
 
-  sendMessage() {
-    //this.searchForIndex()
-    this.channel.channelMessages.push(this.message);
-    this.firestore
-      .collection('channels')
-      .doc(this.channelID)
-      .update(this.channel.toJSON())
-      .then((result: any) => {
-      });
-    this.message = '';
-  }
+
 
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
@@ -195,9 +187,7 @@ export class SingleChannelComponent implements OnInit {
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
-    this.participantsLength = Object.keys(this.channel.participants).length;
     this.test2()
-    console.log(this.channel)
   }
 
 
@@ -235,12 +225,8 @@ export class SingleChannelComponent implements OnInit {
   }
 
 
-
-
-
-  test() {
-
-    console.log(this.channelName)
+  test(){
+    console.log()
   }
 
 
