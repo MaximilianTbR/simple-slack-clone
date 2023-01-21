@@ -52,15 +52,17 @@ export class SingleChannelComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
       this.getChannel();
+      this.filterChannels();
     });
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
+        console.log(this.userId)
       }
     })
 
-  //  await this.downloadChannels();
- 
+    //  await this.downloadChannels();
+
     // await this.downloadUsers(); 
   }
 
@@ -79,11 +81,11 @@ export class SingleChannelComponent implements OnInit {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
       map((channels: Channel[]) => channels.filter(channel => {
         // Make sure the `channel` object has a `participants` property
-        if (channel.hasOwnProperty('participants')) {
+        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
           this.filteredChannels2.push(channel);
-          //&& Object.values(channel.participants).includes(this.userId)
+          console.log(this.filteredChannels2)
         } else {
-          //console.log(channel);
+          console.log(channel);
         }
         return false;
       })),
@@ -91,8 +93,9 @@ export class SingleChannelComponent implements OnInit {
     );
 
     this.filteredChannels.toPromise().then(json => {
-      console.log(json);
+      console.log('here it is!', json);
     });
+
   }
 
 
@@ -108,29 +111,6 @@ export class SingleChannelComponent implements OnInit {
       })
   }
 
- /* 
- wird nirgendwo genutzt
- 
- async getUserId() {
-    this.afAuth.onAuthStateChanged(user => {
-      if (user) {
-        this.userId = user.uid;
-      }
-    })
-  }
- */
-  /* 
-  wird nirgendwo genutzt
-  emptyArray() {
-    this.channel.channelName = '';
-    this.channel.channelMessages = [];
-    this.channel.channelDescription = '';
-    this.channel.unread = false;
-    Object.keys(this.channel.participants).forEach(key => {
-      delete this.channel.participants[key];
-    });
-  } */
-
   async searchForIndex() {
     this.allChannels.forEach((channel) => {
       if (this.channelID == channel.customIdName) {
@@ -141,7 +121,7 @@ export class SingleChannelComponent implements OnInit {
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
-   //     this.participantsLength = Object.keys(this.channel.participants).length;
+        //     this.participantsLength = Object.keys(this.channel.participants).length;
       }
     })
   }
@@ -207,7 +187,7 @@ export class SingleChannelComponent implements OnInit {
         this.allMessages = allMessages
       });
 
-      this.allMessages =this.sortByTimestamp(this.allMessages)
+    this.allMessages = this.sortByTimestamp(this.allMessages)
   }
 
   sortByTimestamp(messages: any[]): any[] {
@@ -223,22 +203,10 @@ export class SingleChannelComponent implements OnInit {
       .add({
         text: this.message,
         user: this.userId,
-        timestampe : new Date().getTime()
+        timestampe: new Date().getTime()
       })
 
     console.log(this.message, this.userId)
     this.message = '';
   }
-
-
-
-
-
-  test() {
-
-    console.log(this.allMessages)
-  }
-
-
-
 }
