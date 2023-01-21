@@ -49,7 +49,7 @@ export class StartscreenComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe(async (changes: any) => {
         this.allChannels = changes;
-      })
+            })
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
     });
@@ -57,6 +57,7 @@ export class StartscreenComponent implements OnInit {
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
+        
         this.allUsers = changes;
  //       console.log(this.allUsers);
       })
@@ -66,15 +67,15 @@ export class StartscreenComponent implements OnInit {
     this.searchForIndex();
   }
 
-  test() {
-    console.log(this.allChannels)
-  }
+
+
+
+
 
   async getUserId() {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
-
       }
     })
   }
@@ -169,8 +170,10 @@ export class StartscreenComponent implements OnInit {
       this.darkmode = false;
     }
     else (this.darkmode = true)
-
   }
+
+
+
 
 
 }

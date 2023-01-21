@@ -21,6 +21,7 @@ export class SingleChannelComponent implements OnInit {
   test3 = ['121323', '21212112', '45', '1212'];
   userId: any;
   channel = new Channel();
+  UserName;
   user = new User();
   message: string;
   allChannels = [];
@@ -35,8 +36,6 @@ export class SingleChannelComponent implements OnInit {
   filteredChannels2 = [];
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
   userIsNotKnown = 0;
-  @Input() userName: any;
-  @Input() userMail: any;
 
   allMessages: any = [];
 
@@ -207,5 +206,10 @@ export class SingleChannelComponent implements OnInit {
 
     console.log(this.message, this.userId)
     this.message = '';
+  }
+
+
+  test(){
+    console.log(this.UserName)
   }
 }
