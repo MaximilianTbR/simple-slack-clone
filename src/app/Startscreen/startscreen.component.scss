@@ -104,6 +104,7 @@ textarea {
 
 .sidenav {
     width: 300px;
+    background-color: rgb(63, 14, 64)!important;
 }
 
 .example-icon {
@@ -136,6 +137,7 @@ mat-toolbar-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: rgb(53, 13, 54)!important;
 }
 
 .test {
@@ -220,4 +222,5 @@ mat-toolbar-row {
     align-items: center;
     font-size: 20px;
     cursor: pointer;
+    color: rgb(253, 252, 253);
 }

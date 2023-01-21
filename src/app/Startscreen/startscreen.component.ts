@@ -40,6 +40,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    
     await this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
@@ -57,16 +58,16 @@ export class StartscreenComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-        console.log(this.allUsers);
-        this.searchForUser()
+ //       console.log(this.allUsers);
       })
-    this.searchForUser();
+
+
 
     this.searchForIndex();
   }
 
   test() {
-    console.log(this.userId)
+    console.log(this.allChannels)
   }
 
   async getUserId() {
@@ -98,7 +99,7 @@ export class StartscreenComponent implements OnInit {
         this.channel.unread = this.allChannels[this.index].unread;
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.participants = this.allChannels[this.index].participants;
-     //   this.participantsLength = Object.keys(this.channel.participants).length;
+        //   this.participantsLength = Object.keys(this.channel.participants).length;
       } else {
         console.log('undefined!!!')
       }
@@ -162,13 +163,13 @@ export class StartscreenComponent implements OnInit {
     }
   }
 
-  switchMode(){
+  switchMode() {
     console.log(this.darkmode)
     if (this.darkmode) {
       this.darkmode = false;
     }
-    else( this.darkmode = true)
-    
+    else (this.darkmode = true)
+
   }
 
 

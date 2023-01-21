@@ -38,6 +38,5 @@ export class DialogAddUserComponent implements OnInit {
     this.loading = false;
     this.dialogRef.close();
   }
-  searchUsers(){
-  }
+
 }

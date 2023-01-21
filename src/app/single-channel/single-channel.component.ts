@@ -17,7 +17,8 @@ import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
   styleUrls: ['./single-channel.component.scss']
 })
 export class SingleChannelComponent implements OnInit {
-  messageOfChannel: any;
+
+  test3 = ['121323', '21212112', '45', '1212'];
   userId: any;
   channel = new Channel();
   user = new User();
@@ -28,12 +29,10 @@ export class SingleChannelComponent implements OnInit {
   index: any;
   participantsLength;
   refreshing = false;
-  messageField = '';
   channelID = '';
   channelCollection = this.firestore.collection('channels');
   filteredChannels: any;
   filteredChannels2 = [];
-  hallo: any;
   automaticallyGeneratedUserIndex = this.allUsers.length - 1;
   userIsNotKnown = 0;
   @Input() userName: any;
@@ -49,11 +48,15 @@ export class SingleChannelComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
+
       this.getChannel();
       this.filterChannels();
     });
+
+
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
@@ -63,8 +66,9 @@ export class SingleChannelComponent implements OnInit {
 
     //  await this.downloadChannels();
 
-    // await this.downloadUsers(); 
+    await this.downloadUsers();
   }
+
 
   async downloadUsers() {
     this.firestore
@@ -76,6 +80,9 @@ export class SingleChannelComponent implements OnInit {
         this.searchForUser();
       })
   }
+
+
+
 
   filterChannels() {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
@@ -150,17 +157,7 @@ export class SingleChannelComponent implements OnInit {
 
 
 
-  sendMessage() {
-    //this.searchForIndex()
-    this.channel.channelMessages.push(this.message);
-    this.firestore
-      .collection('channels')
-      .doc(this.channelID)
-      .update(this.channel.toJSON())
-      .then((result: any) => {
-      });
-    this.message = '';
-  }
+
 
   getsIndexOfClass(channel) {
     return this.index = this.allChannels.indexOf(channel);
@@ -169,10 +166,10 @@ export class SingleChannelComponent implements OnInit {
   getChannel() {
     this.firestore
       .collection('channels')
+      .doc(this.channelID)
       .valueChanges()
       .subscribe((user: any) =>
         this.channel = new Channel(user))
-    this.participantsLength = Object.keys(this.channel.participants).length;
     this.test2()
   }
 
@@ -184,7 +181,9 @@ export class SingleChannelComponent implements OnInit {
       .collection('channelMessages')
       .valueChanges()
       .subscribe(allMessages => {
+
         this.allMessages = allMessages
+        this.allMessages = this.sortByTimestamp(this.allMessages)
       });
 
     this.allMessages = this.sortByTimestamp(this.allMessages)
