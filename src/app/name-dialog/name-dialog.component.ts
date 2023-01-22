@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
+import { Channel } from '../models/channel';
 import { User } from '../models/user';
 
 @Component({
@@ -22,9 +23,11 @@ export class NameDialogComponent implements OnInit {
 
   user = new User();
   userId: any;
+  channel = new Channel();
   allChannels: any;
   allUsers: any;
   index: any;
+  channelID: any;
 
   ngOnInit(): void {
     this.afAuth.onAuthStateChanged(user => {
@@ -32,6 +35,9 @@ export class NameDialogComponent implements OnInit {
         this.userId = user.uid;
       }
     })
+    this.route.paramMap.subscribe(paramMap => {
+      this.channelID = paramMap.get('id');
+    });
     this.firestore
       .collection('channels')
       .valueChanges()
@@ -47,35 +53,37 @@ export class NameDialogComponent implements OnInit {
   }
 
   submitNewName() {
-    /*this.user.userId = this.userId;
+    this.user.userId = this.userId;
     this.firestore
       .collection('users')
       .add(this.user.toJSON())
       .then((result: any) => {
         console.log(result)
-      })*/
+      });
     this.joinGeneralChannel();
     this.firestore
       .collection('channels')
-      .doc('vsbfzlJW10O3Jvfq7XVF')
-      .update(this.allChannels)
+      .add(this.channel.toJSON())
       .then((result: any) => {
-      })/*
-    this.dialogRef.close(NameDialogComponent);*/
+        console.log(result)
+      });
+    this.dialogRef.close(NameDialogComponent);
   }
 
   joinGeneralChannel() {
     this.allChannels.forEach((channel) => {
-      if ('vsbfzlJW10O3Jvfq7XVF' == channel.customIdName) {
-        this.getsIndexOfChannel(channel);
+      if ('Herzlich Willkommen' == channel.channelName) {
+        this.index = this.allChannels.indexOf(channel)
+        console.log(this.index);
         this.allChannels[this.index].participants.push(this.userId);
-        console.log(this.allChannels[this.index].participants);
+        this.channel.channelName = this.allChannels[this.index].channelName;
+        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
+        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
+        this.channel.unread = this.allChannels[this.index].unread;
+        this.channel.participants = this.allChannels[this.index].participants;
+      } else {
+        console.log('did not work')
       }
     })
   }
-
-  getsIndexOfChannel(user) {
-    return this.index = this.allUsers.indexOf(user);
-  }
-
 }

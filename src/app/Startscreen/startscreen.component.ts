@@ -9,6 +9,7 @@ import { collection, collectionData, DocumentData } from '@angular/fire/firestor
 // import * as admin from 'firebase-admin/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
+import { map } from 'rxjs';
 
 
 @Component({
@@ -34,22 +35,26 @@ export class StartscreenComponent implements OnInit {
   messageField = '';
   channelId;
   viewAllUsers = true;
+  filteredChannels: any;
+  filteredChannels2 = [];
+  channelCollection = this.firestore.collection('channels');
 
   constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
 
   }
 
   async ngOnInit(): Promise<void> {
-    
+
     await this.getUserId();
     this.allMessages.length = 0;
     this.emptyArray();
     this.firestore
       .collection('channels')
-      .valueChanges({ idField: 'customIdName' })
+      .valueChanges()
       .subscribe(async (changes: any) => {
         this.allChannels = changes;
-            })
+        this.filterChannels();
+      })
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
     });
@@ -57,9 +62,9 @@ export class StartscreenComponent implements OnInit {
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
-        
+
         this.allUsers = changes;
- //       console.log(this.allUsers);
+        //       console.log(this.allUsers);
       })
 
 
@@ -69,6 +74,26 @@ export class StartscreenComponent implements OnInit {
 
 
 
+  filterChannels() {
+    this.filteredChannels = this.channelCollection.valueChanges().pipe(
+      map((channels: Channel[]) => channels.filter(channel => {
+        // Make sure the `channel` object has a `participants` property
+        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
+          this.filteredChannels2.push(channel);
+          console.log(this.filteredChannels2)
+        } else {
+          console.log(channel);
+        }
+        return false;
+      })),
+      map(channels => JSON.stringify(channels))
+    );
+
+    this.filteredChannels.toPromise().then(json => {
+      console.log('here it is!', json);
+    });
+
+  }
 
 
 
@@ -93,7 +118,7 @@ export class StartscreenComponent implements OnInit {
   async searchForIndex() {
     this.allChannels.forEach((channel) => {
       if (this.channelId == channel.customIdName) {
-        this.getsIndexOfClass(channel);
+        //this.getsIndexOfClass(channel);
         this.channel.channelDescription = this.allChannels[this.index].channelDescription;
         this.channel.channelMessages = this.allChannels[this.index].channelMessages;
         //this.channel.channelIndex = this.allChannels[this.index].channelIndex;
@@ -150,12 +175,6 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-
-  getsIndexOfClass(channel) {
-    return this.index = this.allChannels.indexOf(channel);
-  }
-
-
   viewAllUser() {
     if (!this.viewAllUsers)
       this.viewAllUsers = true;
@@ -171,13 +190,4 @@ export class StartscreenComponent implements OnInit {
     }
     else (this.darkmode = true)
   }
-
-
-
-
-
 }
-
-
-
-

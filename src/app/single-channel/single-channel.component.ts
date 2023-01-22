@@ -9,7 +9,6 @@ import { Channel } from '../models/channel';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
-import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 
 @Component({
   selector: 'app-single-channel',
@@ -50,9 +49,7 @@ export class SingleChannelComponent implements OnInit {
 
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
-
       this.getChannel();
-      this.filterChannels();
     });
 
 
@@ -79,9 +76,6 @@ export class SingleChannelComponent implements OnInit {
         this.searchForUser();
       })
   }
-
-
-
 
   filterChannels() {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
@@ -114,6 +108,7 @@ export class SingleChannelComponent implements OnInit {
         this.searchForIndex();
         this.channel = this.allChannels[this.index];
         this.filterChannels();
+        console.log(this.filteredChannels2[0].customIdName)
       })
   }
 
@@ -206,10 +201,5 @@ export class SingleChannelComponent implements OnInit {
 
     console.log(this.message, this.userId)
     this.message = '';
-  }
-
-
-  test(){
-    console.log(this.UserName)
   }
 }
