@@ -12,6 +12,7 @@ import { from, take } from 'rxjs';
 // import * as admin from 'firebase-admin/app';
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
 import { PERSISTENCE } from '@angular/fire/compat/auth';
+import { idToken } from '@angular/fire/auth';
 
 
 
@@ -88,7 +89,6 @@ export class LoginComponent implements OnInit {
       .collection('users')
       .add(this.user.toJSON(),)
       .then((result: any) => {
-
       })
     this.ui.start('#firebaseui-auth-container-2', this.uiConfig);
     this.continue();

@@ -9,15 +9,18 @@ import { Channel } from '../models/channel';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 
 @Component({
   selector: 'app-single-channel',
   templateUrl: './single-channel.component.html',
   styleUrls: ['./single-channel.component.scss']
 })
+
+
 export class SingleChannelComponent implements OnInit {
 
-  test3 = ['121323', '21212112', '45', '1212'];
+  test3 = ['3', '1', '2', '4'];
   userId: any;
   channel = new Channel();
   UserName;
@@ -49,7 +52,9 @@ export class SingleChannelComponent implements OnInit {
 
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
+
       this.getChannel();
+      this.filterChannels();
     });
 
 
@@ -76,6 +81,9 @@ export class SingleChannelComponent implements OnInit {
         this.searchForUser();
       })
   }
+
+
+
 
   filterChannels() {
     this.filteredChannels = this.channelCollection.valueChanges().pipe(
@@ -108,7 +116,6 @@ export class SingleChannelComponent implements OnInit {
         this.searchForIndex();
         this.channel = this.allChannels[this.index];
         this.filterChannels();
-        console.log(this.filteredChannels2[0].customIdName)
       })
   }
 
@@ -147,6 +154,7 @@ export class SingleChannelComponent implements OnInit {
 
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);
+
   }
 
 
@@ -199,7 +207,13 @@ export class SingleChannelComponent implements OnInit {
         timestampe: new Date().getTime()
       })
 
-    console.log(this.message, this.userId)
     this.message = '';
+  }
+
+
+  test(){
+   
+    
+    
   }
 }

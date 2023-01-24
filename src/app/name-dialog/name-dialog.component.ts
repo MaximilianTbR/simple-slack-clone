@@ -70,6 +70,12 @@ export class NameDialogComponent implements OnInit {
     this.dialogRef.close(NameDialogComponent);
   }
 
+  joinGeneralChannel(){
+      this.firestore
+      .collection('users')
+  }
+
+  /*
   joinGeneralChannel() {
     this.allChannels.forEach((channel) => {
       if ('Herzlich Willkommen' == channel.channelName) {
@@ -85,5 +91,5 @@ export class NameDialogComponent implements OnInit {
         console.log('did not work')
       }
     })
-  }
+  } */
 }

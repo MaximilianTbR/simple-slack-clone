@@ -8,9 +8,10 @@
                 <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
                 <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
             </p>
+            <button (click)="test()">test</button>
             <ul class="menu-items">
                 <li *ngIf="viewAllChannels">
-                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let filteredChannel of filteredChannels2; let i = index" [channelName]="this.filteredChannels2[i]['channelName']" [routerLink]="['/channel/'+ this.filteredChannels2[i].customIdName]"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i]" [routerLink]="['/channel/'+ this.allChannels[i]]"></app-single-channel-sidenav-link>
                 </li>
             </ul>
         </div>
@@ -31,7 +32,7 @@
 
         </div>
         <div>
-            <p class="userName">{{this.userId}}</p>
+            <p class="userName">{{this.UserName}}</p>
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>add</mat-icon>
         </button>
@@ -48,6 +49,7 @@
                 </button>
                     <span>Slack</span>
                 </div>
+
                 <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
             </mat-toolbar>
 
@@ -55,6 +57,7 @@
 
 
     </div>
+
     <app-single-channel></app-single-channel>
 
 </mat-drawer-container>

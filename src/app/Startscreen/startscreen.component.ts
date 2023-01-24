@@ -10,6 +10,7 @@ import { collection, collectionData, DocumentData } from '@angular/fire/firestor
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
 import { map } from 'rxjs';
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 
 
 @Component({
@@ -19,13 +20,14 @@ import { map } from 'rxjs';
 })
 export class StartscreenComponent implements OnInit {
   darkmode = false;
-  allMessages = [];
-  messageOfChannel: any;
   userId: any;
   channel = new Channel();
   user = new User()
   message: string;
   allChannels = [];
+  UserName;
+  UserMail;
+  allChannels2 = [];
   allUsers = [];
   channelData: Channel;
   index: any;
@@ -46,6 +48,8 @@ export class StartscreenComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     await this.getUserId();
+    await this.User();
+    /*
     this.allMessages.length = 0;
     this.emptyArray();
     this.firestore
@@ -69,7 +73,63 @@ export class StartscreenComponent implements OnInit {
 
 
 
-    this.searchForIndex();
+    this.searchForIndex(); */
+  } 
+
+
+  test(){
+    console.log(this.userId, this.UserName, this.UserMail, this.allChannels)
+    
+  }
+
+
+ async User(){
+    this.firestore
+    .collection('users')
+    .valueChanges()
+    .subscribe((changes: any) => {
+      this.allUsers = changes;
+
+      console.log('user', this.allUsers);
+      this.currentUser()
+    })
+  }
+
+
+
+
+ currentUser(){
+ for (let i = 0; i < this.allUsers.length; i++) {
+  let user  = this.allUsers[i];
+  if(this.userId == user.userId) {
+          this.UserName = user.userName;
+          this.UserMail = user.userMail;
+      for (let index = 0; index < user.userChannels.length; index++) {
+     const channel = user.userChannels[index];
+            console.log(channel)
+           this.allChannels.push(channel)
+}
+         }
+ }  this.getChannel();
+  }
+
+
+
+    getChannel() {
+      this.firestore
+    .collection('channels')
+    .valueChanges()
+    .subscribe((changes: any) => {
+      this.allChannels2 = changes;
+
+      console.log('channels', this.allChannels2);
+    })  
+}
+
+
+
+  consoleChannel(){
+    console.log(this.filteredChannels2)
   }
 
 
