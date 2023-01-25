@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
+import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
 @Component({
   selector: 'app-single-channel',
@@ -20,10 +21,9 @@ import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 
 export class SingleChannelComponent implements OnInit {
 
-  test3 = ['3', '1', '2', '4'];
   userId: any;
   channel = new Channel();
-  UserName;
+  UserName = this.Start.UserName;
   user = new User();
   message: string;
   allChannels = [];
@@ -45,7 +45,8 @@ export class SingleChannelComponent implements OnInit {
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public Start: StartscreenComponent
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -61,7 +62,7 @@ export class SingleChannelComponent implements OnInit {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
-        console.log(this.userId)
+    //    console.log(this.userId)
       }
     })
 
@@ -91,9 +92,9 @@ export class SingleChannelComponent implements OnInit {
         // Make sure the `channel` object has a `participants` property
         if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
           this.filteredChannels2.push(channel);
-          console.log(this.filteredChannels2)
+        //  console.log(this.filteredChannels2)
         } else {
-          console.log(channel);
+        //  console.log(channel);
         }
         return false;
       })),
@@ -101,7 +102,7 @@ export class SingleChannelComponent implements OnInit {
     );
 
     this.filteredChannels.toPromise().then(json => {
-      console.log('here it is!', json);
+   //   console.log('here it is!', json);
     });
 
   }
@@ -135,7 +136,7 @@ export class SingleChannelComponent implements OnInit {
   }
 
   searchForUser() {
-    console.log(this.allUsers)
+  //  console.log(this.allUsers)
     this.allUsers.forEach((user) => {
       if (this.userId == user.userId) {
         this.getsIndexOfUser(user);
@@ -203,7 +204,8 @@ export class SingleChannelComponent implements OnInit {
       .collection('channelMessages')
       .add({
         text: this.message,
-        user: this.userId,
+        userID: this.userId,
+        userName: this.Start.UserName,
         timestampe: new Date().getTime()
       })
 

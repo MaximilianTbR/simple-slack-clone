@@ -31,7 +31,7 @@ export class StartscreenComponent implements OnInit {
   allUsers = [];
   channelData: Channel;
   index: any;
-  participantsLength;
+  participantsLength; // wird
   refreshing = false;
   viewAllChannels = true;
   messageField = '';
@@ -49,31 +49,6 @@ export class StartscreenComponent implements OnInit {
 
     await this.getUserId();
     await this.User();
-    /*
-    this.allMessages.length = 0;
-    this.emptyArray();
-    this.firestore
-      .collection('channels')
-      .valueChanges()
-      .subscribe(async (changes: any) => {
-        this.allChannels = changes;
-        this.filterChannels();
-      })
-    this.route.paramMap.subscribe(paramMap => {
-      this.channelId = paramMap.get('id');
-    });
-    this.firestore
-      .collection('users')
-      .valueChanges()
-      .subscribe((changes: any) => {
-
-        this.allUsers = changes;
-        //       console.log(this.allUsers);
-      })
-
-
-
-    this.searchForIndex(); */
   } 
 
 
@@ -97,7 +72,7 @@ export class StartscreenComponent implements OnInit {
 
 
 
-
+// 
  currentUser(){
  for (let i = 0; i < this.allUsers.length; i++) {
   let user  = this.allUsers[i];
@@ -134,26 +109,6 @@ export class StartscreenComponent implements OnInit {
 
 
 
-  filterChannels() {
-    this.filteredChannels = this.channelCollection.valueChanges().pipe(
-      map((channels: Channel[]) => channels.filter(channel => {
-        // Make sure the `channel` object has a `participants` property
-        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
-          this.filteredChannels2.push(channel);
-          console.log(this.filteredChannels2)
-        } else {
-          console.log(channel);
-        }
-        return false;
-      })),
-      map(channels => JSON.stringify(channels))
-    );
-
-    this.filteredChannels.toPromise().then(json => {
-      console.log('here it is!', json);
-    });
-
-  }
 
 
 
@@ -165,59 +120,8 @@ export class StartscreenComponent implements OnInit {
     })
   }
 
-  emptyArray() {
-    this.channel.channelName = '';
-    this.channel.channelMessages = [];
-    this.channel.channelDescription = '';
-    this.channel.unread = false;
-    Object.keys(this.channel.participants).forEach(key => {
-      delete this.channel.participants[key];
-    });
-  }
 
-  async searchForIndex() {
-    this.allChannels.forEach((channel) => {
-      if (this.channelId == channel.customIdName) {
-        //this.getsIndexOfClass(channel);
-        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
-        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-        //this.channel.channelIndex = this.allChannels[this.index].channelIndex;
-        this.channel.unread = this.allChannels[this.index].unread;
-        this.channel.channelName = this.allChannels[this.index].channelName;
-        this.channel.participants = this.allChannels[this.index].participants;
-        //   this.participantsLength = Object.keys(this.channel.participants).length;
-      } else {
-        console.log('undefined!!!')
-      }
-    })
-  }
-
-  searchForUser() {
-    this.allUsers.forEach((user) => {
-      if (this.userId == user.userId) {
-        this.getsIndexOfUser(user);
-        if (this.allUsers[this.index].userName.length > 0) {
-          this.user.userName = this.allUsers[this.index].userName;
-          this.user.userId = this.allUsers[this.index].userId;
-          this.user.userMail = this.allUsers[this.index].userMail;
-          console.log(this.user)
-        } else {
-          console.log('open dialog!')
-        }
-      } else {
-        /*
-        this.user.userId = this.userId;
-
-        this.firestore
-          .collection('users')
-          .add(this.user.toJSON())
-          .then((result: any) => {
-
-          })*/
-      }
-    })
-  }
-
+  
 
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);

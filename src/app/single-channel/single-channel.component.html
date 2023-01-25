@@ -16,7 +16,7 @@
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
         <div class="message" *ngFor="let message of allMessages">
-            <p> {{message.user}}</p>
+            <p> {{message.userName}}</p>
             <p>{{message.text}}</p>
         </div>
     </div>
