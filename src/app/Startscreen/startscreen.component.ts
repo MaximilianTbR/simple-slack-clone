@@ -46,13 +46,19 @@ export class StartscreenComponent implements OnInit {
   test2;
   channelName = {};
 
-  constructor(public route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore, private afAuth: AngularFireAuth) {
+  constructor(
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public firestore: AngularFirestore,
+    private afAuth: AngularFireAuth) {
 
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getUserId();
-    await this.User();
+ 
+    await this.getUserId();   // speichert die ID von auth in der variable userID ab
+    await this.User(); // lädt alle User runter.
+    
     
   } 
 
@@ -66,8 +72,8 @@ export class StartscreenComponent implements OnInit {
   }
 
   test(){
-    console.log(this.allUsers)
-    
+    console.log(this.allUsers.length, this.userIsNotKnown, this.allUsers[0].payload.doc.data().userId)
+    this.dialog.open(NameDialogComponent) ;
   }
 
  // alle user werden in allUsers gespeichert
@@ -78,7 +84,7 @@ export class StartscreenComponent implements OnInit {
   .subscribe((docs: any) => {
     this.allUsers = docs;
 
-    this.currentUser()
+    this.searchForUser();
    // this.loadChannels()
   })
 }
@@ -140,24 +146,25 @@ loadChannels(){
 
 
   searchForUser() {
-    //  console.log(this.allUsers)
+     console.log('test',this.allUsers, this.userId, this.allUsers[7].payload.doc.data().userId)
       this.allUsers.forEach((user) => {
-        if (this.userId == user.userId) {
-          this.getsIndexOfUser(user);
+        if (this.userId == user.payload.doc.data().userId) {
+          this.currentUser();
         } else {
           this.userIsNotKnown++;
+          if (this.userIsNotKnown == this.allUsers.length) {
+            console.log('moin')
+            console.log(this.userIsNotKnown,this.allUsers.length )
+            
+          }
         }
       })
-      if (this.userIsNotKnown == this.allUsers.length) {
-        this.openDialogNewUser();
-      }
+      
     }
   
-    openDialogNewUser(): void {
-      this.dialog.open(NameDialogComponent);
+    openDialogNewUser() {
+      this.dialog.open(NameDialogComponent) ;
     }
 
-    getsIndexOfUser(user) {
-      return this.index = this.allUsers.indexOf(user);
-      }
+    ausloggen(){}
 }

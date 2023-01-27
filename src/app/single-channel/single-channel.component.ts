@@ -50,7 +50,6 @@ export class SingleChannelComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
 
@@ -79,7 +78,7 @@ export class SingleChannelComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allUsers = changes;
         this.user.userId = this.userId;
-        this.searchForUser();
+  //      this.searchForUser();
       })
   }
 
@@ -135,6 +134,8 @@ export class SingleChannelComponent implements OnInit {
     })
   }
 
+
+  
   searchForUser() {
   //  console.log(this.allUsers)
     this.allUsers.forEach((user) => {
@@ -152,6 +153,8 @@ export class SingleChannelComponent implements OnInit {
   openDialog(): void {
     this.dialog.open(NameDialogComponent);
   }
+
+  
 
   getsIndexOfUser(user) {
     return this.index = this.allUsers.indexOf(user);
@@ -215,7 +218,7 @@ export class SingleChannelComponent implements OnInit {
 
   test(){
    
-    
+    console.log(this.allUsers)
     
   }
 }

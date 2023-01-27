@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
 import { Channel } from '../models/channel';
 import { User } from '../models/user';
+import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
 @Component({
   selector: 'app-name-dialog',
@@ -18,7 +19,9 @@ export class NameDialogComponent implements OnInit {
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    
+    public Start: StartscreenComponent
   ) { }
 
   user = new User();
@@ -29,7 +32,8 @@ export class NameDialogComponent implements OnInit {
   index: any;
   channelID: any;
 
-  ngOnInit(): void {
+  ngOnInit(): void { /*
+    
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
@@ -49,9 +53,10 @@ export class NameDialogComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-      })
+      }) */
   }
 
+  /*
   submitNewName() {
     this.user.userId = this.userId;
     this.firestore
@@ -71,8 +76,10 @@ export class NameDialogComponent implements OnInit {
   }
 
   joinGeneralChannel(){
-      this.firestore
-      .collection('users')
+    this.firestore
+    .collection('users')
+
+
   }
 
   /*
