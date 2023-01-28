@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
 import { Channel } from '../models/channel';
 import { User } from '../models/user';
-import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
+// import { StartscreenComponent } from '../Startscreen/startscreen.component';
 @Component({
   selector: 'app-name-dialog',
   templateUrl: './name-dialog.component.html',
@@ -21,7 +21,7 @@ export class NameDialogComponent implements OnInit {
     private afAuth: AngularFireAuth,
     public dialog: MatDialog,
     
-    public Start: StartscreenComponent
+ //   public Start: StartscreenComponent
   ) { }
 
   user = new User();

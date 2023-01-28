@@ -44,7 +44,6 @@ export class SingleChannelComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
-    private afAuth: AngularFireAuth,
     public dialog: MatDialog,
     public Start: StartscreenComponent
   ) { }
@@ -54,122 +53,18 @@ export class SingleChannelComponent implements OnInit {
       this.channelID = paramMap.get('id');
 
       this.getChannel();
-      this.filterChannels();
     });
 
 
-    this.afAuth.onAuthStateChanged(user => {
-      if (user) {
-        this.userId = user.uid;
-    //    console.log(this.userId)
-      }
-    })
-
-    //  await this.downloadChannels();
-
-    await this.downloadUsers();
   }
 
-
-  async downloadUsers() {
-    this.firestore
-      .collection('users')
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.allUsers = changes;
-        this.user.userId = this.userId;
-  //      this.searchForUser();
-      })
-  }
-
-
-
-
-  filterChannels() {
-    this.filteredChannels = this.channelCollection.valueChanges().pipe(
-      map((channels: Channel[]) => channels.filter(channel => {
-        // Make sure the `channel` object has a `participants` property
-        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
-          this.filteredChannels2.push(channel);
-        //  console.log(this.filteredChannels2)
-        } else {
-        //  console.log(channel);
-        }
-        return false;
-      })),
-      map(channels => JSON.stringify(channels))
-    );
-
-    this.filteredChannels.toPromise().then(json => {
-   //   console.log('here it is!', json);
-    });
-
-  }
-
-
-  async downloadChannels() {
-    this.firestore
-      .collection('channels')
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.allChannels = changes;
-        this.searchForIndex();
-        this.channel = this.allChannels[this.index];
-        this.filterChannels();
-      })
-  }
-
-  async searchForIndex() {
-    this.allChannels.forEach((channel) => {
-      if (this.channelID == channel.customIdName) {
-        this.getsIndexOfClass(channel);
-        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
-        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-        //this.channel.channelIndex = this.allChannels[this.index].channelIndex;
-        this.channel.unread = this.allChannels[this.index].unread;
-        this.channel.channelName = this.allChannels[this.index].channelName;
-        this.channel.participants = this.allChannels[this.index].participants;
-        //     this.participantsLength = Object.keys(this.channel.participants).length;
-      }
-    })
-  }
-
-
-  
-  searchForUser() {
-  //  console.log(this.allUsers)
-    this.allUsers.forEach((user) => {
-      if (this.userId == user.userId) {
-        this.getsIndexOfUser(user);
-      } else {
-        this.userIsNotKnown++;
-      }
-    })
-    if (this.userIsNotKnown == this.allUsers.length) {
-      this.openDialog();
-    }
-  }
-
+ 
   openDialog(): void {
     this.dialog.open(NameDialogComponent);
   }
 
   
-
-  getsIndexOfUser(user) {
-    return this.index = this.allUsers.indexOf(user);
-
-  }
-
-
-
-
-
-  getsIndexOfClass(channel) {
-    return this.index = this.allChannels.indexOf(channel);
-  }
-
-  getChannel() {
+ getChannel() {
     this.firestore
       .collection('channels')
       .doc(this.channelID)
@@ -218,7 +113,7 @@ export class SingleChannelComponent implements OnInit {
 
   test(){
    
-    console.log(this.allUsers)
+    console.log(this.Start.UserName)
     
   }
 }
