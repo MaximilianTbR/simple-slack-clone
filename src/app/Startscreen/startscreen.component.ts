@@ -9,9 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
 import { map } from 'rxjs';
+<<<<<<< Updated upstream
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
+=======
+import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
+>>>>>>> Stashed changes
 
 
 @Component({
@@ -40,11 +44,16 @@ export class StartscreenComponent implements OnInit {
   messageField = '';
   channelId;
   viewAllUsers = true;
+  viewAllPrivateChats = true;
   filteredChannels: any;
   filteredChannels2 = [];
   channelCollection = this.firestore.collection('channels');
+<<<<<<< Updated upstream
   test2;
   channelName = {};
+=======
+  privateMessages = [];
+>>>>>>> Stashed changes
 
   constructor(
     public route: ActivatedRoute,
@@ -55,6 +64,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+<<<<<<< Updated upstream
  
     await this.getUserId();   // speichert die ID von auth in der variable userID ab
     await this.User(); // lädt alle User runter.
@@ -64,6 +74,62 @@ export class StartscreenComponent implements OnInit {
 
 
     async getUserId() {
+=======
+    await this.getUserId();
+    this.allMessages.length = 0;
+    this.emptyArray();
+    this.firestore
+      .collection('channels')
+      .valueChanges()
+      .subscribe(async (changes: any) => {
+        this.allChannels = changes;
+        this.filterChannels();
+      })
+    this.route.paramMap.subscribe(paramMap => {
+      this.channelId = paramMap.get('id');
+    });
+    this.firestore
+      .collection('users')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allUsers = changes;
+      })
+    this.firestore
+      .collection('directMessages')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.privateMessages = changes;
+      })
+    this.searchForIndex();
+  }
+
+
+
+  filterChannels() {
+    this.filteredChannels = this.channelCollection.valueChanges().pipe(
+      map((channels: Channel[]) => channels.filter(channel => {
+        // Make sure the `channel` object has a `participants` property
+        if (channel.hasOwnProperty('participants') && Object.values(channel.participants).includes(this.userId)) {
+          this.filteredChannels2.push(channel);
+          console.log(this.filteredChannels2)
+        } else {
+          console.log(channel);
+        }
+        return false;
+      })),
+      map(channels => JSON.stringify(channels))
+    );
+
+    this.filteredChannels.toPromise().then(json => {
+      console.log('here it is!', json);
+    });
+
+  }
+
+
+
+  async getUserId() {
+>>>>>>> Stashed changes
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
@@ -128,11 +194,23 @@ loadChannels(){
     this.dialog.open(DialogAddUserComponent);
   }
 
+  openDialogForDirectMessage() {
+    this.dialog.open(DmDialogComponent);
+  }
+
   viewAllUser() {
     if (!this.viewAllUsers)
       this.viewAllUsers = true;
     else {
       this.viewAllUsers = false;
+    }
+  }
+
+  viewAllOwnPrivateChats() {
+    if (!this.viewAllPrivateChats)
+      this.viewAllPrivateChats = true;
+    else {
+      this.viewAllPrivateChats = false;
     }
   }
 

@@ -33,6 +33,8 @@ import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NameDialogComponent } from './name-dialog/name-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { PrivateChatComponent } from './private-chat/private-chat.component';
+import { DmDialogComponent } from './dm-dialog/dm-dialog.component';
 
 
 
@@ -48,6 +50,8 @@ import { MatSelectModule } from '@angular/material/select';
     SingleChannelComponent,
     UploadDataComponent,
     NameDialogComponent,
+    PrivateChatComponent,
+    DmDialogComponent,
   ],
   imports: [
     BrowserModule,
