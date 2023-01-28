@@ -9,7 +9,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class UploadDataComponent implements OnInit {
   files = [];
-
   constructor(public storage: AngularFireStorage) { }
 
   ngOnInit(): void {

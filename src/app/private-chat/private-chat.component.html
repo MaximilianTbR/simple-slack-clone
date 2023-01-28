@@ -1,0 +1,32 @@
+<div class="router-container">
+    <mat-card class="channel-name-div">
+        <div class="single-div header">
+            <mat-icon>lock</mat-icon>
+            <div class="channelHeadline">
+                <h2> {{channel.channelName}}</h2>
+                <h3>{{channel.channelDescription}}</h3>
+
+            </div>
+        </div>
+        <div class="single-div">
+            <span> {{channel.participants.length}} Mitglieder</span>
+        </div>
+    </mat-card>
+
+    <div class="all-messages">
+        <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
+        <div class="message" *ngFor="let message of allMessages">
+            <p> {{message.user}}</p>
+            <p>{{message.text}}</p>
+        </div>
+    </div>
+    <div class="keyboard">
+        <div class="inputfield">
+            <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
+        </div>
+        <button (click)="sendMessage2()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+    <app-upload-data></app-upload-data>
+</div>

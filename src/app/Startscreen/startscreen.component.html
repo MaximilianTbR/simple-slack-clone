@@ -15,7 +15,6 @@
                 </li>
             </ul>
         </div>
-
         <div>
             <p class="allButtons" (click)="viewAllUser()">
                 <span *ngIf="!viewAllUsers" class="material-icons arrow">chevron_right</span>
@@ -23,22 +22,34 @@
             </p>
             <ul class="menu-items">
                 <li *ngIf="viewAllUsers">
-
-
-                    <!--    <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]"></app-single-channel-sidenav-link> -->
-
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let user of allUsers; let i = index" [channelName]="this.allUsers[i]['userName']"></app-single-channel-sidenav-link>
                 </li>
             </ul>
-
+        </div>
+        <div>
+            <p class="allButtons" (click)="viewAllOwnPrivateChats()">
+                <span *ngIf="!viewAllPrivateChats" class="material-icons arrow">chevron_right</span>
+                <span *ngIf="viewAllPrivateChats" class="material-icons arrow">expand_more</span>Direktnachrichten
+            </p>
+            <ul class="menu-items">
+                <li *ngIf="viewAllPrivateChats">
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let privateChat of privateMessages; let i = index" [channelName]="this.privateMessages[i]['chatName']"></app-single-channel-sidenav-link>
+                </li>
+            </ul>
+        </div>
+        <div class="btns-div">
+            <div>
+                <p class="userName">{{this.userId}}</p>
+                <button (click)="openDialogForDirectMessage()" class="" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+            <mat-icon>add</mat-icon></button>
+            </div>
         </div>
         <div>
             <p class="userName">{{this.UserName}}</p>
             <button [routerLink]="['']">ausloggen</button>
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
-            <mat-icon>add</mat-icon>
-        </button>
+        <mat-icon>add</mat-icon></button>
         </div>
-
     </mat-drawer>
 
     <div class="example-sidenav-content">

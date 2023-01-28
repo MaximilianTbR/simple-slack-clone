@@ -9,6 +9,12 @@
     margin-right: auto;
 }
 
+.btns-div {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+}
+
 .channel-name-div {
     display: flex;
     align-items: center;
