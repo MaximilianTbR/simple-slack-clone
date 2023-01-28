@@ -166,5 +166,5 @@ loadChannels(){
       this.dialog.open(NameDialogComponent) ;
     }
 
-    ausloggen(){}
+
 }
