@@ -20,8 +20,8 @@ export class NameDialogComponent implements OnInit {
     public firestore: AngularFirestore,
     private afAuth: AngularFireAuth,
     public dialog: MatDialog,
-    
- //   public Start: StartscreenComponent
+
+    //   public Start: StartscreenComponent
   ) { }
 
   user = new User();
@@ -32,8 +32,8 @@ export class NameDialogComponent implements OnInit {
   index: any;
   channelID: any;
 
-  ngOnInit(): void { /*
-    
+  ngOnInit(): void {
+
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid;
@@ -53,10 +53,10 @@ export class NameDialogComponent implements OnInit {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
-      }) */
+      })
   }
 
-  /*
+
   submitNewName() {
     this.user.userId = this.userId;
     this.firestore
@@ -75,14 +75,7 @@ export class NameDialogComponent implements OnInit {
     this.dialogRef.close(NameDialogComponent);
   }
 
-  joinGeneralChannel(){
-    this.firestore
-    .collection('users')
 
-
-  }
-
-  /*
   joinGeneralChannel() {
     this.allChannels.forEach((channel) => {
       if ('Herzlich Willkommen' == channel.channelName) {
@@ -98,5 +91,5 @@ export class NameDialogComponent implements OnInit {
         console.log('did not work')
       }
     })
-  } */
+  }
 }

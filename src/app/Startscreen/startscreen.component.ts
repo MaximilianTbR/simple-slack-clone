@@ -63,12 +63,12 @@ export class StartscreenComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
- 
+
     await this.getUserId();   // speichert die ID von auth in der variable userID ab
     await this.User(); // lädt alle User runter.
-    
-    
-  } 
+
+
+  }
   async getUserId() {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
@@ -77,50 +77,51 @@ export class StartscreenComponent implements OnInit {
     })
   }
 
-  test(){
-    console.log(this.allUsers) }
-
- // alle user werden in allUsers gespeichert
- async User(){
-  this.firestore
-  .collection('users')
-  .snapshotChanges()
-  .subscribe((docs: any) => {
-    this.allUsers = docs;
-
-    this.searchForUser();
-   // this.loadChannels()
-  })
-}
-// lädt alle Channels des Users runter
-loadChannels(){
-  this.firestore
-  .collection('users')
-  .doc(this.docIDfromUser)
-  .collection('channels')
-  .valueChanges()
-  .subscribe((channels: any) => {
-    this.allChannels = channels;
-  })
-}
-
-// der aktuell eingeloggte user wird ermittelt und deren name und mail werden in username und usermail abgespeichert. außerdem haben wir hiermit die DocID des Users und können immer auf ihn zugreifen
- currentUser(){
- for (let i = 0; i < this.allUsers.length; i++) {
-  let user  = this.allUsers[i];
-  if(this.userId ==  user.payload.doc.data().userId) {
-    this.docIDfromUser= user.payload.doc.id
-    this.UserMail = user.payload.doc.data().userMail;
-    this.UserName = user.payload.doc.data().userName;
-    this.UserChannels = user.payload.doc.data().userChannels;
-    }
+  test() {
+    console.log(this.allUsers)
   }
-  this.loadChannels()
- }
+
+  // alle user werden in allUsers gespeichert
+  async User() {
+    this.firestore
+      .collection('users')
+      .snapshotChanges()
+      .subscribe((docs: any) => {
+        this.allUsers = docs;
+
+        this.searchForUser();
+        // this.loadChannels()
+      })
+  }
+  // lädt alle Channels des Users runter
+  loadChannels() {
+    this.firestore
+      .collection('users')
+      .doc(this.docIDfromUser)
+      .collection('channels')
+      .valueChanges()
+      .subscribe((channels: any) => {
+        this.allChannels = channels;
+      })
+  }
+
+  // der aktuell eingeloggte user wird ermittelt und deren name und mail werden in username und usermail abgespeichert. außerdem haben wir hiermit die DocID des Users und können immer auf ihn zugreifen
+  currentUser() {
+    for (let i = 0; i < this.allUsers.length; i++) {
+      let user = this.allUsers[i];
+      if (this.userId == user.payload.doc.data().userId) {
+        this.docIDfromUser = user.payload.doc.id
+        this.UserMail = user.payload.doc.data().userMail;
+        this.UserName = user.payload.doc.data().userName;
+        this.UserChannels = user.payload.doc.data().userChannels;
+      }
+    }
+    this.loadChannels()
+  }
 
 
- 
- viewAllChannel() {
+
+  viewAllChannel() {
     if (!this.viewAllChannels)
       this.viewAllChannels = true;
     else {
@@ -136,7 +137,7 @@ loadChannels(){
     this.dialog.open(DmDialogComponent);
   }
 
- 
+
 
   viewAllOwnPrivateChats() {
     if (!this.viewAllPrivateChats)
@@ -156,25 +157,23 @@ loadChannels(){
 
 
   searchForUser() {
-     console.log('test',this.allUsers, this.userId, this.allUsers[7].payload.doc.data().userId)
-      this.allUsers.forEach((user) => {
-        if (this.userId == user.payload.doc.data().userId) {
-          this.currentUser();
-        } else {
-          this.userIsNotKnown++;
-          if (this.userIsNotKnown == this.allUsers.length) {
-            console.log('moin')
-            console.log(this.userIsNotKnown,this.allUsers.length )
-            
-          }
+    //console.log('test',this.allUsers, this.userId, this.allUsers[7].payload.doc.data().userId)
+    this.allUsers.forEach((user) => {
+      if (this.userId == user.payload.doc.data().userId) {
+        this.currentUser();
+      } else {
+        this.userIsNotKnown++;
+        if (this.userIsNotKnown == this.allUsers.length) {
+          this.openDialogNewUser();
         }
-      })
-      
-    }
-  
-    openDialogNewUser() {
-      this.dialog.open(NameDialogComponent) ;
-    }
+      }
+    })
+
+  }
+
+  openDialogNewUser() {
+    this.dialog.open(NameDialogComponent);
+  }
 
 
 }

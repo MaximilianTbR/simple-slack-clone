@@ -12,11 +12,20 @@
         <mat-label>Description</mat-label>
         <input type="text" matInput [(ngModel)]="channel.channelDescription">
     </mat-form-field>
-
     <mat-form-field>
-        <mat-label>User</mat-label>
-        <input type="text" matInput>
+        <mat-label>Participants</mat-label>
+        <input matInput (keydown)="refreshSearchResults()" [(ngModel)]="inputParticipants">
     </mat-form-field>
+
+    <div class="all-users-div" id="all-users">
+        <div class="single-user" *ngFor="let user of allUsers; let i = index" (click)="addUserToChannel(i)">
+            <p>{{user.userName}}</p>
+            <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                <mat-icon class="" id="icon-{{i}}">done_outline</mat-icon>
+                <mat-icon class="d-none" id="icon2-{{i}}">done</mat-icon>
+              </button>
+        </div>
+    </div>
 </div>
 
 

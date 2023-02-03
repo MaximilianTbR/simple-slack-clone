@@ -1,0 +1,15 @@
+.all-users-div {
+    overflow: scroll !important;
+    width: 400px;
+    height: 400px;
+}
+
+.single-user {
+    width: 100%;
+    height: 30px;
+    display: flex;
+}
+
+.d-none {
+    display: none !important;
+}

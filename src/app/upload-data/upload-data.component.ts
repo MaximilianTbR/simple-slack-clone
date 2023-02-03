@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 
 @Component({
@@ -17,9 +18,12 @@ export class UploadDataComponent implements OnInit {
 
   // In Progress
   uploadFile(event) {
-    const file = event.target.files[0];
-    const filePath = './assets/img/img.jpg';
+    let file = event.target.files[0];
+    const filePath = './assets/img/';
+    console.log(file);
     const task = this.storage.upload(filePath, file);
     this.files.push(task);
+    console.log(this.storage)
   }
 }
+

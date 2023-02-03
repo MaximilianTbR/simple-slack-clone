@@ -35,7 +35,11 @@ import { NameDialogComponent } from './name-dialog/name-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { PrivateChatComponent } from './private-chat/private-chat.component';
 import { DmDialogComponent } from './dm-dialog/dm-dialog.component';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { ThemePalette } from '@angular/material/core';
 
 
 @NgModule({
@@ -76,12 +80,17 @@ import { DmDialogComponent } from './dm-dialog/dm-dialog.component';
     AngularFireStorageModule,
     MatSlideToggleModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatChipsModule,
+    MatSlideToggleModule,
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
-    { provide: BUCKET, useValue: 'my-bucket-name' }
+    { provide: BUCKET, useValue: 'gs://simple-slack-clone.appspot.com' }
   ],
   bootstrap: [AppComponent]
 })
