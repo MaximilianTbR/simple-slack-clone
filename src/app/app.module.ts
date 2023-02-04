@@ -40,6 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ThemePalette } from '@angular/material/core';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ThemePalette } from '@angular/material/core';
     NameDialogComponent,
     PrivateChatComponent,
     DmDialogComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,

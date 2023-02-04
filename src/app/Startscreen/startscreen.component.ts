@@ -78,7 +78,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.allUsers)
+    console.log(this.UserChannels)
   }
 
   // alle user werden in allUsers gespeichert
