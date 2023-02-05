@@ -25,6 +25,7 @@ import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
 export class StartscreenComponent implements OnInit {
   darkmode = false;
   userId: any;
+  viewChannel = false;
   channel = new Channel();
   user = new User()
   docIDfromUser;
@@ -78,7 +79,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.UserChannels)
+    console.log(this.docIDfromUser)
   }
 
   // alle user werden in allUsers gespeichert

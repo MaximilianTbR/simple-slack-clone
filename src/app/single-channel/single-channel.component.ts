@@ -21,7 +21,7 @@ import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
 export class SingleChannelComponent implements OnInit {
 
-  userId: any;
+  docIDfromUser = this.Start.docIDfromUser;
   channel = new Channel();
   UserName = this.Start.UserName;
   user = new User();
@@ -102,7 +102,7 @@ export class SingleChannelComponent implements OnInit {
       .collection('channelMessages')
       .add({
         text: this.message,
-        userID: this.userId,
+        userID: this.Start.docIDfromUser,
         userName: this.Start.UserName,
         timestampe: new Date().getTime()
       })
@@ -113,7 +113,7 @@ export class SingleChannelComponent implements OnInit {
 
   test(){
    
-    console.log(this.Start.UserName)
+    console.log(this.Start.docIDfromUser)
     
   }
 }
