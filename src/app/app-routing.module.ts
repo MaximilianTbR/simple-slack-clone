@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'directMessage/:id', component: DirectMessageComponent },
   { path: 'channel/:id', component: StartscreenComponent },
   { path: '', component: LoginComponent },
-  {path: 'user', component: UserDetailComponent}
+  {path: 'user/:id', component: UserDetailComponent}
 ];
 
 @NgModule({

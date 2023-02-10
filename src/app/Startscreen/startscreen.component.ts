@@ -134,11 +134,6 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  openDialogForDirectMessage() {
-    this.dialog.open(DmDialogComponent);
-  }
-
-
 
   viewAllOwnPrivateChats() {
     if (!this.viewAllPrivateChats)

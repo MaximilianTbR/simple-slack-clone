@@ -113,7 +113,7 @@ export class SingleChannelComponent implements OnInit {
 
   test(){
    
-    console.log(this.Start.docIDfromUser)
+    console.log(this.channelID)
     
   }
 }

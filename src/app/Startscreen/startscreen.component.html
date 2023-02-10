@@ -11,7 +11,7 @@
             <button (click)="test()">test</button>
             <ul class="menu-items">
                 <li *ngIf="viewAllChannels">
-                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [routerLink]="['/slackClone/'+ this.allChannels[i].ChannelId]"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [routerLink]="['/channel/'+ this.allChannels[i].ChannelId]"></app-single-channel-sidenav-link>
                 </li>
             </ul>
         </div>
@@ -27,11 +27,7 @@
             </ul>
         </div>
         <div class="btns-div">
-            <div>
 
-                <button (click)="openDialogForDirectMessage()" class="" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
-            <mat-icon>add</mat-icon></button>
-            </div>
         </div>
         <div>
             <p class="userName">{{this.UserName}}</p>
@@ -60,5 +56,8 @@
     </div>
 
     <app-single-channel></app-single-channel>
+
+
+    <app-user-detail></app-user-detail>
 
 </mat-drawer-container>
