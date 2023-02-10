@@ -21,6 +21,9 @@ import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
 export class SingleChannelComponent implements OnInit {
 
+
+  sortiert = [];
+  testsortierung = ['1','423', '1212','3','2','8']
   docIDfromUser = this.Start.docIDfromUser;
   channel = new Channel();
   UserName = this.Start.UserName;
@@ -58,6 +61,15 @@ export class SingleChannelComponent implements OnInit {
 
   }
 
+
+  test(){
+    this.allMessages.sort((a, b) => {
+      return Number(a.timestampe) - Number(b.timestampe);
+    });
+    console.log(this.allMessages);
+    
+  }
+
  
   openDialog(): void {
     this.dialog.open(NameDialogComponent);
@@ -84,15 +96,18 @@ export class SingleChannelComponent implements OnInit {
       .subscribe(allMessages => {
 
         this.allMessages = allMessages
-        this.allMessages = this.sortByTimestamp(this.allMessages)
+        this.sortsMessages()
       });
 
-    this.allMessages = this.sortByTimestamp(this.allMessages)
   }
 
-  sortByTimestamp(messages: any[]): any[] {
-    return messages.sort((a, b) => a.timestamp - b.timestamp);
-  }
+  sortsMessages(){ this.allMessages.sort((a, b) => {
+    return Number(a.timestampe) - Number(b.timestampe);
+  });
+  console.log(this.allMessages);
+
+}
+
 
 
   sendMessage2() {
@@ -111,9 +126,5 @@ export class SingleChannelComponent implements OnInit {
   }
 
 
-  test(){
-   
-    console.log(this.channelID)
-    
-  }
+
 }
