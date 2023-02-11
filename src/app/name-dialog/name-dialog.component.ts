@@ -84,8 +84,6 @@ export class NameDialogComponent implements OnInit {
         this.allChannels[this.index].participants.push(this.userId);
         this.channel.channelName = this.allChannels[this.index].channelName;
         this.channel.channelDescription = this.allChannels[this.index].channelDescription;
-        this.channel.channelMessages = this.allChannels[this.index].channelMessages;
-        this.channel.unread = this.allChannels[this.index].unread;
         this.channel.participants = this.allChannels[this.index].participants;
       } else {
         console.log('did not work')

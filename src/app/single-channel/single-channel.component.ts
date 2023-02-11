@@ -22,24 +22,14 @@ import { StartscreenComponent } from '../Startscreen/startscreen.component';
 export class SingleChannelComponent implements OnInit {
 
 
-  sortiert = [];
-  testsortierung = ['1','423', '1212','3','2','8']
   docIDfromUser = this.Start.docIDfromUser;
-  channel = new Channel();
+  channel = new Channel;
   UserName = this.Start.UserName;
   user = new User();
   message: string;
-  allChannels = [];
   allUsers = [];
-  channelData: Channel;
-  index: any;
-  participantsLength;
   refreshing = false;
   channelID = '';
-  channelCollection = this.firestore.collection('channels');
-  filteredChannels: any;
-  filteredChannels2 = [];
-  automaticallyGeneratedUserIndex = this.allUsers.length - 1;
   userIsNotKnown = 0;
 
   allMessages: any = [];
@@ -56,6 +46,7 @@ export class SingleChannelComponent implements OnInit {
       this.channelID = paramMap.get('id');
 
       this.getChannel();
+
     });
 
 
@@ -63,11 +54,8 @@ export class SingleChannelComponent implements OnInit {
 
 
   test(){
-    this.allMessages.sort((a, b) => {
-      return Number(a.timestampe) - Number(b.timestampe);
-    });
-    console.log(this.allMessages);
-    
+
+    console.log(this.channel.participants)
   }
 
  
@@ -81,13 +69,14 @@ export class SingleChannelComponent implements OnInit {
       .collection('channels')
       .doc(this.channelID)
       .valueChanges()
-      .subscribe((user: any) =>
-        this.channel = new Channel(user))
-    this.test2()
+      .subscribe((channel: any) =>
+        this.channel = new Channel(channel))
+ //   this.loadAllMessages()
+  
   }
 
 
-  test2() {
+  loadAllMessages() {
     this.firestore
       .collection('channels')
       .doc(this.channelID)
@@ -101,16 +90,16 @@ export class SingleChannelComponent implements OnInit {
 
   }
 
-  sortsMessages(){ this.allMessages.sort((a, b) => {
+  sortsMessages(){ 
+    this.allMessages.sort((a, b) => {
     return Number(a.timestampe) - Number(b.timestampe);
   });
-  console.log(this.allMessages);
 
 }
 
 
 
-  sendMessage2() {
+  sendMessage() {
     this.firestore
       .collection('channels')
       .doc(this.channelID)
@@ -121,10 +110,8 @@ export class SingleChannelComponent implements OnInit {
         userName: this.Start.UserName,
         timestampe: new Date().getTime()
       })
-
     this.message = '';
   }
-
 
 
 }

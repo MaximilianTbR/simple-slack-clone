@@ -26,7 +26,7 @@
         <div class="inputfield">
             <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
         </div>
-        <button (click)="sendMessage2()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+        <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>send</mat-icon>
         </button>
     </div>

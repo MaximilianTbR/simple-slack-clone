@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
 import { User } from '../models/message';
-import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
 @Component({
   selector: 'app-user-detail',
@@ -12,14 +11,12 @@ import { StartscreenComponent } from '../Startscreen/startscreen.component';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-   
-  User = new User();
+   @Input () userName:any
   constructor(
-    private route: ActivatedRoute,
     public dialog: MatDialog,
     public firestore: AngularFirestore,
     
-    public Start: StartscreenComponent,) { }
+    ) { }
 
   ngOnInit(): void {
     
@@ -30,9 +27,6 @@ export class UserDetailComponent implements OnInit {
 
 
 
-  user(){
-    console.log(this.User)
-  }
   openDialogForDirectMessage() {
     this.dialog.open(DmDialogComponent);
     
