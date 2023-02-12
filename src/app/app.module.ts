@@ -17,7 +17,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { SingleMessageComponent } from './single-message/single-message.component';
@@ -41,7 +41,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ThemePalette } from '@angular/material/core';
 import { UserDetailComponent } from './user-detail/user-detail.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { provideStorage, getStorage } from '@angular/fire/storage'
 
 @NgModule({
   declarations: [
@@ -88,11 +89,15 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     FormsModule,
     MatChipsModule,
     MatSlideToggleModule,
+    HttpClientModule,
+    BrowserModule,
+    AngularFireStorageModule,
+    provideStorage(() => getStorage())
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
-    { provide: BUCKET, useValue: 'gs://simple-slack-clone.appspot.com' }
+    { provide: BUCKET, useValue: 'gs://simple-slack-clone.appspot.com' },
   ],
   bootstrap: [AppComponent]
 })

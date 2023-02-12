@@ -25,8 +25,9 @@ export class DialogAddUserComponent implements OnInit {
   allUsers2 = []
   loading = false;
   channel = new Channel();
-  inputParticipants: string = '';
-  inputParticipants2: string = '';
+  inputParticipants: string;
+  inputParticipants2;
+  userName;
 
 
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, private firestore: AngularFirestore) {
@@ -70,13 +71,17 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   refreshSearchResults() {
-    this.inputParticipants2 = this.inputParticipants.toLowerCase();
-    for (let j = 0; j < this.allUsers.length; j++) {
-      let name = this.allUsers[j].userName;
-      if (this.inputParticipants2.includes(name)) {
-        let list = document.getElementById('all-users').innerHTML += `<li>${name}</li>`;
-      }
+    //this.inputParticipants2 = this.inputParticipants.toLowerCase();
+    if (this.inputParticipants && this.inputParticipants.length > 0) {
+      console.log(this.inputParticipants)
     }
-    console.log(this.inputParticipants2)
+    this.allUsers.forEach(user => {
+      user.userName = this.userName;
+      if (this.userName.includes(this.inputParticipants2)) {
+        console.log('works')
+        let list = document.getElementById('all-users')
+        list.innerHTML += `<li>${user.userName}</li>`;
+      }
+    });
   }
 }
