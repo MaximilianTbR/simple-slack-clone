@@ -14,6 +14,7 @@ import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 
 import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 
 
@@ -49,7 +50,6 @@ export class StartscreenComponent implements OnInit {
   filteredChannels2 = [];
   channelCollection = this.firestore.collection('channels');
 
-  test2;
   channelName = {};
 
   privateMessages = [];
@@ -79,7 +79,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.docIDfromUser)
+    console.log(this.userIsNotKnown)
   }
 
   // alle user werden in allUsers gespeichert
@@ -96,6 +96,7 @@ export class StartscreenComponent implements OnInit {
   }
   // lädt alle Channels des Users runter
   loadChannels() {
+    this.allChannels = [];
     this.firestore
       .collection('users')
       .doc(this.docIDfromUser)
@@ -132,6 +133,10 @@ export class StartscreenComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(DialogAddUserComponent);
+  }
+
+  openCurrentUser(){
+    this.dialog.open(UserDetailComponent)
   }
 
 
