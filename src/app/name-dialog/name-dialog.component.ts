@@ -39,15 +39,7 @@ export class NameDialogComponent implements OnInit {
         this.userId = user.uid;
       }
     })
-    this.route.paramMap.subscribe(paramMap => {
-      this.channelID = paramMap.get('id');
-    });
-    this.firestore
-      .collection('channels')
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.allChannels = changes;
-      })
+   
     this.firestore
       .collection('users')
       .valueChanges()
@@ -65,29 +57,9 @@ export class NameDialogComponent implements OnInit {
       .then((result: any) => {
         console.log(result)
       });
-    this.joinGeneralChannel();
-    this.firestore
-      .collection('channels')
-      .add(this.channel.toJSON())
-      .then((result: any) => {
-        console.log(result)
-      });
+    
     this.dialogRef.close(NameDialogComponent);
   }
 
-
-  joinGeneralChannel() {
-    this.allChannels.forEach((channel) => {
-      if ('Herzlich Willkommen' == channel.channelName) {
-        this.index = this.allChannels.indexOf(channel)
-        console.log(this.index);
-        this.allChannels[this.index].participants.push(this.userId);
-        this.channel.channelName = this.allChannels[this.index].channelName;
-        this.channel.channelDescription = this.allChannels[this.index].channelDescription;
-        this.channel.participants = this.allChannels[this.index].participants;
-      } else {
-        console.log('did not work')
-      }
-    })
-  }
+ 
 }

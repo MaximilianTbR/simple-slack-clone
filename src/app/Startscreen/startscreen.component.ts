@@ -24,6 +24,7 @@ import { UserDetailComponent } from '../user-detail/user-detail.component';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  notView = false;
   darkmode = false;
   userId: any;
   viewChannel = false;
@@ -66,8 +67,7 @@ export class StartscreenComponent implements OnInit {
 
 
     await this.getUserId();   // speichert die ID von auth in der variable userID ab
-    await this.User(); // lädt alle User runter.
-
+    await this.User(); // lädt alle User runter
 
   }
   async getUserId() {
@@ -79,7 +79,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.userIsNotKnown)
+    console.log(this.docIDfromUser)
   }
 
   // alle user werden in allUsers gespeichert
@@ -91,21 +91,35 @@ export class StartscreenComponent implements OnInit {
         this.allUsers = docs;
 
         this.searchForUser();
-        // this.loadChannels()
       })
   }
   // lädt alle Channels des Users runter
   loadChannels() {
-    this.allChannels = [];
     this.firestore
       .collection('users')
       .doc(this.docIDfromUser)
-      .collection('channels')
+      .collection('userChannels')
       .valueChanges()
       .subscribe((channels: any) => {
         this.allChannels = channels;
+        this.pushToChannel()
       })
+      
   }
+
+  pushToChannel(){
+    if(this.allChannels.length == 0)
+      {
+        this.firestore
+        .collection('users')
+        .doc(this.docIDfromUser)
+        .collection('userChannels')
+        .add({
+          ChannelId: 'SbNH3sbeTNT7nKmDJ8Ss',
+          name: 'Herzlich Willkommen',
+        })
+        } 
+    }
 
   // der aktuell eingeloggte user wird ermittelt und deren name und mail werden in username und usermail abgespeichert. außerdem haben wir hiermit die DocID des Users und können immer auf ihn zugreifen
   currentUser() {
@@ -119,11 +133,10 @@ export class StartscreenComponent implements OnInit {
       }
     }
     this.loadChannels()
+    
   }
 
-
-
-  viewAllChannel() {
+ viewAllChannel() {
     if (!this.viewAllChannels)
       this.viewAllChannels = true;
     else {
@@ -135,8 +148,12 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  openCurrentUser(){
-    this.dialog.open(UserDetailComponent)
+  openCurrentUser(UserID){
+    this.dialog.open(UserDetailComponent,{
+      data:
+       {UserID: UserID,
+        docIDfromUser: this.docIDfromUser}
+    })
   }
 
 

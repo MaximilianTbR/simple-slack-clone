@@ -11,6 +11,7 @@ import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { StartscreenComponent } from '../Startscreen/startscreen.component';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 @Component({
   selector: 'app-single-channel',
@@ -25,7 +26,6 @@ export class SingleChannelComponent implements OnInit {
   docIDfromUser = this.Start.docIDfromUser;
   channel = new Channel;
   UserName = this.Start.UserName;
-  user = new User();
   message: string;
   allUsers = [];
   refreshing = false;
@@ -55,14 +55,8 @@ export class SingleChannelComponent implements OnInit {
 
   test(){
 
-    console.log(this.channel.participants)
+    console.log(this.channel)
   }
-
- 
-  openDialog(): void {
-    this.dialog.open(NameDialogComponent);
-  }
-
   
  getChannel() {
     this.firestore
@@ -70,11 +64,17 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .valueChanges()
       .subscribe((channel: any) =>
-        this.channel = new Channel(channel))
- //   this.loadAllMessages()
+        this.channel = channel)
+    this.loadAllMessages()
   
   }
 
+  openCurrentUser(UserID){
+    this.dialog.open(UserDetailComponent,{
+      data:
+       {UserID: UserID}
+    })
+  }
 
   loadAllMessages() {
     this.firestore
@@ -113,5 +113,5 @@ export class SingleChannelComponent implements OnInit {
     this.message = '';
   }
 
-
+  
 }

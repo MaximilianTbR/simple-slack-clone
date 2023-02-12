@@ -4,6 +4,10 @@
     bottom: 0px;
 }
 
+.messagename {
+    cursor: pointer;
+}
+
 .all-messages {
     overflow: scroll !important;
     position: absolute;

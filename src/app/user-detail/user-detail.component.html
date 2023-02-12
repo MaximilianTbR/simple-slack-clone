@@ -1,3 +1,13 @@
-<h1>dgsgd</h1>
-<h2>fdfdss</h2>
-<h2>Status</h2>
+<div *ngIf="this.User">
+
+    <h1>{{User.userName}}</h1>
+    <h2> {{User.userMail}}</h2>
+    <h2>Status: aktuell nicht im User vorhanden</h2>
+
+</div>
+
+<p *ngIf="activeUser">ich bin der eingeloggte user</p>
+
+
+
+<button (click)="this.test()">test</button>
