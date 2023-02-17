@@ -18,8 +18,9 @@
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
         <div class="message" *ngFor="let message of allMessages">
-            <p> {{message.userName}}</p>
+            <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
             <p>{{message.text}}</p>
+            <img *ngIf="message.Image" src="{{message.Image}}" alt="">
         </div>
     </div>
     <div class="keyboard">

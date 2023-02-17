@@ -6,3 +6,18 @@
         <input class="inputChooseFile" type="file" (change)="chooseFile($event)">
         <button class="inputChooseFile" (click)="addData()">Add Data</button> </div>
 </div>
+<div *ngIf="this.User">
+    <img *ngIf="userPP" src="{{userPP}}" alt="">
+    <h1>Name: {{UserName}}</h1>
+    <h2> E-Mail: {{UserMail}}</h2>
+    <h2 *ngIf="">Status:</h2>
+
+
+</div>
+
+<button *ngIf="activeUser" (click)="this.openEditUser()">Daten ändern</button>
+<button *ngIf="!activeUser" (click)="this.openDialogForDirectMessage()">Nachricht schreiben</button>
+
+
+
+<button>test</button>

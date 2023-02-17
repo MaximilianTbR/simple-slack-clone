@@ -1,12 +1,14 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
-import { User } from '../models/message';
 import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } from '@angular/fire/storage';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { User } from '../models/user';
+import { StartscreenComponent } from '../Startscreen/startscreen.component';
+
 
 @Component({
   selector: 'app-user-detail',
@@ -19,7 +21,7 @@ export class UserDetailComponent implements OnInit {
     public dialog: MatDialog,
     public firestore: AngularFirestore,
     public storage: Storage,
-    public route: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public afAuth: AngularFireAuth
   ) { }
 
@@ -35,6 +37,7 @@ export class UserDetailComponent implements OnInit {
   profileImg = './../../assets/img/blank-pp.webp';
   userPP;
   userPP2 = "https://firebasestorage.googleapis.com/v0/b/simple-slack-clone.appspot.com/o/users%2FpK6Y7WqHSQUzWvuBj9Hi38iDfWy2%2Fportfolio.png?alt=media&token=ac8c669c-adb9-48a2-8998-e7c43ecf4f7a";
+  activeUser = false;
 
   async ngOnInit(): Promise<void> {
     await this.getUserId();
@@ -78,6 +81,12 @@ export class UserDetailComponent implements OnInit {
 
   openDialogNewUser() {
     this.dialog.open(NameDialogComponent);
+  }
+
+  checkUser() {
+    if (this.data.UserID == this.data.docIDfromUser) {
+      this.activeUser = true;
+    }
   }
 
   currentUser() {
@@ -135,7 +144,24 @@ export class UserDetailComponent implements OnInit {
   }
 
   openDialogForDirectMessage() {
-    this.dialog.open(DmDialogComponent);
+    this.dialog.open(DmDialogComponent, {
+      data:
+      {
+        UserID: this.data.UserID,
+        docIDfromUser: this.data.docIDfromUser
+      }
+    })
+
+  }
+
+
+  openEditUser() {
+    let dialog = this.dialog.open(EditUserComponent, {
+      data: {
+        docIDfromUser: this.data.docIDfromUser
+      }
+    })
+    dialog.componentInstance.user = new User(this.User);
   }
 
 

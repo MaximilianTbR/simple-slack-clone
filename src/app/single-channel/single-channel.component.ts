@@ -11,6 +11,7 @@ import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { StartscreenComponent } from '../Startscreen/startscreen.component';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
 
 @Component({
   selector: 'app-single-channel',
@@ -22,10 +23,8 @@ import { StartscreenComponent } from '../Startscreen/startscreen.component';
 export class SingleChannelComponent implements OnInit {
 
 
-  docIDfromUser = this.Start.docIDfromUser;
   channel = new Channel;
   UserName = this.Start.UserName;
-  user = new User();
   message: string;
   allUsers = [];
   refreshing = false;
@@ -68,9 +67,19 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .valueChanges()
       .subscribe((channel: any) =>
-        this.channel = new Channel(channel))
-    //   this.loadAllMessages()
+        this.channel = channel)
+    this.loadAllMessages()
 
+  }
+
+  openCurrentUser(userID) {
+    this.dialog.open(UserDetailComponent, {
+      data:
+      {
+        UserID: userID,
+        docIDfromUser: this.Start.docIDfromUser
+      }
+    })
   }
 
   loadAllMessages() {

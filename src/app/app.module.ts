@@ -42,7 +42,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ThemePalette } from '@angular/material/core';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
-import { provideStorage, getStorage } from '@angular/fire/storage'
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { EditUserComponent } from './edit-user/edit-user.component'
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage'
     PrivateChatComponent,
     DmDialogComponent,
     UserDetailComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
