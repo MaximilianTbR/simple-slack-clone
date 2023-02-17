@@ -79,7 +79,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.docIDfromUser)
+    console.log(this.allUsers)
   }
 
   // alle user werden in allUsers gespeichert
@@ -148,11 +148,13 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  openCurrentUser(UserID){
+  openCurrentUser(userID){
     this.dialog.open(UserDetailComponent,{
       data:
-       {UserID: UserID,
-        docIDfromUser: this.docIDfromUser}
+       {
+        UserID: userID,
+        docIDfromUser: this.docIDfromUser
+      }
     })
   }
 

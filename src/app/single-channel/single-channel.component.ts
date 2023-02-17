@@ -23,7 +23,6 @@ import { UserDetailComponent } from '../user-detail/user-detail.component';
 export class SingleChannelComponent implements OnInit {
 
 
-  docIDfromUser = this.Start.docIDfromUser;
   channel = new Channel;
   UserName = this.Start.UserName;
   message: string;
@@ -52,10 +51,8 @@ export class SingleChannelComponent implements OnInit {
 
   }
 
-
-  test(){
-
-    console.log(this.channel)
+  test() {
+    console.log(this.Start.docIDfromUser)
   }
   
  getChannel() {
@@ -69,10 +66,13 @@ export class SingleChannelComponent implements OnInit {
   
   }
 
-  openCurrentUser(UserID){
+  openCurrentUser(userID){
     this.dialog.open(UserDetailComponent,{
       data:
-       {UserID: UserID}
+       {
+        UserID: userID,
+        docIDfromUser: this.Start.docIDfromUser
+      }
     })
   }
 

@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 import { User } from '../models/user';
 import { StartscreenComponent } from '../Startscreen/startscreen.component';
 
@@ -21,7 +22,9 @@ export class UserDetailComponent implements OnInit {
     ) { }
 
   async ngOnInit(): Promise<void> {
+  
     await this.loadUser()
+
   }
 
 
@@ -32,24 +35,41 @@ export class UserDetailComponent implements OnInit {
     .valueChanges()
     .subscribe(user=> {
       this.User = user;
+      this.checkUser()
     })
-    this.checkUser()
+
   }
   
   test(){
-    console.log(this.data.UserID, this.data.docIDfromUser)
+    console.log(this.data)
   }
 
   checkUser(){
-    if (this.data.UserID = this.data.docIDfromUser) {
+    if (this.data.UserID == this.data.docIDfromUser) {
       this.activeUser = true;
     }
   }
 
 
   openDialogForDirectMessage() {
-    this.dialog.open(DmDialogComponent);
+    this.dialog.open(DmDialogComponent,{
+      data:
+         {
+          UserID: this.data.UserID,
+          docIDfromUser: this.data.docIDfromUser
+        }
+    })
+      
+    }
+
     
-  }
+    openEditUser(){
+     let dialog=  this.dialog.open(EditUserComponent,{
+      data:{
+        docIDfromUser: this.data.docIDfromUser
+      }
+     })
+     dialog.componentInstance.user = new User(this.User);
+    }
 
 }

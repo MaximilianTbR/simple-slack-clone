@@ -1,0 +1,18 @@
+<div>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="user.userName" matInput placeholder="Name">
+        <!-- <mat-hint>Please enter a Firstname</mat-hint>-->
+    </mat-form-field>
+
+</div>
+<div>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>E-Mail Address</mat-label>
+        <input [(ngModel)]="user.userMail" matInput placeholder="E-Mail Address">
+        <!-- <mat-hint>Please enter a Firstname</mat-hint>-->
+    </mat-form-field>
+
+</div>
+
+<button (click)="saveUser()">speicerhn</button>

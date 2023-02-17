@@ -1,12 +1,14 @@
 <div *ngIf="this.User">
+    <img *ngIf="User.userPP" src="{{User.userPP}}" alt="">
+    <h1>Name: {{User.userName}}</h1>
+    <h2> E-Mail: {{User.userMail}}</h2>
+    <h2 *ngIf="User.status">Status: {{User.status}}</h2>
 
-    <h1>{{User.userName}}</h1>
-    <h2> {{User.userMail}}</h2>
-    <h2>Status: aktuell nicht im User vorhanden</h2>
 
 </div>
 
-<p *ngIf="activeUser">ich bin der eingeloggte user</p>
+<button *ngIf="activeUser" (click)="this.openEditUser()">Daten ändern</button>
+<button *ngIf="!activeUser" (click)="this.openDialogForDirectMessage()">Nachricht schreiben</button>
 
 
 

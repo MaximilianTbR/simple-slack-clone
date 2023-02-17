@@ -9,5 +9,11 @@
         <mat-label></mat-label>
         <input matInput [(ngModel)]="user.userMail">
     </mat-form-field>
+    <span class="span-1">status</span>
+    <mat-form-field appearance="fill">
+        <mat-label></mat-label>
+        <input matInput [(ngModel)]="user.status">
+    </mat-form-field>
+
     <button mat-raised-button color="primary" (click)="submitNewName()">Okay!</button>
 </div>
