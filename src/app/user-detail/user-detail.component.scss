@@ -1,0 +1,22 @@
+.profile-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+.main-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+}
+
+.btn-div {
+    width: fit-content;
+}
+
+.inputChooseFile {
+    margin-right: 20px;
+}

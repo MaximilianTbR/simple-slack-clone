@@ -44,37 +44,34 @@ export class SingleChannelComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe(paramMap => {
       this.channelID = paramMap.get('id');
-
       this.getChannel();
-
     });
-
+    this.loadAllMessages();
+    this.sortsMessages();
 
   }
 
 
-  test(){
-
+  test() {
     console.log(this.channel.participants)
   }
 
- 
+
   openDialog(): void {
     this.dialog.open(NameDialogComponent);
   }
 
-  
- getChannel() {
+
+  getChannel() {
     this.firestore
       .collection('channels')
       .doc(this.channelID)
       .valueChanges()
       .subscribe((channel: any) =>
         this.channel = new Channel(channel))
- //   this.loadAllMessages()
-  
-  }
+    //   this.loadAllMessages()
 
+  }
 
   loadAllMessages() {
     this.firestore
@@ -83,19 +80,20 @@ export class SingleChannelComponent implements OnInit {
       .collection('channelMessages')
       .valueChanges()
       .subscribe(allMessages => {
-
         this.allMessages = allMessages
+        console.log(this.allMessages, 'these are all messages')
         this.sortsMessages()
       });
 
+
   }
 
-  sortsMessages(){ 
+  sortsMessages() {
     this.allMessages.sort((a, b) => {
-    return Number(a.timestampe) - Number(b.timestampe);
-  });
+      return Number(a.timestampe) - Number(b.timestampe);
+    });
 
-}
+  }
 
 
 

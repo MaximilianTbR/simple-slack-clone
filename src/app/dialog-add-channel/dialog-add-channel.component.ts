@@ -79,7 +79,7 @@ export class DialogAddUserComponent implements OnInit {
       user.userName = this.userName;
       if (this.userName.includes(this.inputParticipants2)) {
         console.log('works')
-        let list = document.getElementById('all-users')
+        let list = document.getElementById('all-users');
         list.innerHTML += `<li>${user.userName}</li>`;
       }
     });

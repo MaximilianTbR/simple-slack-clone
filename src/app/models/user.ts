@@ -5,6 +5,7 @@ export class User {
     userChannels: Array<string>;
     isAdded: boolean;
     status: string;
+    userPP: string;
 
     constructor(obj?: any) {
         this.userName = obj ? obj.userName : '';
@@ -13,6 +14,7 @@ export class User {
         this.userChannels = obj ? obj.userChannels : [];
         this.isAdded = obj ? obj.isAdded : false;
         this.status = obj ? obj.status : '';
+        this.userPP = obj ? obj.userPP : '';
     }
 
     public toJSON() {
@@ -23,6 +25,7 @@ export class User {
             userChannels: this.userChannels,
             isAdded: this.isAdded,
             status: this.status,
+            userPP: this.userPP
         }
     }
 }
