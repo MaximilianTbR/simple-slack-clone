@@ -31,5 +31,7 @@
             <mat-icon>send</mat-icon>
         </button>
     </div>
-    <app-upload-data></app-upload-data>
+    <img *ngIf="imgAvailable" src="{{imgDownloadURL}}" class="inputChooseFile">
+    <input class="inputChooseFile" type="file" (change)="chooseFile($event)">
+    <button class="inputChooseFile" (click)="addData()">Add Data</button>
 </div>

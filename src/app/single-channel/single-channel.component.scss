@@ -227,3 +227,15 @@ mat-toolbar-row {
     font-size: 20px;
     cursor: pointer;
 }
+
+.inputChooseFile {
+    position: absolute;
+    bottom: 20px;
+    right: 80px;
+}
+
+.img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}

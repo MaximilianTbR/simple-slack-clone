@@ -24,6 +24,7 @@ export class UploadDataComponent implements OnInit {
     public firestore: AngularFirestore,
     public afAuth: AngularFireAuth) { }
   userId: string;
+  downloadURL2;
 
   async ngOnInit(): Promise<void> {
     await this.getUserId();
@@ -44,7 +45,7 @@ export class UploadDataComponent implements OnInit {
   }
 
   addData() {
-    const StorageRef = ref(this.storage, 'users/' + this.userId + '/' + this.file.name)
+    const StorageRef = ref(this.storage, 'allChannelPictures/' + this.file.name)
     const uploadTask = uploadBytesResumable(StorageRef, this.file)
     uploadTask.on('state_changed', (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -54,6 +55,10 @@ export class UploadDataComponent implements OnInit {
     }, () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
+        if (downloadURL) {
+          this.downloadURL2 = downloadURL;
+          console.log(this.downloadURL2)
+        }
       });
     })
   }
@@ -75,8 +80,6 @@ export class UploadDataComponent implements OnInit {
     console.log(this.storage)
   }
   selectedFile: File = null;
-  fb;
-  downloadURL: Observable<string>;
 
 }
 
