@@ -22,7 +22,7 @@
             </p>
             <ul class="menu-items">
                 <li *ngIf="viewAllPrivateChats">
-                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let privateChat of privateMessages; let i = index" [channelName]="this.privateMessages[i]['chatName']"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let chat of chats; let i = index" [channelName]="this.chats[i].participants"></app-single-channel-sidenav-link>
                 </li>
             </ul>
         </div>
@@ -56,6 +56,8 @@
     </div>
 
     <app-single-channel></app-single-channel>
+
+
 
 
 

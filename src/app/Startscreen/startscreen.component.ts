@@ -15,6 +15,7 @@ import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 
 import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { collection } from 'firebase/firestore';
 
 
 
@@ -24,6 +25,7 @@ import { UserDetailComponent } from '../user-detail/user-detail.component';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  hallo = true;
   notView = false;
   darkmode = false;
   userId: any;
@@ -38,6 +40,7 @@ export class StartscreenComponent implements OnInit {
   allChannels2 = [];
   allUsers = [];
   allChannels = [];
+  chats = [];
   channelData: Channel;
   index: any;
   participantsLength; // wird
@@ -79,7 +82,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.allUsers)
+    console.log(this.chats)
   }
 
   // alle user werden in allUsers gespeichert
@@ -107,6 +110,16 @@ export class StartscreenComponent implements OnInit {
       
   }
 
+  loadChats(){
+    this.firestore
+    .collection('users')
+    .doc(this.docIDfromUser)
+    .collection('userChat')
+    .valueChanges()
+    .subscribe((chat:any) =>
+    this.chats = chat)
+  }
+
   pushToChannel(){
     if(this.allChannels.length == 0)
       {
@@ -132,7 +145,9 @@ export class StartscreenComponent implements OnInit {
         this.UserChannels = user.payload.doc.data().userChannels;
       }
     }
+    this.userIsNotKnown = 0;
     this.loadChannels()
+    this.loadChats()
     
   }
 
@@ -177,14 +192,17 @@ export class StartscreenComponent implements OnInit {
 
 
   searchForUser() {
-    //console.log('test',this.allUsers, this.userId, this.allUsers[7].payload.doc.data().userId)
     this.allUsers.forEach((user) => {
       if (this.userId == user.payload.doc.data().userId) {
         this.currentUser();
+        console.log(this.userIsNotKnown)
       } else {
         this.userIsNotKnown++;
         if (this.userIsNotKnown == this.allUsers.length) {
+          
+          console.log(this.userIsNotKnown, this.allUsers)
           this.openDialogNewUser();
+          this.userIsNotKnown = 0;
         }
       }
     })
