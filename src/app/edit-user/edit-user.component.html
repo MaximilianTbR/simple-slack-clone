@@ -17,5 +17,13 @@
 
 <input class="inputChooseFile" type="file" (change)="chooseFile($event)">
 <button class="inputChooseFile" (click)="addData()">Add Data</button>
+<div>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Status</mat-label>
+        <input [(ngModel)]="user.status" matInput placeholder="Status">
+        <!-- <mat-hint>Please enter a Firstname</mat-hint>-->
+    </mat-form-field>
+
+</div>
 
 <button (click)="saveUser()">speicerhn</button>

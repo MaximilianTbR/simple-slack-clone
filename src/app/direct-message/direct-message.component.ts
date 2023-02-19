@@ -10,6 +10,7 @@ export class DirectMessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }
