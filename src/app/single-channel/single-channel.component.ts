@@ -23,7 +23,7 @@ import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } 
 
 export class SingleChannelComponent implements OnInit {
 
-
+  code = false;
   channel = new Channel;
   UserName = this.Start.UserName;
   message: string;
@@ -77,6 +77,14 @@ export class SingleChannelComponent implements OnInit {
     this.loadAllMessages()
 
   }
+
+  TestCodeMessage(){
+    if(this.code)
+    this.code = false;
+    else(this.code = true)
+    console.log(this.code)
+  }
+
 
   openCurrentUser(userID) {
     this.dialog.open(UserDetailComponent, {

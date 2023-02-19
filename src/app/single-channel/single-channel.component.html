@@ -1,3 +1,4 @@
+x
 <div class="router-container">
     <mat-card class="channel-name-div">
         <div class="single-div header">
@@ -20,12 +21,13 @@
         <div class="message" *ngFor="let message of allMessages">
             <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
             <p>{{message.text}}</p>
-            <img class="img" src="{{message.imgDownloadURL}}" *ngIf="message.imgAvailable">
+            <img style="height: 50px; width: auto;" src="{{message.imgDownloadURL}}" alt="">
         </div>
     </div>
     <div class="keyboard">
         <div class="inputfield">
-            <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
+            <button (click)="TestCodeMessage()"> &lt;/&gt;</button>
+            <input [(ngModel)]="message" type="text" [class.codeMessage]="this.code">
         </div>
         <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>send</mat-icon>
