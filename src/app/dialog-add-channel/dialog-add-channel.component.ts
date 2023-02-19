@@ -117,7 +117,11 @@ hallo(){
 
     filterUser(){
       
-      this.filteredUsers = this.allUsers.filter(user => user.payload.doc.data().userName.toLowerCase().includes(this.inputParticipants.toLowerCase()))
+      this.filteredUsers = this.allUsers
+      .filter(user => 
+        user.payload.doc.data().userName
+        .toLowerCase()
+        .includes(this.inputParticipants.toLowerCase()))
     }
   /*
   refreshSearchResults() {
