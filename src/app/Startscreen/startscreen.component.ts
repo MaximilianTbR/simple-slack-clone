@@ -104,13 +104,12 @@ export class StartscreenComponent implements OnInit {
         this.allChannels = channels;
         this.pushToChannel()
       })
-      
+
   }
 
-  pushToChannel(){
-    if(this.allChannels.length == 0)
-      {
-        this.firestore
+  pushToChannel() {
+    if (this.allChannels.length == 0) {
+      this.firestore
         .collection('users')
         .doc(this.docIDfromUser)
         .collection('userChannels')
@@ -118,8 +117,8 @@ export class StartscreenComponent implements OnInit {
           ChannelId: 'SbNH3sbeTNT7nKmDJ8Ss',
           name: 'Herzlich Willkommen',
         })
-        } 
     }
+  }
 
   // der aktuell eingeloggte user wird ermittelt und deren name und mail werden in username und usermail abgespeichert. außerdem haben wir hiermit die DocID des Users und können immer auf ihn zugreifen
   currentUser() {
@@ -133,10 +132,10 @@ export class StartscreenComponent implements OnInit {
       }
     }
     this.loadChannels()
-    
+
   }
 
- viewAllChannel() {
+  viewAllChannel() {
     if (!this.viewAllChannels)
       this.viewAllChannels = true;
     else {
@@ -148,10 +147,10 @@ export class StartscreenComponent implements OnInit {
     this.dialog.open(DialogAddUserComponent);
   }
 
-  openCurrentUser(userID){
-    this.dialog.open(UserDetailComponent,{
+  openCurrentUser(userID) {
+    this.dialog.open(UserDetailComponent, {
       data:
-       {
+      {
         UserID: userID,
         docIDfromUser: this.docIDfromUser
       }

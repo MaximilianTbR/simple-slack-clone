@@ -20,7 +20,7 @@
         <div class="message" *ngFor="let message of allMessages">
             <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
             <p>{{message.text}}</p>
-            <img src="{{message.imgDownloadURL}}" alt="">
+            <img class="img" src="{{message.imgDownloadURL}}" *ngIf="message.imgAvailable">
         </div>
     </div>
     <div class="keyboard">

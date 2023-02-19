@@ -76,7 +76,7 @@ export class DialogAddUserComponent implements OnInit {
       console.log(this.inputParticipants)
     }
     this.allUsers.forEach(user => {
-      user.userName = this.userName;
+      this.userName = user.userName;
       if (this.userName.includes(this.inputParticipants2)) {
         console.log('works')
         let list = document.getElementById('all-users');
