@@ -20,7 +20,7 @@
     <div class="all-users-div" id="all-users">
         <ul>
             <li *ngFor="let User of filteredUsers; let i = index">
-                <app-single-channel-sidenav-link [class.isAdded]="this.User.payload.doc.data().isAdded" class="single-channel" [channelName]="this.User.payload.doc.data().userName" (click)="test(this.User.payload.doc.id)"></app-single-channel-sidenav-link>
+                <app-single-channel-sidenav-link class="single-channel" [channelName]="this.User.payload.doc.data().userName" (click)="test(this.User.payload.doc.id)"></app-single-channel-sidenav-link>
             </li>
         </ul>
     </div>
