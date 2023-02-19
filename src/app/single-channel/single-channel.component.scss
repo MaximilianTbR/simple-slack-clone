@@ -32,9 +32,16 @@
 
 .inputfield {
     position: absolute;
-    bottom: 200px;
-    width: 86vw;
+    bottom: 0px;
+    left: 0px;
+    width: 95% !important;
     height: 200px !important;
+    border-color: black !important;
+    .alert-warning {
+        --bs-alert-color: gray;
+        --bs-alert-bg: white;
+        --bs-alert-border-color: gray;
+    }
 }
 
 .header {
@@ -242,4 +249,78 @@ mat-toolbar-row {
     height: 100px;
     width: 100px;
     object-fit: cover;
+}
+
+
+/*keyboard css max*/
+
+.inputfield2 {
+    padding: 0px !important;
+    position: absolute;
+    bottom: 0px;
+    left: 50px;
+    width: 85% !important;
+    height: 200px !important;
+    border-color: black !important;
+    .alert-warning {
+        --bs-alert-color: gray;
+        --bs-alert-bg: white;
+        --bs-alert-border-color: gray;
+    }
+}
+
+.keyboard-controls {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 0px !important;
+}
+
+.inputfield2-inner-div {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    width: 100% !important;
+}
+
+.keyboard2 {
+    display: flex;
+    border: none !important;
+    width: 100% !important;
+    margin-bottom: 0px !important;
+}
+
+.keyboard2-inner-div {
+    border: none !important;
+    width: 100%;
+    padding: 0px;
+    margin-bottom: 0px !important;
+    height: fit-content;
+    textarea {
+        width: 100%;
+        height: 90px;
+        font-size: 15px;
+        overflow: auto !important;
+        resize: hidden !important;
+        border-radius: 0px;
+        border-left: 0px;
+        border-right: 0px;
+        padding-left: 8px;
+        padding-top: 6px;
+    }
+}
+
+.keyboard-controls-bottom {
+    margin-bottom: 0px !important;
+    margin-top: -6.5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    height: 57px;
 }

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { StartscreenComponent } from './Startscreen/startscreen.component';
+import { StartscreenComponent } from './startscreen/startscreen.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -43,7 +43,8 @@ import { ThemePalette } from '@angular/material/core';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { EditUserComponent } from './edit-user/edit-user.component'
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { EditUserComponent } from './edit-user/edit-user.component'
     HttpClientModule,
     BrowserModule,
     AngularFireStorageModule,
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    NgbModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
