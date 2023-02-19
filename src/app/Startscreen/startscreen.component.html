@@ -13,6 +13,7 @@
                 <li *ngIf="viewAllChannels">
                     <app-single-channel-sidenav-link class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [routerLink]="['/channel/'+ this.allChannels[i].ChannelId]"></app-single-channel-sidenav-link>
                 </li>
+
             </ul>
         </div>
         <div>

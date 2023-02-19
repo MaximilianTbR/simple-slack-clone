@@ -22,22 +22,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class DialogAddUserComponent implements OnInit {
   allUsers = []
-  allUsers2 = []
   loading = false;
   channel = new Channel();
   inputParticipants: string;
-  inputParticipants2;
+  filteredUsers: any [];
+  // inputParticipants2;
+  participants:any[] = [];
   userName;
 
 
-  constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>, private firestore: AngularFirestore) {
+  constructor(
+    public dialogRef: MatDialogRef<DialogAddUserComponent>,
+     private firestore: AngularFirestore,) {
+    this.filteredUsers = this.allUsers;
   }
   ngOnInit(): void {
     this.firestore
       .collection('users')
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.allUsers = changes;
+      .snapshotChanges()
+      .subscribe((docs: any) => {
+        this.allUsers = docs;
+        this.filteredUsers = this.allUsers;
       })
   }
 
@@ -45,9 +50,7 @@ export class DialogAddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  userIsAdded = false;
-  checked = false
-
+/*
   addUserToChannel(index: number) {
     if (this.checked == false) {
       this.checked = true;
@@ -60,16 +63,63 @@ export class DialogAddUserComponent implements OnInit {
     }
     console.log(this.checked)
   }
+  */
 
   createNewChannel() {
-    this.loading = true;
+    console.log(this.channel.participants, this.channel.channelName, this.channel.channelDescription)
+     this.loading = true;
+    
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
+      .then(ref =>{
+        this.addChannelToUser(ref.id, this.channel.participants, this.channel.channelName)
+      })
     this.loading = false;
     this.dialogRef.close();
   }
 
+ test(user){
+  let index = this.channel.participants.indexOf(user)
+  if(index !== -1){
+    this.channel.participants.splice(index,1)
+  }
+  else(
+    this.channel.participants.push(user))
+    
+    console.log(this.channel.participants)
+    }
+ 
+
+
+    addChannelToUser(ref, participants, name){
+      for (let i = 0; i < participants.length; i++) {
+        const element = participants[i];
+        this.firestore
+          .collection('users')
+          .doc(element)
+          .collection('userChannels')
+          .add({
+            ChannelId: ref,
+            name: name,      
+          })
+        }
+      
+    }
+
+
+
+
+
+hallo(){
+  console.log(this.filteredUsers)
+}
+
+    filterUser(){
+      
+      this.filteredUsers = this.allUsers.filter(user => user.payload.doc.data().userName.toLowerCase().includes(this.inputParticipants.toLowerCase()))
+    }
+  /*
   refreshSearchResults() {
     //this.inputParticipants2 = this.inputParticipants.toLowerCase();
     if (this.inputParticipants && this.inputParticipants.length > 0) {
@@ -84,4 +134,5 @@ export class DialogAddUserComponent implements OnInit {
       }
     });
   }
+  */
 }
