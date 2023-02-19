@@ -3,6 +3,10 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { map, finalize } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } from '@angular/fire/storage';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -14,18 +18,34 @@ export class UploadDataComponent implements OnInit {
 
   files = [];
   public file: any = {};
-  constructor(public storage: Storage) { }
+  constructor(public storage: Storage,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public firestore: AngularFirestore,
+    public afAuth: AngularFireAuth) { }
+  userId: string;
+  downloadURL2;
 
-  ngOnInit(): void {
-
+  async ngOnInit(): Promise<void> {
+    await this.getUserId();
   }
+
+  async getUserId() {
+    this.afAuth.onAuthStateChanged(user => {
+      if (user) {
+        this.userId = user.uid;
+      }
+      console.log(this.userId);
+    })
+  }
+
 
   chooseFile(event: any) {
     this.file = event.target.files[0];
   }
 
   addData() {
-    const StorageRef = ref(this.storage, this.file.name)
+    const StorageRef = ref(this.storage, 'allChannelPictures/' + this.file.name)
     const uploadTask = uploadBytesResumable(StorageRef, this.file)
     uploadTask.on('state_changed', (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -35,8 +55,19 @@ export class UploadDataComponent implements OnInit {
     }, () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
+        if (downloadURL) {
+          this.downloadURL2 = downloadURL;
+          console.log(this.downloadURL2)
+        }
       });
     })
+  }
+
+
+  createFolder(folderName: string) {
+    //const parentFolder = this.storage.ref('users');
+    //const newFolder = parentFolder.child(folderName);
+    // The folder has been created, but it doesn't actually exist on the server until you start uploading files to it.
   }
 
   // In Progress
@@ -49,8 +80,6 @@ export class UploadDataComponent implements OnInit {
     console.log(this.storage)
   }
   selectedFile: File = null;
-  fb;
-  downloadURL: Observable<string>;
 
 }
 

@@ -3,6 +3,7 @@ export class User {
     docs = [];
     creator: string;
     images = [];
+    imagesAvailable = false;
     thread = [];
     threadAvailable = false;
     timestamp: Date;

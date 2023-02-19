@@ -3,7 +3,7 @@ export class User {
     userId: string;
     userMail: string;
     status: string;
-    userPP : string;
+    userPP: string;
 
     constructor(obj?: any) {
         this.userName = obj ? obj.userName : '';
@@ -19,7 +19,7 @@ export class User {
             userId: this.userId,
             userMail: this.userMail,
             status: this.status,
-            userPP : this.userPP,
+            userPP: this.userPP
         }
     }
 }
