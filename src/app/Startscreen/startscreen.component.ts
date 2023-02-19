@@ -12,7 +12,6 @@ import { map } from 'rxjs';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
-
 import { DmDialogComponent } from '../dm-dialog/dm-dialog.component';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { collection } from 'firebase/firestore';
@@ -63,7 +62,6 @@ export class StartscreenComponent implements OnInit {
     public dialog: MatDialog,
     public firestore: AngularFirestore,
     private afAuth: AngularFireAuth) {
-
   }
 
   async ngOnInit(): Promise<void> {

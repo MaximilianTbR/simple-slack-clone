@@ -34,7 +34,7 @@ export class SingleChannelComponent implements OnInit {
   files = [];
   public file: any = {};
   userId: string;
-  imgDownloadURL;
+  imgDownloadURL = '';
   allMessages: any = [];
   imgAvailable = false;
 
@@ -78,10 +78,10 @@ export class SingleChannelComponent implements OnInit {
 
   }
 
-  TestCodeMessage(){
-    if(this.code)
-    this.code = false;
-    else(this.code = true)
+  TestCodeMessage() {
+    if (this.code)
+      this.code = false;
+    else (this.code = true)
     console.log(this.code)
   }
 
