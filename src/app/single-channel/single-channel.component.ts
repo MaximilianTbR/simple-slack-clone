@@ -10,9 +10,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
-import { StartscreenComponent } from '../Startscreen/startscreen.component';
+import { StartscreenComponent } from '../startscreen/startscreen.component';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } from '@angular/fire/storage';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { NgbTypeaheadConfig, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-single-channel',
@@ -24,6 +29,7 @@ import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } 
 export class SingleChannelComponent implements OnInit {
 
   code = false;
+  placeholder = 'Nachricht an'
   channel = new Channel;
   UserName = this.Start.UserName;
   message: string;
@@ -34,7 +40,7 @@ export class SingleChannelComponent implements OnInit {
   files = [];
   public file: any = {};
   userId: string;
-  imgDownloadURL;
+  imgDownloadURL = '';
   allMessages: any = [];
   imgAvailable = false;
 
@@ -78,10 +84,10 @@ export class SingleChannelComponent implements OnInit {
 
   }
 
-  TestCodeMessage(){
-    if(this.code)
-    this.code = false;
-    else(this.code = true)
+  TestCodeMessage() {
+    if (this.code)
+      this.code = false;
+    else (this.code = true)
     console.log(this.code)
   }
 

@@ -24,7 +24,7 @@ x
             <img style="height: 50px; width: auto;" src="{{message.imgDownloadURL}}" alt="">
         </div>
     </div>
-    <div class="keyboard">
+    <!--<div class="keyboard">
         <div class="inputfield">
             <button (click)="TestCodeMessage()"> &lt;/&gt;</button>
             <input [(ngModel)]="message" type="text" [class.codeMessage]="this.code">
@@ -32,8 +32,30 @@ x
         <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>send</mat-icon>
         </button>
-    </div>
+    </div>-->
+    <p class="inputfield2 form-control">
+        <ngb-alert class="inputfield2-inner-div" [dismissible]="false">
+            <p class="keyboard-controls">
+                <ngb-alert class="keyboard-controls" [dismissible]="false">
+                    <button class="" (click)="TestCodeMessage()"> &lt;/&gt;</button>
+                </ngb-alert>
+            </p>
+            <p class="keyboard2">
+                <ngb-alert class="keyboard2-inner-div" [dismissible]="false">
+                    <textarea placeholder="Nachricht an ..." [(ngModel)]="message" type="text" [class.codeMessage]="this.code"></textarea>
+                </ngb-alert>
+            </p>
+            <p class="keyboard-controls-bottom">
+                <ngb-alert class="keyboard-controls-bottom" [dismissible]="false">
+                    <input class="" type="file" (change)="chooseFile($event)">
+                    <button class="" (click)="addData()">Add Data</button>
+                    <button (click)="sendMessage()" class="" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+                        <mat-icon>send</mat-icon>
+                    </button>
+
+                </ngb-alert>
+            </p>
+        </ngb-alert>
+    </p>
     <img *ngIf="imgAvailable" src="{{imgDownloadURL}}" class="inputChooseFile">
-    <input class="inputChooseFile" type="file" (change)="chooseFile($event)">
-    <button class="inputChooseFile" (click)="addData()">Add Data</button>
 </div>
