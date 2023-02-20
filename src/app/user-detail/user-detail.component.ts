@@ -36,12 +36,12 @@ export class UserDetailComponent implements OnInit {
   UserChannels = [];
   profileImg = './../../assets/img/blank-pp.webp';
   userPP;
+  userPP2 = "https://firebasestorage.googleapis.com/v0/b/simple-slack-clone.appspot.com/o/users%2FpK6Y7WqHSQUzWvuBj9Hi38iDfWy2%2Fportfolio.png?alt=media&token=ac8c669c-adb9-48a2-8998-e7c43ecf4f7a";
   activeUser = false;
 
   async ngOnInit(): Promise<void> {
     await this.getUserId();
     await this.User();
-    this.checkUser();
   }
 
   async getUserId() {
