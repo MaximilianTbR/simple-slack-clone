@@ -24,7 +24,7 @@ export class UserDetailComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public afAuth: AngularFireAuth
   ) { }
-
+    User;
   userId: any;
   public file: any = {};
   allUsers: any = [];
@@ -41,7 +41,7 @@ export class UserDetailComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getUserId();
-    await this.User();
+    await this.UserDetail();
   }
 
   async getUserId() {
@@ -53,13 +53,23 @@ export class UserDetailComponent implements OnInit {
     })
   }
 
+  UserDetail(){
+    this.firestore
+    .collection('users')
+    .doc(this.data.UserID)
+    .valueChanges()
+    .subscribe(user=>
+      this.User = user)
+      this.checkUser()
+  }
+
+/*
   async User() {
     this.firestore
       .collection('users')
       .snapshotChanges()
       .subscribe((docs: any) => {
         this.allUsers = docs;
-        this.searchForUser();
         // this.loadChannels()
       })
   }
@@ -77,7 +87,7 @@ export class UserDetailComponent implements OnInit {
       }
     })
 
-  }
+  } */
 
   openDialogNewUser() {
     this.dialog.open(NameDialogComponent);
@@ -163,6 +173,8 @@ export class UserDetailComponent implements OnInit {
     })
     dialog.componentInstance.user = new User(this.User);
   }
-
+  test(){
+    console.log(this.User)
+  }
 
 }
