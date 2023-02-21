@@ -203,7 +203,6 @@ export class StartscreenComponent implements OnInit {
         }
       }
     })
-
   }
 
   openDialogNewUser() {

@@ -1,4 +1,3 @@
-x
 <div class="router-container">
     <mat-card class="channel-name-div">
         <div class="single-div header">
@@ -15,7 +14,6 @@ x
             <button (click)="test()">test</button>
         </div>
     </mat-card>
-
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
         <div class="message" *ngFor="let message of allMessages">
@@ -38,6 +36,12 @@ x
             <p class="keyboard-controls">
                 <ngb-alert class="keyboard-controls" [dismissible]="false">
                     <button class="" (click)="TestCodeMessage()"> &lt;/&gt;</button>
+                    <button class="">B</button>
+                    <button class="">I</button>
+                    <button class="">U</button>
+                    <button class="">""</button>
+                    <button class="">LINK</button>
+                    <button class="">LIST</button>
                 </ngb-alert>
             </p>
             <p class="keyboard2">
