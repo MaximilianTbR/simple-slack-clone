@@ -80,7 +80,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.allChannels)
+    console.log(this.chats)
   }
 
   // alle user werden in allUsers gespeichert
@@ -115,8 +115,10 @@ export class StartscreenComponent implements OnInit {
       .collection('userChat')
       .valueChanges()
       .subscribe((chat: any) =>
-        this.chats = chat)
+        this.chats = chat,
+        )
   }
+
 
   pushToChannel() {
     if (this.allChannels.length == 0) {
