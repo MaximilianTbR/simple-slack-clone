@@ -45,6 +45,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+
 
 @NgModule({
   declarations: [
@@ -96,7 +101,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     BrowserModule,
     AngularFireStorageModule,
     provideStorage(() => getStorage()),
-    NgbModule
+    NgbModule,
+    CKEditorModule,
+    RichTextEditorModule,
+    RichTextEditorAllModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },

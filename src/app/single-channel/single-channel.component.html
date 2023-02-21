@@ -18,7 +18,7 @@
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
         <div class="message" *ngFor="let message of allMessages">
             <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
-            <p>{{message.text}}</p>
+            <div [innerHTML]="message.text"></div>
             <img style="height: 50px; width: auto;" src="{{message.imgDownloadURL}}" alt="">
         </div>
     </div>
@@ -31,7 +31,7 @@
             <mat-icon>send</mat-icon>
         </button>
     </div>-->
-    <p class="inputfield2 form-control">
+    <!--<p class="inputfield2 form-control">
         <ngb-alert class="inputfield2-inner-div" [dismissible]="false">
             <p class="keyboard-controls">
                 <ngb-alert class="keyboard-controls" [dismissible]="false">
@@ -60,6 +60,27 @@
                 </ngb-alert>
             </p>
         </ngb-alert>
-    </p>
+    </p>-->
+    <div class="inputfield">
+        <editor [(ngModel)]="message" [init]="{
+            base_url: '/tinymce', 
+            suffix: '.min',
+            selector: 'textarea',
+            menubar: '',
+            plugins: [
+            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+            'media', 'table', 'emoticons', 'template', 'help', 'codesample'
+          ],
+            toolbar: 'undo redo | emoticons | bold italic underline | codesample | blockquote | link | numlist bullist',
+            statusbar: false,
+            height: 200,
+            max_width: 1000,
+            min_width: 100
+        }"></editor>
+    </div>
+    <button (click)="sendMessage()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+        <mat-icon>send</mat-icon>
+    </button>
     <img *ngIf="imgAvailable" src="{{imgDownloadURL}}" class="inputChooseFile">
 </div>

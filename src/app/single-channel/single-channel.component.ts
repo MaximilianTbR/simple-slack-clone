@@ -18,16 +18,21 @@ import { NgbTypeaheadConfig, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstr
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms'
 import { StartscreenComponent } from '../startscreen/startscreen.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ToolbarService, LinkService, ImageService, HtmlEditorService } from '@syncfusion/ej2-angular-richtexteditor';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+
+
 
 @Component({
   selector: 'app-single-channel',
   templateUrl: './single-channel.component.html',
-  styleUrls: ['./single-channel.component.scss']
+  styleUrls: ['./single-channel.component.scss'],
 })
 
 
 export class SingleChannelComponent implements OnInit {
-
   code = false;
   placeholder = 'Nachricht an'
   channel = new Channel;
