@@ -92,7 +92,7 @@ export class DialogAddUserComponent implements OnInit {
  
 
 
-    addChannelToUser(ref, participants, name){
+    addChannelToUser(test, participants, name){
       for (let i = 0; i < participants.length; i++) {
         const element = participants[i];
         this.firestore
@@ -100,8 +100,21 @@ export class DialogAddUserComponent implements OnInit {
           .doc(element)
           .collection('userChannels')
           .add({
-            ChannelId: ref,
-            name: name,      
+            ChannelId: test,
+            name: name,  
+            unread: true,
+            unReadMessage: 1,    
+          })
+          .then(ref=>{
+            this.firestore
+            .collection('channels')
+            .doc(test)
+            .collection('test')
+            .add({
+              participant: element,
+              UserChannelID: ref.id
+            })
+
           })
         }
       

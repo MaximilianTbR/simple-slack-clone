@@ -27,13 +27,15 @@ import { StartscreenComponent } from '../startscreen/startscreen.component';
 
 
 export class SingleChannelComponent implements OnInit {
-
+  
+  unReadMessage;
+  allParticipants: any = []
   code = false;
   placeholder = 'Nachricht an'
   channel = new Channel;
   UserName = this.Start.UserName;
   message: string;
-  allUsers = [];
+  allUsers;
   refreshing = false;
   channelID = '';
   userIsNotKnown = 0;
@@ -64,7 +66,7 @@ export class SingleChannelComponent implements OnInit {
 
 
   test() {
-    console.log(this.channel.participants)
+    console.log(this.allParticipants)
   }
 
 
@@ -78,12 +80,14 @@ export class SingleChannelComponent implements OnInit {
       .collection('channels')
       .doc(this.channelID)
       .valueChanges()
-      .subscribe((channel: any) =>
-        this.channel = channel)
-    this.loadAllMessages()
-
+      .subscribe((channel: any) => {
+        this.channel = channel,
+        this.loadAllMessages()
+        this.loadAllParticipants() }
+      )
   }
 
+  
   TestCodeMessage() {
     if (this.code)
       this.code = false;
@@ -113,8 +117,18 @@ export class SingleChannelComponent implements OnInit {
         console.log(this.allMessages, 'these are all messages')
         this.sortsMessages()
       });
+  }
 
 
+  loadAllParticipants(){
+    this.firestore
+    .collection('channels')
+    .doc(this.channelID)
+    .collection('test')
+    .valueChanges()
+    .subscribe(allParticipants=> {
+      this.allParticipants = allParticipants
+    })
   }
 
   sortsMessages() {
@@ -140,7 +154,50 @@ export class SingleChannelComponent implements OnInit {
         imgDownloadURL: this.imgDownloadURL
       })
     this.message = '';
+    this.unreadMessage()
   }
+
+  unreadMessage(){
+    for (let i = 0; i < this.allParticipants.length; i++) {
+      let element = this.allParticipants[i];
+      
+      if(element.participant == this.Start.docIDfromUser)
+        {}
+        else(
+          
+          this.firestore
+          .collection('users')
+          .doc(element.participant)
+          .collection('userChannels')
+          .doc(element.UserChannelID)
+          .valueChanges()
+          .subscribe((hallo)=>
+          {
+            let newUnread = hallo["unReadMessage"];
+            if(newUnread == this.unReadMessage) 
+            {this.irgendwas(element, newUnread)}
+            
+            console.log(this.unReadMessage)
+            
+          })
+           
+        )
+        
+    }
+  }
+  
+ irgendwas(element, newUnread){
+  newUnread++;
+  this.firestore
+        .collection('users')
+        .doc(element.participant)
+        .collection('userChannels')
+        .doc(element.UserChannelID)
+        .update({
+            unread: true,
+            unReadMessage : newUnread,
+        })  
+ }
 
   chooseFile(event: any) {
     this.file = event.target.files[0];

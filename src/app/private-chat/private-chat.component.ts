@@ -15,7 +15,6 @@ import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 })
 export class PrivateChatComponent implements OnInit {
 
-  test3 = ['121323', '21212112', '45', '1212'];
   userId: any;
   channel = new Channel();
   UserName;

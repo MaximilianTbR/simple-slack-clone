@@ -7,7 +7,6 @@ import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } 
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { User } from '../models/user';
-import { StartscreenComponent } from '../startscreen/startscreen.component';
 
 
 @Component({

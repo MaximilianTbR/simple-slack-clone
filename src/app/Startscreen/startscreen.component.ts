@@ -80,7 +80,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.chats)
+    console.log(this.allChannels)
   }
 
   // alle user werden in allUsers gespeichert
