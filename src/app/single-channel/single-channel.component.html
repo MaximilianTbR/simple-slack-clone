@@ -11,14 +11,14 @@
         <div class="single-div">
             <span> {{channel.participants.length}} Mitglieder</span>
 
-            <button (click)="unreadMessage()"> sffds</button>
+            <button (click)="test()"> sffds</button>
 
 
         </div>
     </mat-card>
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
-        <div class="message" *ngFor="let message of allMessages">
+        <div class="message" *ngFor="let message of allMessages" #messageElements>
             <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
             <div [innerHTML]="message.text"></div>
             <img style="height: 50px; width: auto;" src="{{message.imgDownloadURL}}" alt="">

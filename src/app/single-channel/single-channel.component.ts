@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -33,9 +33,8 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 export class SingleChannelComponent implements OnInit {
-  
-code
-  allParticipants
+  @ViewChildren('messageElements') messageElements: QueryList<ElementRef>;
+allParticipants
   unReadMessage;
   channel = new Channel;
   UserName = this.Start.UserName;
@@ -66,14 +65,21 @@ code
     });
     this.loadAllMessages();
     this.sortsMessages();
-
   }
 
+  ngAfterViewInit() {
+    this.scrollMessageListToBottom();
+  }
 
   test() {
     console.log(this.allParticipants)
   }
 
+  scrollMessageListToBottom(): void {
+    try {
+      this.messageElements.last.nativeElement.scrollIntoView({ behavior: "smooth" });
+    } catch (err) { }
+  }
 
   openDialog(): void {
     this.dialog.open(NameDialogComponent);
@@ -93,12 +99,7 @@ code
   }
 
   
-  TestCodeMessage() {
-    if (this.code)
-      this.code = false;
-    else (this.code = true)
-    console.log(this.code)
-  }
+  
 
 
   openCurrentUser(userID) {
@@ -132,9 +133,28 @@ code
     .collection('test')
     .valueChanges()
     .subscribe(allParticipants=> {
-      this.allParticipants = allParticipants
+      this.allParticipants = allParticipants,
+      this.irgendwas2()
     })
   }
+
+irgendwas2(){
+  for (let i = 0; i < this.allParticipants.length; i++) {
+    let element = this.allParticipants[i];
+    
+    if (element.participant == this.Start.docIDfromUser) {
+      this.firestore
+      .collection('users')
+      .doc(element.participant)
+      .collection('userChannels')
+      .doc(element.UserChannelID)
+      .update({
+        unReadMessage: 0,
+        unread: false
+      })
+    } 
+    
+} }
 
   sortsMessages() {
     this.allMessages.sort((a, b) => {
@@ -162,46 +182,40 @@ code
     this.unreadMessage()
   }
 
-  unreadMessage(){
+  unreadMessage() {
     for (let i = 0; i < this.allParticipants.length; i++) {
       let element = this.allParticipants[i];
       
-      if(element.participant == this.Start.docIDfromUser)
-        {}
-        else(
-          
-          this.firestore
+      if (element.participant == this.Start.docIDfromUser) {
+        // do nothing
+      } else {
+        console.log(element);
+        this.firestore
           .collection('users')
           .doc(element.participant)
           .collection('userChannels')
           .doc(element.UserChannelID)
-          .valueChanges()
-          .subscribe((hallo)=>
-          {
-            let newUnread = hallo["unReadMessage"];
-            if(newUnread == this.unReadMessage) 
-            {this.irgendwas(element, newUnread)}
-            
-            console.log(this.unReadMessage)
-            
-          })
-           
-        )
-        
+          .get()
+          .toPromise()
+          .then(doc => {
+            this.irgendwas(element, doc)
+          })   }
     }
   }
   
- irgendwas(element, newUnread){
-  newUnread++;
-  this.firestore
-        .collection('users')
-        .doc(element.participant)
-        .collection('userChannels')
-        .doc(element.UserChannelID)
-        .update({
-            unread: true,
-            unReadMessage : newUnread,
-        })  
+  
+         irgendwas(element,doc){
+           let newUnread = doc.data()["unReadMessage"];
+            newUnread++; // increase newUnread by 1
+            return this.firestore
+              .collection('users')
+              .doc(element.participant)
+              .collection('userChannels')
+              .doc(element.UserChannelID)
+              .update({
+                unread: true,
+                unReadMessage: newUnread,
+              })
  }
 
   chooseFile(event: any) {
