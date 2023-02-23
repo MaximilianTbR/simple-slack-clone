@@ -24,6 +24,7 @@ import { collection } from 'firebase/firestore';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  bla = false;
   hallo = true;
   notView = false;
   darkmode = false;
@@ -80,7 +81,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.allChannels)
+    this.bla = true
   }
 
   // alle user werden in allUsers gespeichert
@@ -205,7 +206,6 @@ export class StartscreenComponent implements OnInit {
         }
       }
     })
-
   }
 
   openDialogNewUser() {

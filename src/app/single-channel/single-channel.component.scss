@@ -16,8 +16,9 @@
     overflow: scroll !important;
     position: absolute;
     top: 130px;
-    width: 89%;
-    height: 35vh;
+    width: 100%;
+    left: 0px;
+    height: 45.5vh;
 }
 
 .message {
@@ -32,7 +33,7 @@
 
 .inputfield {
     position: absolute;
-    bottom: 0px;
+    bottom: 200px;
     left: 0px;
     width: 95% !important;
     height: 200px !important;
@@ -54,7 +55,8 @@
     justify-content: center;
     position: absolute;
     top: 56px;
-    width: 84%;
+    width: 100%;
+    left: 0px;
     border-radius: 10px !important;
     h2 {
         width: fit-content;
@@ -67,14 +69,6 @@
      :hover {
         background-color: rgb(247, 240, 240);
     }
-}
-
-.all-messages {
-    overflow: scroll !important;
-    position: absolute;
-    top: 130px;
-    width: 89%;
-    height: 35vh;
 }
 
 .single-div {
@@ -258,9 +252,9 @@ mat-toolbar-row {
     padding: 0px !important;
     position: absolute;
     bottom: 0px;
-    left: 50px;
-    width: 85% !important;
-    height: 200px !important;
+    left: 0px;
+    width: 100% !important;
+    height: 214px !important;
     border-color: black !important;
     .alert-warning {
         --bs-alert-color: gray;
@@ -323,4 +317,22 @@ mat-toolbar-row {
     border-left: none;
     border-right: none;
     height: 57px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: white;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
 }
