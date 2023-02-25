@@ -1,3 +1,4 @@
-<div>
+<div class="sidenav" [class.unreadClass]="this.unread">
     <span>{{channelName}}</span>
+    <p *ngIf="unReadMessage" class="number">{{unReadMessage}}</p>
 </div>

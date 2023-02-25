@@ -11,12 +11,14 @@
         <div class="single-div">
             <span> {{channel.participants.length}} Mitglieder</span>
 
+            <button (click)="test()"> sffds</button>
+
 
         </div>
     </mat-card>
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
-        <div class="message" *ngFor="let message of allMessages">
+        <div class="message" *ngFor="let message of allMessages" #messageElements>
             <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
             <div [innerHTML]="message.text"></div>
             <img *ngFor="let img of message.allImages" style="height: 50px; width: auto;" src="{{img}}" alt="">
@@ -31,6 +33,37 @@
             <mat-icon>send</mat-icon>
         </button>
     </div>-->
+    <!--<p class="inputfield2 form-control">
+        <ngb-alert class="inputfield2-inner-div" [dismissible]="false">
+            <p class="keyboard-controls">
+                <ngb-alert class="keyboard-controls" [dismissible]="false">
+                    <button class="" (click)="TestCodeMessage()"> &lt;/&gt;</button>
+                    <button class="">B</button>
+                    <button class="">I</button>
+                    <button class="">U</button>
+                    <button class="">""</button>
+                    <button class="">LINK</button>
+                    <button class="">LIST</button>
+                </ngb-alert>
+            </p>
+            <p class="keyboard2">
+                <ngb-alert class="keyboard2-inner-div" [dismissible]="false">
+                    <textarea placeholder="Nachricht an ..." [(ngModel)]="message" type="text" [class.codeMessage]="this.code"></textarea>
+                </ngb-alert>
+            </p>
+            <p class="keyboard-controls-bottom">
+                <ngb-alert class="keyboard-controls-bottom" [dismissible]="false">
+                    <input class="" type="file" (change)="chooseFile($event)">
+                    <button class="" (click)="addData()">Add Data</button>
+                    <button (click)="sendMessage()" class="" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
+                        <mat-icon>send</mat-icon>
+                    </button>
+
+                </ngb-alert>
+            </p>
+        </ngb-alert>
+    </p>-->
+
     <div class="inputfield">
         <editor [(ngModel)]="message" [init]="{
             base_url: '/tinymce', 

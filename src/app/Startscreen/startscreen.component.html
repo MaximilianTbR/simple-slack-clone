@@ -11,7 +11,9 @@
             <button (click)="test()">test</button>
             <ul class="menu-items">
                 <li *ngIf="viewAllChannels">
-                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [routerLink]="['/channel/'+ this.allChannels[i].ChannelId]"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link [unread]="this.allChannels[i].unread" class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [unReadMessage]="this.allChannels[i].unReadMessage" [routerLink]="['/channel/'+ this.allChannels[i].ChannelId]">
+
+                    </app-single-channel-sidenav-link>
                 </li>
 
             </ul>

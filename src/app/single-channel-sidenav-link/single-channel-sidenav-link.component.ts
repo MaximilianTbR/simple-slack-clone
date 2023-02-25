@@ -9,6 +9,8 @@ import { Channel } from '../models/channel';
 })
 export class SingleChannelSidenavLinkComponent implements OnInit {
   @Input() channelName: any;
+  @Input() unReadMessage: number;
+  @Input() unread:boolean;
   channel = new Channel();
   channelId;
 
@@ -17,4 +19,6 @@ export class SingleChannelSidenavLinkComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+ 
 }
