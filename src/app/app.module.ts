@@ -49,6 +49,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { KeyboardComponent } from './keyboard/keyboard.component';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
 
 
 @NgModule({
@@ -67,6 +69,8 @@ import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor'
     DmDialogComponent,
     UserDetailComponent,
     EditUserComponent,
+    KeyboardComponent,
+    ImagePreviewComponent,
   ],
   imports: [
     BrowserModule,

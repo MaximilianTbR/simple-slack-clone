@@ -1,0 +1,41 @@
+.main-div {
+    margin-top: 8px;
+    width: -moz-fit-content;
+    width: calc(100% + 2.5px);
+    height: 22px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    border-radius: 3px;
+}
+
+.d-none {
+    display: none !important;
+    height: -moz-fit-content;
+    height: 15px;
+    width: -moz-fit-content;
+    width: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1px;
+    margin-left: -5px;
+}
+
+.outer-div:hover {
+    .d-none {
+        display: flex !important;
+    }
+}
+
+.d-none:hover {
+    background-color: rgb(223, 215, 215);
+    border-radius: 1px;
+}
+
+.outer-div {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+}

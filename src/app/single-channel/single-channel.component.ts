@@ -37,7 +37,7 @@ export class SingleChannelComponent implements OnInit {
   placeholder = 'Nachricht an'
   channel = new Channel;
   UserName = this.Start.UserName;
-  message: string;
+  message: string = '';
   allUsers = [];
   refreshing = false;
   channelID = '';
@@ -48,7 +48,8 @@ export class SingleChannelComponent implements OnInit {
   imgDownloadURL = '';
   allMessages: any = [];
   imgAvailable = false;
-
+  allFiles = [];
+  allImages = [];
   constructor(
     public storage: Storage,
     private route: ActivatedRoute,
@@ -64,19 +65,15 @@ export class SingleChannelComponent implements OnInit {
     });
     this.loadAllMessages();
     this.sortsMessages();
-
   }
-
 
   test() {
     console.log(this.channel.participants)
   }
 
-
   openDialog(): void {
     this.dialog.open(NameDialogComponent);
   }
-
 
   getChannel() {
     this.firestore
@@ -86,7 +83,6 @@ export class SingleChannelComponent implements OnInit {
       .subscribe((channel: any) =>
         this.channel = channel)
     this.loadAllMessages()
-
   }
 
   TestCodeMessage() {
@@ -95,7 +91,6 @@ export class SingleChannelComponent implements OnInit {
     else (this.code = true)
     console.log(this.code)
   }
-
 
   openCurrentUser(userID) {
     this.dialog.open(UserDetailComponent, {
@@ -118,18 +113,13 @@ export class SingleChannelComponent implements OnInit {
         console.log(this.allMessages, 'these are all messages')
         this.sortsMessages()
       });
-
-
   }
 
   sortsMessages() {
     this.allMessages.sort((a, b) => {
       return Number(a.timestampe) - Number(b.timestampe);
     });
-
   }
-
-
 
   sendMessage() {
     this.firestore
@@ -142,17 +132,20 @@ export class SingleChannelComponent implements OnInit {
         userName: this.Start.UserName,
         timestampe: new Date().getTime(),
         imgAvailable: this.imgAvailable,
-        imgDownloadURL: this.imgDownloadURL
+        allImages: this.allImages
       })
     this.message = '';
   }
 
   chooseFile(event: any) {
     this.file = event.target.files[0];
+    this.addData();
   }
 
   addData() {
-    const StorageRef = ref(this.storage, 'allChannelPictures/' + this.file.name)
+    const StorageRef = ref(this.storage, this.file.name);
+    this.allFiles.push(this.file);
+    console.log(this.allFiles)
     const uploadTask = uploadBytesResumable(StorageRef, this.file)
     uploadTask.on('state_changed', (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -164,30 +157,16 @@ export class SingleChannelComponent implements OnInit {
         console.log('File available at', downloadURL);
         if (downloadURL) {
           this.imgDownloadURL = downloadURL;
+          this.allImages.push(this.imgDownloadURL);
           this.imgAvailable = true;
-          console.log(this.imgDownloadURL)
+          console.log(this.allImages);
         }
       });
     })
   }
 
-
-  createFolder(folderName: string) {
-    //const parentFolder = this.storage.ref('users');
-    //const newFolder = parentFolder.child(folderName);
-    // The folder has been created, but it doesn't actually exist on the server until you start uploading files to it.
+  deletePicture(index) {
+    this.allFiles.splice(index, 1);
+    console.log(this.allFiles);
   }
-
-  // In Progress
-  uploadFile(event) {
-    let file = event.target.files[0];
-    const filePath = './assets/img/';
-    console.log(file);
-    //const task = this.storage.upload(filePath, file);
-    //this.files.push(task);
-    console.log(this.storage)
-  }
-  selectedFile: File = null;
-
-
 }

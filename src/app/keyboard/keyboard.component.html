@@ -1,0 +1,27 @@
+<div class="inputfield-class">
+    <editor [(ngModel)]="message" [init]="{
+        base_url: '/tinymce', 
+        suffix: '.min',
+        selector: 'textarea',
+        menubar: '',
+        plugins: [
+        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+        'media', 'table', 'emoticons', 'template', 'help', 'codesample'
+      ],
+        toolbar: 'undo redo | emoticons | bold italic underline | codesample | blockquote | link | numlist bullist',
+        statusbar: false,
+        height: 200,
+        max_width: 1000,
+        min_width: 100
+    }"></editor>
+    <div class="statusbar">
+        <div class="img-div"></div>
+        <button class="btn">
+            <img src="./../../assets/img/picture.png">
+        </button>
+        <button class="btn">
+            <img src="./../../assets/img/send.png">
+        </button>
+    </div>
+</div>
