@@ -48,9 +48,12 @@ export class SingleChannelComponent implements OnInit {
   userId: string;
   imgDownloadURL = '';
   allMessages: any = [];
+  allMessages2: any = [];
   imgAvailable = false;
   allFiles = [];
   allImages = [];
+  singleMessageToDelete: any;
+  singleMessageToDeleteId: any;
   constructor(
     public storage: Storage,
     private route: ActivatedRoute,
@@ -66,6 +69,7 @@ export class SingleChannelComponent implements OnInit {
     });
     this.loadAllMessages();
     this.sortsMessages();
+    this.loadAllMessages2()
   }
 
   ngAfterViewInit() {
@@ -118,13 +122,25 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .collection('channelMessages')
       .valueChanges()
-      .subscribe(allMessages => {
-        this.allMessages = allMessages
+      .subscribe(docs => {
+        this.allMessages = docs
         console.log(this.allMessages, 'these are all messages')
         this.sortsMessages()
       });
   }
 
+  loadAllMessages2() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .snapshotChanges()
+      .subscribe(docs => {
+        this.allMessages2 = docs
+        console.log(this.allMessages2, 'these are all messages with docs')
+        this.sortsMessages()
+      });
+  }
 
   loadAllParticipants() {
     this.firestore
@@ -177,7 +193,8 @@ export class SingleChannelComponent implements OnInit {
         allImages: this.allImages
       })
     this.message = '';
-    this.unreadMessage()
+    this.unreadMessage();
+    this.ngAfterViewInit();
   }
 
   unreadMessage() {
@@ -248,5 +265,29 @@ export class SingleChannelComponent implements OnInit {
   deletePicture(index) {
     this.allFiles.splice(index, 1);
     console.log(this.allFiles);
+    location.reload();
+  }
+
+  deleteMessage(index) {
+    //console.log(this.allMessages)
+    console.log(this.allMessages2[0].payload.doc.data(), 'all messages in docs bla')
+    this.allMessages2.forEach(singleMessage2 => {
+      if (singleMessage2.payload.doc.data().text == this.allMessages[index].text) {
+        console.log(singleMessage2.payload.doc.data(), this.allMessages[index])
+        console.log('it worked!')
+        console.log(singleMessage2.payload.doc.data())
+        this.singleMessageToDelete = singleMessage2.payload.doc;
+        const docId = this.singleMessageToDelete.id;
+        console.log('THATS THE ID', docId);
+        this.singleMessageToDeleteId = docId;
+      }
+    });
+    this.allMessages.splice(index, 1)
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .doc(this.singleMessageToDeleteId)
+      .delete()
   }
 }

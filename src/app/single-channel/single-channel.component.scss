@@ -31,6 +31,17 @@
     background-color: rgb(148, 148, 148);
 }
 
+.message:hover {
+    background-color: rgb(125, 132, 132);
+    .message-menu {
+        display: flex;
+    }
+}
+
+.message-menu {
+    display: none;
+}
+
 .inputfield {
     position: absolute;
     bottom: 50px;

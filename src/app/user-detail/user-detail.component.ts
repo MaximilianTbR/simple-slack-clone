@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public afAuth: AngularFireAuth
   ) { }
-    User;
+  User;
   userId: any;
   public file: any = {};
   allUsers: any = [];
@@ -52,41 +52,41 @@ export class UserDetailComponent implements OnInit {
     })
   }
 
-  UserDetail(){
-    this.firestore
-    .collection('users')
-    .doc(this.data.UserID)
-    .valueChanges()
-    .subscribe(user=>
-      this.User = user)
-      this.checkUser()
-  }
-
-/*
-  async User() {
+  UserDetail() {
     this.firestore
       .collection('users')
-      .snapshotChanges()
-      .subscribe((docs: any) => {
-        this.allUsers = docs;
-        // this.loadChannels()
-      })
+      .doc(this.data.UserID)
+      .valueChanges()
+      .subscribe(user =>
+        this.User = user)
+    this.checkUser()
   }
 
-  searchForUser() {
-    //console.log('test',this.allUsers, this.userId, this.allUsers[7].payload.doc.data().userId)
-    this.allUsers.forEach((user) => {
-      if (this.userId == user.payload.doc.data().userId) {
-        this.currentUser();
-      } else {
-        this.userIsNotKnown++;
-        if (this.userIsNotKnown == this.allUsers.length) {
-          this.openDialogNewUser();
+  /*
+    async User() {
+      this.firestore
+        .collection('users')
+        .snapshotChanges()
+        .subscribe((docs: any) => {
+          this.allUsers = docs;
+          // this.loadChannels()
+        })
+    }
+  
+    searchForUser() {
+      //console.log('test',this.allUsers, this.userId, this.allUsers[7].payload.doc.data().userId)
+      this.allUsers.forEach((user) => {
+        if (this.userId == user.payload.doc.data().userId) {
+          this.currentUser();
+        } else {
+          this.userIsNotKnown++;
+          if (this.userIsNotKnown == this.allUsers.length) {
+            this.openDialogNewUser();
+          }
         }
-      }
-    })
-
-  } */
+      })
+  
+    } */
 
   openDialogNewUser() {
     this.dialog.open(NameDialogComponent);
@@ -157,7 +157,7 @@ export class UserDetailComponent implements OnInit {
       data:
       {
         UserID: this.data.UserID,
-        docIDfromUser: this.data.docIDfromUser
+        docIDfromUser: this.data.docIDfromUser,
       }
     })
 
@@ -167,12 +167,12 @@ export class UserDetailComponent implements OnInit {
   openEditUser() {
     let dialog = this.dialog.open(EditUserComponent, {
       data: {
-        docIDfromUser: this.data.docIDfromUser
+        docIDfromUser: this.data.docIDfromUser,
       }
     })
     dialog.componentInstance.user = new User(this.User);
   }
-  test(){
+  test() {
     console.log(this.User)
   }
 
