@@ -24,6 +24,7 @@ import { collection } from 'firebase/firestore';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  privateChat;
   bla = false;
   hallo = true;
   notView = false;
@@ -81,7 +82,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    this.bla = true
+    this.bla = false
   }
 
   // alle user werden in allUsers gespeichert

@@ -34,6 +34,8 @@ export class PrivateChatComponent implements OnInit {
   userIsNotKnown = 0;
 
   allMessages: any = [];
+imgAvailable: any;
+imgDownloadURL: any;
 
   constructor(
     private route: ActivatedRoute,

@@ -89,6 +89,10 @@ export class DmDialogComponent implements OnInit {
   openDialogNewUser() {
     this.dialog.open(NameDialogComponent);
   }
+  test() {
+    console.log(this.data.UserID, this.data.docIDfromUser)
+  }
+
 
   newPrivateChat() {
     const participants = [this.data.docIDfromUser, this.data.UserID]
