@@ -22,6 +22,10 @@ export class DmDialogComponent implements OnInit {
     
   }
 
+  test(){
+    console.log(this.data.UserID, this.data.docIDfromUser) 
+  }
+
 
   newPrivateChat() {
     const participants = [this.data.docIDfromUser, this.data.UserID]

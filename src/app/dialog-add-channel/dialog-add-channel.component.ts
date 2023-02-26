@@ -50,21 +50,6 @@ export class DialogAddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-/*
-  addUserToChannel(index: number) {
-    if (this.checked == false) {
-      this.checked = true;
-      document.getElementById('icon-' + index).classList.add('d-none');
-      document.getElementById('icon2-' + index).classList.remove('d-none');
-    } else {
-      this.checked = false;
-      document.getElementById('icon-' + index).classList.remove('d-none');
-      document.getElementById('icon2-' + index).classList.add('d-none');
-    }
-    console.log(this.checked)
-  }
-  */
-
   createNewChannel() {
     console.log(this.channel.participants, this.channel.channelName, this.channel.channelDescription)
      this.loading = true;
@@ -85,9 +70,10 @@ export class DialogAddUserComponent implements OnInit {
     this.channel.participants.splice(index,1)
   }
   else(
-    this.channel.participants.push(user))
-    
-    console.log(this.channel.participants)
+    this.channel.participants.push(user),
+    this.filteredUsers.splice(user,1))
+   
+    console.log(this.channel.participants, this.filteredUsers)
     }
  
 
@@ -103,7 +89,7 @@ export class DialogAddUserComponent implements OnInit {
             ChannelId: test,
             name: name,  
             unread: true,
-            unReadMessage: 1,    
+            unReadMessage: 0,    
           })
           .then(ref=>{
             this.firestore
@@ -136,20 +122,6 @@ hallo(){
         .toLowerCase()
         .includes(this.inputParticipants.toLowerCase()))
     }
-  /*
-  refreshSearchResults() {
-    //this.inputParticipants2 = this.inputParticipants.toLowerCase();
-    if (this.inputParticipants && this.inputParticipants.length > 0) {
-      console.log(this.inputParticipants)
-    }
-    this.allUsers.forEach(user => {
-      this.userName = user.userName;
-      if (this.userName.includes(this.inputParticipants2)) {
-        console.log('works')
-        let list = document.getElementById('all-users');
-        list.innerHTML += `<li>${user.userName}</li>`;
-      }
-    });
-  }
-  */
+ 
+
 }

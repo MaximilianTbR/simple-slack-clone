@@ -172,6 +172,8 @@ export class UserDetailComponent implements OnInit {
     })
     dialog.componentInstance.user = new User(this.User);
   }
+
+  
   test(){
     console.log(this.User)
   }

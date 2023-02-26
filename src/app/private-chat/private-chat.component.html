@@ -22,11 +22,25 @@
     </div>
     <div class="keyboard">
         <div class="inputfield">
-            <editor [(ngModel)]="message" [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
+            <editor [(ngModel)]="message" [init]="{
+                base_url: '/tinymce', 
+                suffix: '.min',
+                selector: 'textarea',
+                menubar: '',
+                plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'template', 'help', 'codesample'
+              ],
+                toolbar: 'undo redo | emoticons | bold italic underline | codesample | blockquote | link | numlist bullist',
+                statusbar: false,
+                height: 200,
+                max_width: 1000,
+                min_width: 100
+            }"></editor>
         </div>
         <button (click)="sendMessage2()" class="addButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
             <mat-icon>send</mat-icon>
         </button>
+        <img *ngIf="imgAvailable" src="{{imgDownloadURL}}" class="inputChooseFile">
     </div>
-    <app-upload-data></app-upload-data>
-</div>
