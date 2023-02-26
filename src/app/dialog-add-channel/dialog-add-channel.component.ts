@@ -70,10 +70,9 @@ export class DialogAddUserComponent implements OnInit {
     this.channel.participants.splice(index,1)
   }
   else(
-    this.channel.participants.push(user),
-    this.filteredUsers.splice(user,1))
-   
-    console.log(this.channel.participants, this.filteredUsers)
+    this.channel.participants.push(user))
+
+    console.log(this.channel.participants)
     }
  
 

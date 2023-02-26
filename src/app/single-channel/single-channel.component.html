@@ -18,9 +18,9 @@
     </mat-card>
     <div class="all-messages">
         <!-- <app-single-message *ngFor="let message of this.allMessages; let i = index" [messageOfChannel]="message"></app-single-message> -->
-        <div class="message" *ngFor="let message of allMessages" #messageElements>
+        <div #messageElements class="message" *ngFor="let message of allMessages">
             <p style="cursor: pointer;" (click)="openCurrentUser(message.userID)"> {{message.userName}}</p>
-            <div [innerHTML]="message.text"></div>
+            <p [innerHTML]="message.text"></p>
             <img *ngFor="let img of message.allImages" style="height: 50px; width: auto;" src="{{img}}" alt="">
         </div>
     </div>

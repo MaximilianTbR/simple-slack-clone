@@ -69,17 +69,21 @@ export class SingleChannelComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.scrollMessageListToBottom();
+    this.messageElements.changes.subscribe(() => {
+      this.scrollMessageListToBottom();
+    });
   }
+  
 
   test() {
-    console.log(this.allParticipants)
+    console.log(this.messageElements.length)
   }
 
   scrollMessageListToBottom(): void {
     try {
-      this.messageElements.last.nativeElement.scrollIntoView({ behavior: "smooth" });
+      this.messageElements.last.nativeElement.scrollIntoView({ behavior: "auto" });
     } catch (err) { }
+    console.log(this.messageElements.length)
   }
 
   openDialog(): void {
