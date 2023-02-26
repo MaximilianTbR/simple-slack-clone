@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-channel/dialog-add-channel.component';
 import { NgModule } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -82,7 +82,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    this.bla = false
+    console.log(this.chats)
   }
 
   // alle user werden in allUsers gespeichert
@@ -210,7 +210,11 @@ export class StartscreenComponent implements OnInit {
   }
 
   openDialogNewUser() {
-    this.dialog.open(NameDialogComponent);
+    const dialogConfig = new MatDialogConfig();
+  
+    dialogConfig.disableClose = true; // Schließen durch Klick außerhalb des Dialogs deaktivieren
+  
+    const dialogRef: MatDialogRef<NameDialogComponent> = this.dialog.open(NameDialogComponent, dialogConfig);
   }
 
 

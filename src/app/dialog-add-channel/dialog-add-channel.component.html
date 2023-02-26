@@ -45,6 +45,6 @@
 
 <div mat-dialog-actions>
     <button mat-button (click)="close() ">Cancel</button>
-    <button mat-button [mat-dialog-close]=" " [disabled]="!channel.channelName " cdkFocusInitial (click)="createNewChannel() ">Create new Channel</button>
+    <button mat-button [mat-dialog-close]=" " [disabled]="!(channel.channelName && channel.participants.length > 2)" cdkFocusInitial (click)="createNewChannel() ">Create new Channel</button>
     <button (click)="hallo() ">terst</button>
 </div>

@@ -52,7 +52,7 @@
                 </div>
             </div>
             <input class="btn" type="file" (change)="chooseFile($event)">
-            <button class="btn" (click)="sendMessage()">
+            <button [disabled]="!this.message" class="btn" (click)="sendMessage()">
                 <img src="./../../assets/img/send.png">
             </button>
         </div>
