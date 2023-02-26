@@ -51,33 +51,41 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   createNewChannel() {
-    console.log(this.channel.participants, this.channel.channelName, this.channel.channelDescription)
+    
+    let userIDs = this.channel.participants.map(p => p.userID);
      this.loading = true;
     
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
       .then(ref =>{
-        this.addChannelToUser(ref.id, this.channel.participants, this.channel.channelName)
+        this.addChannelToUser(ref.id, userIDs, this.channel.channelName)
       })
     this.loading = false;
     this.dialogRef.close();
   }
 
- test(user){
-  let index = this.channel.participants.indexOf(user)
-  if(index !== -1){
-    this.channel.participants.splice(index,1)
+ test(userID, userName ){
+  let participant = this.channel.participants.find(p => p.userID === userID)
+  if(participant){
+    participant.userName = userName
   }
-  else(
-    this.channel.participants.push(user))
-
-    console.log(this.channel.participants)
-    }
+  else{
+    this.channel.participants.push({userID, userName})
+  }
+  console.log(this.channel.participants)
+ }
  
 
+ test2(User){
+  let index = this.channel.participants.indexOf(User)
+  if(index !== -1)
+  {this.channel.participants.splice(index,1)}
+ }
 
-    addChannelToUser(test, participants, name){
+
+
+addChannelToUser(test, participants, name){
       for (let i = 0; i < participants.length; i++) {
         const element = participants[i];
         this.firestore
@@ -110,7 +118,8 @@ export class DialogAddUserComponent implements OnInit {
 
 
 hallo(){
-  console.log(this.filteredUsers)
+  let userIDs = this.channel.participants.map(p => p.userID)
+  console.log(userIDs)
 }
 
     filterUser(){

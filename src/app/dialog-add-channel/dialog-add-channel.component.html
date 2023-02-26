@@ -20,18 +20,31 @@
     <div class="all-users-div" id="all-users">
         <ul>
             <li *ngFor="let User of filteredUsers; let i = index">
-                <app-single-channel-sidenav-link class="single-channel" [channelName]="this.User.payload.doc.data().userName" (click)="test(this.User.payload.doc.id)"></app-single-channel-sidenav-link>
+                <p class="single-channel" (click)="test(this.User.payload.doc.id, this.User.payload.doc.data().userName )"> {{this.User.payload.doc.data().userName}}</p>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <div class="all-users-div" id="all-users" *ngIf="this.channel.participants.length > 0">
+        <p> current Participants</p>
+        <ul>
+            <li *ngFor=" let User of this.channel.participants; let i= index ">
+                <p class="single-channel " (click)="test2(User)">{{this.User.userName}}</p>
             </li>
 
         </ul>
     </div>
+
 </div>
 
 
 
 
 <div mat-dialog-actions>
-    <button mat-button (click)="close()">Cancel</button>
-    <button mat-button [mat-dialog-close]="" [disabled]="!channel.channelName" cdkFocusInitial (click)="createNewChannel()">Create new Channel</button>
-    <button (click)="hallo()">terst</button>
+    <button mat-button (click)="close() ">Cancel</button>
+    <button mat-button [mat-dialog-close]=" " [disabled]="!channel.channelName " cdkFocusInitial (click)="createNewChannel() ">Create new Channel</button>
+    <button (click)="hallo() ">terst</button>
 </div>
