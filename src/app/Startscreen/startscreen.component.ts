@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 // import * as admin from 'firebase-admin/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
@@ -24,10 +24,9 @@ import { collection } from 'firebase/firestore';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
-  privateChat;
-  bla = false;
-  hallo = true;
-  notView = false;
+  filteredOptions: Observable<string[]>;;
+  inputParticipants;
+  filteredUsers: any [];
   darkmode = false;
   userId: any;
   viewChannel = false;
@@ -38,26 +37,11 @@ export class StartscreenComponent implements OnInit {
   UserName;
   UserMail;
   userIsNotKnown = 0;
-  allChannels2 = [];
   allUsers = [];
   allChannels = [];
   chats = [];
-  channelData: Channel;
-  index: any;
-  participantsLength; // wird
-  refreshing = false;
   viewAllChannels = true;
-  messageField = '';
-  channelId;
-  viewAllUsers = true;
   viewAllPrivateChats = true;
-  filteredChannels: any;
-  filteredChannels2 = [];
-  channelCollection = this.firestore.collection('channels');
-
-  channelName = {};
-
-  privateMessages = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -82,7 +66,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log(this.chats)
+    console.log('channel:',this.allChannels, 'users:', this.allUsers)
   }
 
   // alle user werden in allUsers gespeichert
@@ -218,4 +202,7 @@ export class StartscreenComponent implements OnInit {
   }
 
 
+  search(){  }
+  
+  
 }

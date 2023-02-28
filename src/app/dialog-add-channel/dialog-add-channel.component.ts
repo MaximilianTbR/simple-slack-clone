@@ -34,7 +34,7 @@ export class DialogAddUserComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
      private firestore: AngularFirestore,) {
-    this.filteredUsers = this.allUsers;
+    
   }
   ngOnInit(): void {
     this.firestore

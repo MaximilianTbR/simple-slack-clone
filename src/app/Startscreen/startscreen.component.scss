@@ -5,6 +5,10 @@
     height: 200px !important;
 }
 
+.search-div {
+    display: flex;
+}
+
 .unread {
     color: white;
 }
@@ -38,6 +42,11 @@
      :hover {
         background-color: rgb(247, 240, 240);
     }
+}
+
+.example-form {
+    background-color: white;
+    color: black;
 }
 
 .all-messages {

@@ -34,6 +34,7 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 export class SingleChannelComponent implements OnInit {
   @ViewChildren('messageElements') messageElements: QueryList<ElementRef>;
+  darkMode = this.Start.darkmode;
   allParticipants
   unReadMessage;
   channel = new Channel;

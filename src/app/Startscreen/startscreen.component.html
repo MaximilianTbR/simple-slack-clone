@@ -46,6 +46,14 @@
                 </button>
                     <span>Slack</span>
                 </div>
+                <mat-form-field>
+                    <mat-label> <span class="material-icons">
+                        search
+                        </span>search slack clone..</mat-label>
+
+                    <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()">
+                </mat-form-field>
+
 
                 <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
             </mat-toolbar>
