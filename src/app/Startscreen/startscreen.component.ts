@@ -24,6 +24,7 @@ import { collection } from 'firebase/firestore';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  filteredChannels:any [];
   filteredOptions: Observable<string[]>;;
   inputParticipants;
   filteredUsers: any [];
@@ -66,7 +67,7 @@ export class StartscreenComponent implements OnInit {
   }
 
   test() {
-    console.log('channel:',this.allChannels, 'users:', this.allUsers)
+    console.log('channel:',this.UserChannels, 'users:', this.allUsers)
   }
 
   // alle user werden in allUsers gespeichert
@@ -202,7 +203,29 @@ export class StartscreenComponent implements OnInit {
   }
 
 
-  search(){  }
+  search() {
+    this.searchUser(),
+    this.searchChannels(),    
+    console.log('users:',this.filteredUsers, 'channes:', this.filteredChannels);
+  }
+
   
+    searchUser(){
+      this.filteredUsers = this.allUsers
+      .filter(user => 
+        user.payload.doc.data().userName
+          .toLowerCase()
+          .includes(this.inputParticipants.toLowerCase())
+      );
+    }
+
+    searchChannels(){
+      this.filteredChannels =  this.allChannels
+      .filter(channel => 
+        channel.name
+          .toLowerCase()
+          .includes(this.inputParticipants.toLowerCase())
+      );
+    }
   
 }
