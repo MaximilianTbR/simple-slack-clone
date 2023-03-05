@@ -24,6 +24,9 @@ import { collection } from 'firebase/firestore';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
+  hallotest = ['fdsjk', 'dfklsjdf']
+  onlySearchUsers = false;
+  onlySearchChannels = false;
   filteredChannels:any [];
   filteredOptions: Observable<string[]>;;
   inputParticipants;
@@ -204,13 +207,22 @@ export class StartscreenComponent implements OnInit {
 
 
   search() {
-    this.searchUser(),
-    this.searchChannels(),    
+    if(this.onlySearchUsers){
+      this.searchUsers()
+      console.log('users')
+    }
+   else if(this.onlySearchChannels){
+      this.searchChannels()
+      console.log('channels')
+    }  else{
+      this.searchUsers(),
+      this.searchChannels()
+    }
     console.log('users:',this.filteredUsers, 'channes:', this.filteredChannels);
   }
 
   
-    searchUser(){
+    searchUsers(){
       this.filteredUsers = this.allUsers
       .filter(user => 
         user.payload.doc.data().userName
@@ -228,4 +240,32 @@ export class StartscreenComponent implements OnInit {
       );
     }
   
+    onlyUserSearch(){
+      if(this.onlySearchUsers)
+      {
+        this.onlySearchUsers = false;
+      }
+      else{
+
+        this.onlySearchUsers = true;
+      }
+      this.onlySearchChannels = false;
+      this.filteredChannels = [];
+      console.log(this.onlySearchUsers)
+    }
+
+    onlyChannelSearch(){
+      if(this.onlySearchChannels)
+      {
+        this.onlySearchChannels = false;
+      }
+      else{
+
+        this.onlySearchChannels = true;
+      }
+      console.log(this.onlySearchChannels)
+      this.onlySearchUsers = false;
+      this.filteredUsers = [];
+    }
+
 }

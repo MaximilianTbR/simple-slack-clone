@@ -3,6 +3,18 @@
         <div class="logo-container">
             <!-- <img src="../../assets/img/1.png"> -->
         </div>
+        <mat-form-field>
+            <mat-label>Participants</mat-label>
+            <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()">
+            <mat-option *ngFor="let option of filteredChannels" [routerLink]="['/channel/'+ option.ChannelId]">
+                {{option.name}}
+            </mat-option>
+            <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
+                {{option.payload.doc.data().userName}}
+            </mat-option>
+            <button (click)="this.onlyUserSearch()">user</button>
+            <button (click)="this.onlyChannelSearch()">channel</button>
+        </mat-form-field>
         <div>
             <p class="allButtons" (click)="viewAllChannel()">
                 <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
@@ -38,33 +50,30 @@
         </div>
     </mat-drawer>
 
+
+
     <div class="example-sidenav-content">
-        <p>
-            <mat-toolbar color="primary" [class.darkmode]="this.darkmode">
-                <div class="test">
-                    <button (click)=" drawer.toggle() " mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
+
+        <mat-toolbar color="primary" [class.darkmode]="this.darkmode">
+            <div class="test">
+                <button (click)=" drawer.toggle() " mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
                     <mat-icon class="menu-icon">menu</mat-icon>
                 </button>
-                    <span>Slack</span>
-                </div>
+                <span>Slack</span>
+            </div>
 
-                <mat-form-field>
-                    <mat-label>Participants</mat-label>
-                    <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()">
-                </mat-form-field>
 
-                <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
-            </mat-toolbar>
 
-        </p>
+
+            <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
+        </mat-toolbar>
+
 
 
     </div>
 
 
     <app-single-channel></app-single-channel>
-
-
 
 
 
