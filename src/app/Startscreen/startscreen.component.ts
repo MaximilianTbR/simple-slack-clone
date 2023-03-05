@@ -44,8 +44,8 @@ export class StartscreenComponent implements OnInit {
   allUsers = [];
   allChannels = [];
   chats = [];
-  viewAllChannels = true;
-  viewAllPrivateChats = true;
+  viewAllChannels = false;
+  viewAllPrivateChats = false;
 
   constructor(
     public route: ActivatedRoute,

@@ -112,13 +112,20 @@ textarea {
     }
 }
 
+.searchInputField {
+    display: flex;
+    z-index: 1000;
+    position: relative;
+    background: #3f51b5;
+}
+
 .menu-icon {
     cursor: pointer;
 }
 
 .sidenav {
     width: 300px;
-    background-color: rgb(63, 14, 64)!important;
+    background: #3f51b5;
 }
 
 .example-icon {
@@ -151,7 +158,6 @@ mat-toolbar-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(53, 13, 54)!important;
 }
 
 .test {
@@ -219,8 +225,13 @@ mat-toolbar-row {
     }
 }
 
+.logOffButton {
+    cursor: pointer;
+}
+
 .darkmode {
-    background-color: black;
+    background-color: #202123 !important;
+    color: #88898d !important;
 }
 
 .userName {

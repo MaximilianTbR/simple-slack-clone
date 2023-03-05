@@ -21,6 +21,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./dialog-add-channel.component.scss']
 })
 export class DialogAddUserComponent implements OnInit {
+  optionSelected: string = '';
   allUsers = []
   loading = false;
   channel = new Channel();
@@ -66,6 +67,7 @@ export class DialogAddUserComponent implements OnInit {
   }
 
  test(userID, userName ){
+  this.optionSelected = userID;
   let participant = this.channel.participants.find(p => p.userID === userID)
   if(participant){
     participant.userName = userName

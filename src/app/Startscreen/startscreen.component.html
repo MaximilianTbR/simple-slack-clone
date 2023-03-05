@@ -1,20 +1,16 @@
-<mat-drawer-container class="mat-drawer-container" autosize>
-    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+<mat-drawer-container class="mat-drawer-container" autosize [class.darkmode]="this.darkmode">
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side" [class.darkmode]="this.darkmode">
+        <div class="logOffButton">
+            <span [routerLink]="['']" class="material-icons">
+            logout
+            </span>
+        </div>
         <div class="logo-container">
             <!-- <img src="../../assets/img/1.png"> -->
         </div>
-        <mat-form-field>
-            <mat-label>Participants</mat-label>
-            <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()">
-            <mat-option *ngFor="let option of filteredChannels" [routerLink]="['/channel/'+ option.ChannelId]">
-                {{option.name}}
-            </mat-option>
-            <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
-                {{option.payload.doc.data().userName}}
-            </mat-option>
-            <button (click)="this.onlyUserSearch()">user</button>
-            <button (click)="this.onlyChannelSearch()">channel</button>
-        </mat-form-field>
+
+
+
         <div>
             <p class="allButtons" (click)="viewAllChannel()">
                 <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
@@ -44,7 +40,7 @@
         </div>
         <div>
             <p class="userName" (click)="openCurrentUser(this.docIDfromUser)">{{this.UserName}}</p>
-            <button [routerLink]="['']">ausloggen</button>
+
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
         <mat-icon>add</mat-icon></button>
         </div>
@@ -62,10 +58,37 @@
                 <span>Slack</span>
             </div>
 
+            <mat-form-field class="searchInputField">
+                <mat-label><span class="material-icons">
+                    search 
+                    </span>
+                    <span> person or channels</span>
+                </mat-label>
+                <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()">
+                <mat-option *ngFor="let option of filteredChannels" [routerLink]="['/channel/'+ option.ChannelId]">
+                    {{option.name}}
+                </mat-option>
+                <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
+                    {{option.payload.doc.data().userName}}
+                </mat-option>
+                <span (click)="this.onlyUserSearch()" class="material-icons">
+                    person
+                 </span>
+                <span (click)="this.onlyChannelSearch()" class="material-icons">
+                    groups
+                 </span>
+            </mat-form-field>
 
+            <mat-slide-toggle (click)="this.switchMode()">
+                <span *ngIf="!this.darkmode" class="material-icons">
+                dark_mode
+                </span>
+                <span *ngIf="this.darkmode" class="material-icons">
+                    light_mode
+                </span>
 
+            </mat-slide-toggle>
 
-            <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
         </mat-toolbar>
 
 

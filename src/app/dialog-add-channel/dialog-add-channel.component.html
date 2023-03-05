@@ -18,17 +18,13 @@
     </mat-form-field>
 
     <div class="all-users-div" id="all-users">
-        <ul>
-            <li *ngFor="let User of filteredUsers; let i = index">
-                <p class="single-channel" (click)="test(this.User.payload.doc.id, this.User.payload.doc.data().userName )"> {{this.User.payload.doc.data().userName}}</p>
-            </li>
 
-        </ul>
-
-
+        <mat-option *ngFor="let option of filteredUsers">
+            <p (click)="test(option.payload.doc.id, option.payload.doc.data().userName )" [ngStyle]="{'color': this.channel.participants === option.payload.doc.id ? 'green' : 'black'}"> {{option.payload.doc.data().userName }} </p>
+        </mat-option>
     </div>
 
-    <div class="all-users-div" id="all-users" *ngIf="this.channel.participants.length > 0">
+    <div class="all-users-div" id="all-users" *ngIf="this.channel.participants.length>0">
         <p> current Participants</p>
         <ul>
             <li *ngFor=" let User of this.channel.participants; let i= index ">
