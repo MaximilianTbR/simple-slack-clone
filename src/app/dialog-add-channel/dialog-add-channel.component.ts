@@ -67,7 +67,6 @@ export class DialogAddUserComponent implements OnInit {
   }
 
  test(userID, userName ){
-  this.optionSelected = userID;
   let participant = this.channel.participants.find(p => p.userID === userID)
   if(participant){
     participant.userName = userName

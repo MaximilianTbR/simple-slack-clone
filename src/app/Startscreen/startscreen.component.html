@@ -1,6 +1,6 @@
 <mat-drawer-container class="mat-drawer-container" autosize [class.darkmode]="this.darkmode">
     <mat-drawer #drawer class="sidenav" [opened]="true" mode="side" [class.darkmode]="this.darkmode">
-        <div class="logOffButton">
+        <div>
             <span [routerLink]="['']" class="material-icons">
             logout
             </span>
@@ -64,26 +64,26 @@
                     </span>
                     <span> person or channels</span>
                 </mat-label>
-                <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()">
+                <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()" (blur)="this.clearSearch()">
                 <mat-option *ngFor="let option of filteredChannels" [routerLink]="['/channel/'+ option.ChannelId]">
                     {{option.name}}
                 </mat-option>
                 <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
                     {{option.payload.doc.data().userName}}
                 </mat-option>
-                <span (click)="this.onlyUserSearch()" class="material-icons">
+                <span (click)="this.onlyUserSearch()" class="material-icons" title="search only users">
                     person
                  </span>
-                <span (click)="this.onlyChannelSearch()" class="material-icons">
+                <span (click)="this.onlyChannelSearch()" class="material-icons" title="search only channels">
                     groups
                  </span>
             </mat-form-field>
 
             <mat-slide-toggle (click)="this.switchMode()">
-                <span *ngIf="!this.darkmode" class="material-icons">
+                <span *ngIf="!this.darkmode" class="material-icons" title="darkmode">
                 dark_mode
                 </span>
-                <span *ngIf="this.darkmode" class="material-icons">
+                <span *ngIf="this.darkmode" class="material-icons" title="whitemode">
                     light_mode
                 </span>
 

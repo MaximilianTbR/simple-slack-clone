@@ -126,6 +126,7 @@ textarea {
 .sidenav {
     width: 300px;
     background: #3f51b5;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .example-icon {
@@ -157,6 +158,7 @@ mat-toolbar-row {
     height: 56px;
     display: flex;
     justify-content: space-between;
+    transition: background-color 0.5s ease-in-out;
     align-items: center;
 }
 
@@ -225,7 +227,7 @@ mat-toolbar-row {
     }
 }
 
-.logOffButton {
+span {
     cursor: pointer;
 }
 

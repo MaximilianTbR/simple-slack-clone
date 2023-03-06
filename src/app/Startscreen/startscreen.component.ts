@@ -268,4 +268,12 @@ export class StartscreenComponent implements OnInit {
       this.filteredUsers = [];
     }
 
+    clearSearch(){
+      setTimeout(() => { 
+        this.filteredChannels = [];
+        this.filteredUsers = [];
+        this.inputParticipants = ''; }, 200)
+      
+    }
+
 }
