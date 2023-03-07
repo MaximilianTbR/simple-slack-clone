@@ -69,9 +69,7 @@ export class StartscreenComponent implements OnInit {
     })
   }
 
-  test() {
-    console.log('channel:',this.UserChannels, 'users:', this.allUsers)
-  }
+
 
   // alle user werden in allUsers gespeichert
   async User() {
@@ -172,7 +170,6 @@ export class StartscreenComponent implements OnInit {
   }
 
   switchMode() {
-    console.log(this.darkmode)
     if (this.darkmode) {
       this.darkmode = false;
     }
@@ -184,12 +181,10 @@ export class StartscreenComponent implements OnInit {
     this.allUsers.forEach((user) => {
       if (this.userId == user.payload.doc.data().userId) {
         this.currentUser();
-        console.log(this.userIsNotKnown)
       } else {
         this.userIsNotKnown++;
         if (this.userIsNotKnown == this.allUsers.length) {
 
-          console.log(this.userIsNotKnown, this.allUsers)
           this.openDialogNewUser();
           this.userIsNotKnown = 0;
         }
@@ -209,16 +204,13 @@ export class StartscreenComponent implements OnInit {
   search() {
     if(this.onlySearchUsers){
       this.searchUsers()
-      console.log('users')
     }
    else if(this.onlySearchChannels){
       this.searchChannels()
-      console.log('channels')
     }  else{
       this.searchUsers(),
       this.searchChannels()
     }
-    console.log('users:',this.filteredUsers, 'channes:', this.filteredChannels);
   }
 
   
@@ -251,7 +243,6 @@ export class StartscreenComponent implements OnInit {
       }
       this.onlySearchChannels = false;
       this.filteredChannels = [];
-      console.log(this.onlySearchUsers)
     }
 
     onlyChannelSearch(){
@@ -263,7 +254,6 @@ export class StartscreenComponent implements OnInit {
 
         this.onlySearchChannels = true;
       }
-      console.log(this.onlySearchChannels)
       this.onlySearchUsers = false;
       this.filteredUsers = [];
     }

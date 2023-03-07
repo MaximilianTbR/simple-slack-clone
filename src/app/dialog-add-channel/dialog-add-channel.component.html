@@ -1,46 +1,44 @@
-<h1 mat-dialog-title>Create Channel</h1>
+<div [class.loading]="this.loading">
+    <h1 mat-dialog-title>Create Channel</h1>
 
 
-<div mat-dialog-content class="flexColumn">
-    <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="channel.channelName">
-    </mat-form-field>
+    <div mat-dialog-content class="flexColumn">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="channel.channelName">
+        </mat-form-field>
 
 
-    <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input type="text" matInput [(ngModel)]="channel.channelDescription">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Participants</mat-label>
-        <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.filterUser()">
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input type="text" matInput [(ngModel)]="channel.channelDescription">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Participants</mat-label>
+            <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.filterUser()">
+        </mat-form-field>
 
-    <div class="all-users-div" id="all-users">
+        <div class="all-users-div" id="all-users">
 
-        <mat-option *ngFor="let option of filteredUsers">
-            <p (click)="test(option.payload.doc.id, option.payload.doc.data().userName )" [ngStyle]="{'color': this.channel.participants === option.payload.doc.id ? 'green' : 'black'}"> {{option.payload.doc.data().userName }} </p>
-        </mat-option>
+            <mat-option *ngFor="let option of filteredUsers">
+                <p (click)="pushParticipantsChannel(option.payload.doc.id, option.payload.doc.data().userName )" [ngStyle]="{'color': this.channel.participants === option.payload.doc.id ? 'green' : 'black'}"> {{option.payload.doc.data().userName }} </p>
+            </mat-option>
+        </div>
+
+        <div class="all-users-div" id="all-users" *ngIf="this.channel.participants.length>0">
+            <p> current Participants</p>
+            <ul>
+                <li *ngFor=" let User of this.channel.participants; let i= index ">
+                    <p class="single-channel " (click)="spliceParticipantsChannel(User)">{{this.User.userName}}</p>
+                </li>
+
+            </ul>
+        </div>
+
     </div>
 
-    <div class="all-users-div" id="all-users" *ngIf="this.channel.participants.length>0">
-        <p> current Participants</p>
-        <ul>
-            <li *ngFor=" let User of this.channel.participants; let i= index ">
-                <p class="single-channel " (click)="test2(User)">{{this.User.userName}}</p>
-            </li>
-
-        </ul>
+    <div mat-dialog-actions>
+        <button mat-button (click)="close() ">Cancel</button>
+        <button mat-button [mat-dialog-close]=" " [disabled]="!(channel.channelName && channel.participants.length > 2)" cdkFocusInitial (click)="createNewChannel() ">Create new Channel</button>
     </div>
-
-</div>
-
-
-
-
-<div mat-dialog-actions>
-    <button mat-button (click)="close() ">Cancel</button>
-    <button mat-button [mat-dialog-close]=" " [disabled]="!(channel.channelName && channel.participants.length > 2)" cdkFocusInitial (click)="createNewChannel() ">Create new Channel</button>
-    <button (click)="hallo() ">terst</button>
 </div>

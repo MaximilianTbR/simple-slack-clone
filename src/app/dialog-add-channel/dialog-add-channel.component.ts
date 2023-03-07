@@ -21,13 +21,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./dialog-add-channel.component.scss']
 })
 export class DialogAddUserComponent implements OnInit {
-  optionSelected: string = '';
   allUsers = []
   loading = false;
   channel = new Channel();
   inputParticipants: string;
   filteredUsers: any [];
-  // inputParticipants2;
   participants:any[] = [];
   userName;
 
@@ -66,7 +64,8 @@ export class DialogAddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
- test(userID, userName ){
+
+ pushParticipantsChannel(userID, userName ){
   let participant = this.channel.participants.find(p => p.userID === userID)
   if(participant){
     participant.userName = userName
@@ -74,11 +73,11 @@ export class DialogAddUserComponent implements OnInit {
   else{
     this.channel.participants.push({userID, userName})
   }
-  console.log(this.channel.participants)
  }
  
 
- test2(User){
+
+ spliceParticipantsChannel(User){
   let index = this.channel.participants.indexOf(User)
   if(index !== -1)
   {this.channel.participants.splice(index,1)}
@@ -86,42 +85,42 @@ export class DialogAddUserComponent implements OnInit {
 
 
 
-addChannelToUser(test, participants, name){
+addChannelToUser(ChannelID, participants, name){
       for (let i = 0; i < participants.length; i++) {
         const element = participants[i];
-        this.firestore
-          .collection('users')
-          .doc(element)
-          .collection('userChannels')
-          .add({
-            ChannelId: test,
-            name: name,  
-            unread: true,
-            unReadMessage: 0,    
-          })
-          .then(ref=>{
-            this.firestore
-            .collection('channels')
-            .doc(test)
-            .collection('test')
-            .add({
-              participant: element,
-              UserChannelID: ref.id
-            })
-
-          })
-        }
+        this.addChannelToUserFirestore(ChannelID, element, name)
+    }
       
     }
 
 
+addChannelToUserFirestore(ChannelID, participantID, name){
+      this.firestore
+      .collection('users')
+      .doc(participantID)
+      .collection('userChannels')
+      .add({
+        ChannelId: ChannelID,
+        name: name,  
+        unread: true,
+        unReadMessage: 0,    
+      })
+      .then(ref =>{
+        this.addChannelToChannelCollection(ChannelID, participantID, ref.id)
+      })   
+    }
 
+addChannelToChannelCollection(ChannelID, participantID, UserChannelId){
+      this.firestore
+      .collection('channels')
+      .doc(ChannelID)
+      .collection('test')
+      .add({
+        participant: participantID,
+        UserChannelID: UserChannelId
+      })
+    }
 
-
-hallo(){
-  let userIDs = this.channel.participants.map(p => p.userID)
-  console.log(userIDs)
-}
 
     filterUser(){
       

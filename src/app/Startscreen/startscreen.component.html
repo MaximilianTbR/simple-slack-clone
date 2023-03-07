@@ -16,10 +16,9 @@
                 <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
                 <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
             </p>
-            <button (click)="test()">test</button>
             <ul class="menu-items">
                 <li *ngIf="viewAllChannels">
-                    <app-single-channel-sidenav-link [unread]="this.allChannels[i].unread" class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [unReadMessage]="this.allChannels[i].unReadMessage" [routerLink]="['/channel/'+ this.allChannels[i].ChannelId]"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link [unread]="filteredChannel.unread" class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.filteredChannel.name" [unReadMessage]="filteredChannel.unReadMessage" [routerLink]="['/channel/'+ filteredChannel.ChannelId]"></app-single-channel-sidenav-link>
                 </li>
 
             </ul>
@@ -61,8 +60,8 @@
             <mat-form-field class="searchInputField">
                 <mat-label><span class="material-icons">
                     search 
-                    </span>
-                    <span> person or channels</span>
+                </span>
+                    <span> search...</span>
                 </mat-label>
                 <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()" (blur)="this.clearSearch()">
                 <mat-option *ngFor="let option of filteredChannels" [routerLink]="['/channel/'+ option.ChannelId]">
@@ -71,10 +70,10 @@
                 <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
                     {{option.payload.doc.data().userName}}
                 </mat-option>
-                <span (click)="this.onlyUserSearch()" class="material-icons" title="search only users">
+                <span (click)="this.onlyUserSearch()" class="material-icons" title="search only users" [class.btn-black]="this.onlySearchUsers">
                     person
                  </span>
-                <span (click)="this.onlyChannelSearch()" class="material-icons" title="search only channels">
+                <span (click)="this.onlyChannelSearch()" class="material-icons" title="search only channels" [class.btn-black]="this.onlySearchChannels">
                     groups
                  </span>
             </mat-form-field>
