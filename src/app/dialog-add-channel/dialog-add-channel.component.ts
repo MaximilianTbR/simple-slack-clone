@@ -41,7 +41,6 @@ export class DialogAddUserComponent implements OnInit {
       .snapshotChanges()
       .subscribe((docs: any) => {
         this.allUsers = docs;
-        this.filteredUsers = this.allUsers;
       })
   }
 
@@ -122,13 +121,13 @@ addChannelToChannelCollection(ChannelID, participantID, UserChannelId){
     }
 
 
-    filterUser(){
+    filterUser() {
+            this.filteredUsers = this.allUsers.filter(user => 
+          user.payload.doc.data().userName
+            .toLowerCase()
+            .includes(this.inputParticipants.toLowerCase())
+        );
       
-      this.filteredUsers = this.allUsers
-      .filter(user => 
-        user.payload.doc.data().userName
-        .toLowerCase()
-        .includes(this.inputParticipants.toLowerCase()))
     }
  
 

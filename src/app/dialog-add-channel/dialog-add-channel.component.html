@@ -16,14 +16,10 @@
         <mat-form-field>
             <mat-label>Participants</mat-label>
             <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.filterUser()">
-        </mat-form-field>
-
-        <div class="all-users-div" id="all-users">
-
-            <mat-option *ngFor="let option of filteredUsers">
-                <p (click)="pushParticipantsChannel(option.payload.doc.id, option.payload.doc.data().userName )" [ngStyle]="{'color': this.channel.participants === option.payload.doc.id ? 'green' : 'black'}"> {{option.payload.doc.data().userName }} </p>
+            <mat-option (click)="pushParticipantsChannel(option.payload.doc.id, option.payload.doc.data().userName )" *ngFor="let option of filteredUsers">
+                {{option.payload.doc.data().userName}}
             </mat-option>
-        </div>
+        </mat-form-field>
 
         <div class="all-users-div" id="all-users" *ngIf="this.channel.participants.length>0">
             <p> current Participants</p>
