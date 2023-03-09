@@ -10,10 +10,14 @@
     display: flex;
 }
 
-.d-none {
-    display: none !important;
-}
-
 .isAdded {
     color: green;
+}
+
+li {
+    cursor: pointer;
+}
+
+.loading {
+    cursor: wait;
 }

@@ -15,5 +15,5 @@
         <input matInput [(ngModel)]="user.status">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="submitNewName()">Okay!</button>
+    <button [disabled]="!(user.userName && user.userMail)" mat-raised-button color="primary" (click)="submitNewName()">Okay!</button>
 </div>

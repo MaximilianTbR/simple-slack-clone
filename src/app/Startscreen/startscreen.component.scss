@@ -5,6 +5,17 @@
     height: 200px !important;
 }
 
+.search-div {
+    display: flex;
+}
+
+mat-option {
+    background-color: #3f51b5;
+    &:hover {
+        background-color: #6e7bc5 !important;
+    }
+}
+
 .unread {
     color: white;
 }
@@ -38,6 +49,17 @@
      :hover {
         background-color: rgb(247, 240, 240);
     }
+}
+
+mat-form-field {
+    height: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-option {
+    overflow: scroll !important;
 }
 
 .all-messages {
@@ -108,13 +130,21 @@ textarea {
     }
 }
 
+.searchInputField {
+    display: flex;
+    z-index: 1000;
+    position: relative;
+    background: #3f51b5;
+}
+
 .menu-icon {
     cursor: pointer;
 }
 
 .sidenav {
     width: 300px;
-    background-color: rgb(63, 14, 64)!important;
+    background: #3f51b5;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .example-icon {
@@ -146,8 +176,8 @@ mat-toolbar-row {
     height: 56px;
     display: flex;
     justify-content: space-between;
+    transition: background-color 0.5s ease-in-out;
     align-items: center;
-    background-color: rgb(53, 13, 54)!important;
 }
 
 .test {
@@ -215,8 +245,17 @@ mat-toolbar-row {
     }
 }
 
+.btn-black {
+    color: black;
+}
+
+span {
+    cursor: pointer;
+}
+
 .darkmode {
-    background-color: black;
+    background-color: #202123 !important;
+    color: #88898d !important;
 }
 
 .userName {

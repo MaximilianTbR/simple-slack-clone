@@ -1,18 +1,28 @@
-<mat-drawer-container class="mat-drawer-container" autosize>
-    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+<mat-drawer-container class="mat-drawer-container" autosize [class.darkmode]="this.darkmode">
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side" [class.darkmode]="this.darkmode">
+        <div>
+            <span [routerLink]="['']" class="material-icons">
+            logout
+            </span>
+
+            <button (click)="test()">test</button>
+        </div>
         <div class="logo-container">
             <!-- <img src="../../assets/img/1.png"> -->
         </div>
+
+
+
         <div>
             <p class="allButtons" (click)="viewAllChannel()">
                 <span *ngIf="!viewAllChannels" class="material-icons arrow">chevron_right</span>
                 <span *ngIf="viewAllChannels" class="material-icons arrow">expand_more</span> Channels
             </p>
-            <button (click)="test()">test</button>
             <ul class="menu-items">
                 <li *ngIf="viewAllChannels">
-                    <app-single-channel-sidenav-link [unread]="this.allChannels[i].unread" class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.allChannels[i].name" [unReadMessage]="this.allChannels[i].unReadMessage" [routerLink]="['/channel/'+ this.allChannels[i].ChannelId]"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link [unread]="filteredChannel.unread" class="single-channel" *ngFor="let filteredChannel of allChannels; let i = index" [channelName]="this.filteredChannel.name" [unReadMessage]="filteredChannel.unReadMessage" [routerLink]="['/channel/'+ filteredChannel.ChannelId]"></app-single-channel-sidenav-link>
                 </li>
+
             </ul>
         </div>
         <div>
@@ -22,7 +32,7 @@
             </p>
             <ul class="menu-items">
                 <li *ngIf="viewAllPrivateChats">
-                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let chat of chats; let i = index" [channelName]="this.chats[0].participants.userName"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let chat of chats; let i = index" [channelName]="chat.ChatID"></app-single-channel-sidenav-link>
                 </li>
             </ul>
         </div>
@@ -31,35 +41,64 @@
         </div>
         <div>
             <p class="userName" (click)="openCurrentUser(this.docIDfromUser)">{{this.UserName}}</p>
-            <button [routerLink]="['']">ausloggen</button>
+
             <button (click)="openDialog()" class="addChannelButton" mat-fab matTooltip="Primary" color="primary" aria-label="Example fab with a heart icon">
         <mat-icon>add</mat-icon></button>
         </div>
     </mat-drawer>
 
+
+
     <div class="example-sidenav-content">
-        <p>
-            <mat-toolbar color="primary" [class.darkmode]="this.darkmode">
-                <div class="test">
-                    <button (click)=" drawer.toggle() " mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
+        <mat-toolbar color="primary" [class.darkmode]="this.darkmode">
+            <div class="test">
+                <button (click)=" drawer.toggle() " mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
                     <mat-icon class="menu-icon">menu</mat-icon>
                 </button>
-                    <span>Slack</span>
-                </div>
+                <span>Slack</span>
+            </div>
 
-                <mat-slide-toggle (click)="this.switchMode()">Darkmode</mat-slide-toggle>
-            </mat-toolbar>
+            <mat-form-field class="searchInputField">
+                <mat-label><span class="material-icons">
+                    search 
+                </span>
+                    <span> search...</span>
+                </mat-label>
+                <input matInput [(ngModel)]="inputParticipants" (ngModelChange)="this.search()" (blur)="this.clearSearch()">
+                <mat-option *ngFor="let option of filteredChannels" [routerLink]="['/channel/'+ option.ChannelId]">
+                    {{option.name}}
+                </mat-option>
+                <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
+                    {{option.payload.doc.data().userName}}
+                </mat-option>
 
-        </p>
+                <span (click)="this.onlyUserSearch()" class="material-icons" title="search only users" [class.btn-black]="this.onlySearchUsers">
+                    person
+                 </span>
+                <span (click)="this.onlyChannelSearch()" class="material-icons" title="search only channels" [class.btn-black]="this.onlySearchChannels">
+                    groups
+                 </span>
+            </mat-form-field>
+
+
+            <mat-slide-toggle (click)="this.switchMode()">
+                <span *ngIf="!this.darkmode" class="material-icons" title="darkmode">
+                dark_mode
+                </span>
+                <span *ngIf="this.darkmode" class="material-icons" title="whitemode">
+                    light_mode
+                </span>
+
+            </mat-slide-toggle>
+
+        </mat-toolbar>
+
 
 
     </div>
 
 
-
     <app-single-channel></app-single-channel>
-
-
 
 
 </mat-drawer-container>

@@ -26,7 +26,6 @@ export class DialogAddUserComponent implements OnInit {
   channel = new Channel();
   inputParticipants: string;
   filteredUsers: any [];
-  // inputParticipants2;
   participants:any[] = [];
   userName;
 
@@ -34,7 +33,7 @@ export class DialogAddUserComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogAddUserComponent>,
      private firestore: AngularFirestore,) {
-    this.filteredUsers = this.allUsers;
+    
   }
   ngOnInit(): void {
     this.firestore
@@ -42,7 +41,6 @@ export class DialogAddUserComponent implements OnInit {
       .snapshotChanges()
       .subscribe((docs: any) => {
         this.allUsers = docs;
-        this.filteredUsers = this.allUsers;
       })
   }
 
@@ -51,75 +49,85 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   createNewChannel() {
-    console.log(this.channel.participants, this.channel.channelName, this.channel.channelDescription)
+    
+    let userIDs = this.channel.participants.map(p => p.userID);
      this.loading = true;
     
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
       .then(ref =>{
-        this.addChannelToUser(ref.id, this.channel.participants, this.channel.channelName)
+        this.addChannelToUser(ref.id, userIDs, this.channel.channelName)
       })
     this.loading = false;
     this.dialogRef.close();
   }
 
- test(user){
-  let index = this.channel.participants.indexOf(user)
-  if(index !== -1){
-    this.channel.participants.splice(index,1)
-  }
-  else(
-    this.channel.participants.push(user))
 
-    console.log(this.channel.participants)
-    }
+ pushParticipantsChannel(userID, userName ){
+  let participant = this.channel.participants.find(p => p.userID === userID)
+  if(participant){
+    participant.userName = userName
+  }
+  else{
+    this.channel.participants.push({userID, userName})
+  }
+ }
  
 
 
-    addChannelToUser(test, participants, name){
+ spliceParticipantsChannel(User){
+  let index = this.channel.participants.indexOf(User)
+  if(index !== -1)
+  {this.channel.participants.splice(index,1)}
+ }
+
+
+
+addChannelToUser(ChannelID, participants, name){
       for (let i = 0; i < participants.length; i++) {
         const element = participants[i];
-        this.firestore
-          .collection('users')
-          .doc(element)
-          .collection('userChannels')
-          .add({
-            ChannelId: test,
-            name: name,  
-            unread: true,
-            unReadMessage: 0,    
-          })
-          .then(ref=>{
-            this.firestore
-            .collection('channels')
-            .doc(test)
-            .collection('test')
-            .add({
-              participant: element,
-              UserChannelID: ref.id
-            })
-
-          })
-        }
+        this.addChannelToUserFirestore(ChannelID, element, name)
+    }
       
     }
 
 
+addChannelToUserFirestore(ChannelID, participantID, name){
+      this.firestore
+      .collection('users')
+      .doc(participantID)
+      .collection('userChannels')
+      .add({
+        ChannelId: ChannelID,
+        name: name,  
+        unread: true,
+        unReadMessage: 0,    
+      })
+      .then(ref =>{
+        this.addChannelToChannelCollection(ChannelID, participantID, ref.id)
+      })   
+    }
+
+addChannelToChannelCollection(ChannelID, participantID, UserChannelId){
+      this.firestore
+      .collection('channels')
+      .doc(ChannelID)
+      .collection('test')
+      .add({
+        participant: participantID,
+        UserChannelID: UserChannelId
+      })
+    }
 
 
-
-hallo(){
-  console.log(this.filteredUsers)
-}
-
-    filterUser(){
+    filterUser() {
+            this.filteredUsers = this.allUsers.filter(user => 
+          user.payload.doc.data().userName
+            .toLowerCase()
+            .includes(this.inputParticipants.toLowerCase())
+        );
       
-      this.filteredUsers = this.allUsers
-      .filter(user => 
-        user.payload.doc.data().userName
-        .toLowerCase()
-        .includes(this.inputParticipants.toLowerCase()))
     }
  
 

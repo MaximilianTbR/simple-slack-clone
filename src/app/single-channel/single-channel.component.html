@@ -1,4 +1,5 @@
-<div class="router-container">
+<div class class="router-container" [class.darkmode]="this.darkMode">
+
     <mat-card class="channel-name-div">
         <div class="single-div header">
             <mat-icon>lock</mat-icon>
@@ -32,17 +33,17 @@
             selector: 'textarea',
             menubar: '',
             plugins: [
-            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-            'media', 'table', 'emoticons', 'template', 'help', 'codesample'
+            'link', 'lists', 'anchor', 
+            'wordcount', 'visualblocks', 'visualchars', 'code', 'insertdatetime',
+             'table', 'emoticons', 'codesample'
           ],
             toolbar: 'undo redo | emoticons | bold italic underline | codesample | blockquote | link | numlist bullist',
             statusbar: false,
             height: 200,
             max_width: 1000,
             min_width: 100
-        }"></editor>
-        <div class="statusbar" id=statusbar>
+        }" required></editor>
+        <div class="statusbar">
             <div class="img-div">
                 <app-image-preview></app-image-preview>
                 <div class="outer-div" *ngFor="let file of allFiles; let i = index">
@@ -53,7 +54,7 @@
                 </div>
             </div>
             <input class="btn" type="file" (change)="chooseFile($event)">
-            <button class="btn" (click)="sendMessage()">
+            <button [disabled]="!this.message" class="btn" (click)="sendMessage()">
                 <img src="./../../assets/img/send.png">
             </button>
         </div>

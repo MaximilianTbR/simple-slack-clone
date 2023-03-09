@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-channel/dialog-add-channel.component';
 import { NgModule } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 // import * as admin from 'firebase-admin/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../models/user';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
@@ -24,10 +24,13 @@ import { collection } from 'firebase/firestore';
   styleUrls: ['./startscreen.component.scss'],
 })
 export class StartscreenComponent implements OnInit {
-  privateChat;
-  bla = false;
-  hallo = true;
-  notView = false;
+  hallotest = ['fdsjk', 'dfklsjdf']
+  onlySearchUsers = false;
+  onlySearchChannels = false;
+  filteredChannels:any [];
+  filteredOptions: Observable<string[]>;;
+  inputParticipants;
+  filteredUsers: any [];
   darkmode = false;
   userId: any;
   viewChannel = false;
@@ -38,26 +41,11 @@ export class StartscreenComponent implements OnInit {
   UserName;
   UserMail;
   userIsNotKnown = 0;
-  allChannels2 = [];
   allUsers = [];
   allChannels = [];
   chats = [];
-  channelData: Channel;
-  index: any;
-  participantsLength; // wird
-  refreshing = false;
-  viewAllChannels = true;
-  messageField = '';
-  channelId;
-  viewAllUsers = true;
-  viewAllPrivateChats = true;
-  filteredChannels: any;
-  filteredChannels2 = [];
-  channelCollection = this.firestore.collection('channels');
-
-  channelName = {};
-
-  privateMessages = [];
+  viewAllChannels = false;
+  viewAllPrivateChats = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -81,8 +69,8 @@ export class StartscreenComponent implements OnInit {
     })
   }
 
-  test() {
-    this.bla = false
+  test(){
+    console.log(this.chats)
   }
 
   // alle user werden in allUsers gespeichert
@@ -184,7 +172,6 @@ export class StartscreenComponent implements OnInit {
   }
 
   switchMode() {
-    console.log(this.darkmode)
     if (this.darkmode) {
       this.darkmode = false;
     }
@@ -196,12 +183,10 @@ export class StartscreenComponent implements OnInit {
     this.allUsers.forEach((user) => {
       if (this.userId == user.payload.doc.data().userId) {
         this.currentUser();
-        console.log(this.userIsNotKnown)
       } else {
         this.userIsNotKnown++;
         if (this.userIsNotKnown == this.allUsers.length) {
 
-          console.log(this.userIsNotKnown, this.allUsers)
           this.openDialogNewUser();
           this.userIsNotKnown = 0;
         }
@@ -210,8 +195,78 @@ export class StartscreenComponent implements OnInit {
   }
 
   openDialogNewUser() {
-    this.dialog.open(NameDialogComponent);
+    const dialogConfig = new MatDialogConfig();
+  
+    dialogConfig.disableClose = true; // Schließen durch Klick außerhalb des Dialogs deaktivieren
+  
+    const dialogRef: MatDialogRef<NameDialogComponent> = this.dialog.open(NameDialogComponent, dialogConfig);
   }
 
+
+  search() {
+    if(this.onlySearchUsers){
+      this.searchUsers()
+    }
+   else if(this.onlySearchChannels){
+      this.searchChannels()
+    }  else{
+      this.searchUsers(),
+      this.searchChannels()
+    }
+    console.log(this.filteredUsers, this.filteredChannels)
+  }
+
+  
+    searchUsers(){
+      this.filteredUsers = this.allUsers
+      .filter(user => 
+        user.payload.doc.data().userName
+          .toLowerCase()
+          .includes(this.inputParticipants.toLowerCase())
+      );
+    }
+
+    searchChannels(){
+      this.filteredChannels =  this.allChannels
+      .filter(channel => 
+        channel.name
+          .toLowerCase()
+          .includes(this.inputParticipants.toLowerCase())
+      );
+    }
+  
+    onlyUserSearch(){
+      if(this.onlySearchUsers)
+      {
+        this.onlySearchUsers = false;
+      }
+      else{
+
+        this.onlySearchUsers = true;
+      }
+      this.onlySearchChannels = false;
+      this.filteredChannels = [];
+    }
+
+    onlyChannelSearch(){
+      if(this.onlySearchChannels)
+      {
+        this.onlySearchChannels = false;
+      }
+      else{
+
+        this.onlySearchChannels = true;
+      }
+      this.onlySearchUsers = false;
+      this.filteredUsers = [];
+    }
+
+    clearSearch(){
+      setTimeout(() => { 
+        this.filteredChannels = [];
+        this.filteredUsers = [];
+        this.inputParticipants = ''; }, 200)
+      
+    }
 
 }

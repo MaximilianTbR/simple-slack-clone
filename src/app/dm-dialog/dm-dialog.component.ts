@@ -29,9 +29,9 @@ export class DmDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.User()
   }
 
+<<<<<<< HEAD
   async User() {
     this.firestore
       .collection('users')
@@ -116,6 +116,9 @@ export class DmDialogComponent implements OnInit {
     this.dialog.open(NameDialogComponent);
   }
 
+=======
+
+>>>>>>> 5afa69cfc83274332585b75df3783a4e6745630b
   test() {
     console.log(this.userId)
   }
@@ -136,8 +139,12 @@ export class DmDialogComponent implements OnInit {
   newPrivateChat() {
     this.searchBothUsers();
     const participants = [this.data.docIDfromUser, this.data.UserID]
+<<<<<<< HEAD
     const participantNames = [this.data, this.data]
     console.log(participantNames)
+=======
+    const participantName = []
+>>>>>>> 5afa69cfc83274332585b75df3783a4e6745630b
     const chatMessages = []
     const newChat = new privateChat({ participants, chatMessages, participantNames })
     /*

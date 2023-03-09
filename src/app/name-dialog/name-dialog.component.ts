@@ -46,6 +46,7 @@ export class NameDialogComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allUsers = changes;
       })
+      
   }
 
 
