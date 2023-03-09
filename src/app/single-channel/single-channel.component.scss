@@ -12,6 +12,10 @@
     cursor: pointer;
 }
 
+.d-none2 {
+    display: none !important;
+}
+
 .all-messages {
     overflow: scroll !important;
     position: absolute;
@@ -19,6 +23,10 @@
     width: 100%;
     left: 0px;
     height: 61.25vh;
+}
+
+.smaller-width {
+    width: 70% !important;
 }
 
 .message {
@@ -47,6 +55,20 @@
     bottom: 50px;
     left: 35px;
     width: 95% !important;
+    height: 200px !important;
+    border-color: black !important;
+    .alert-warning {
+        --bs-alert-color: gray;
+        --bs-alert-bg: white;
+        --bs-alert-border-color: gray;
+    }
+}
+
+.inputfield-2 {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+    width: 330px !important;
     height: 200px !important;
     border-color: black !important;
     .alert-warning {
@@ -362,6 +384,19 @@ mat-toolbar-row {
 
 .statusbar {
     width: 100%;
+    height: 40px;
+    border: 1px solid gray;
+    margin-top: -10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: bottom;
+}
+
+.statusbar-2 {
+    width: 330px;
     height: 40px;
     border: 1px solid gray;
     margin-top: -10px;

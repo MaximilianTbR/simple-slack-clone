@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { user } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -11,32 +18,42 @@ import { User } from '../models/user';
 import { NameDialogComponent } from '../name-dialog/name-dialog.component';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
-import { Storage, ref, uploadBytesResumable, getDownloadURL, StorageReference } from '@angular/fire/storage';
+import {
+  Storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  StorageReference,
+} from '@angular/fire/storage';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { NgbTypeaheadConfig, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTypeaheadConfig,
+  NgbTypeaheadModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 import { StartscreenComponent } from '../startscreen/startscreen.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { ToolbarService, LinkService, ImageService, HtmlEditorService } from '@syncfusion/ej2-angular-richtexteditor';
+import {
+  ToolbarService,
+  LinkService,
+  ImageService,
+  HtmlEditorService,
+} from '@syncfusion/ej2-angular-richtexteditor';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-
-
 
 @Component({
   selector: 'app-single-channel',
   templateUrl: './single-channel.component.html',
   styleUrls: ['./single-channel.component.scss'],
 })
-
-
 export class SingleChannelComponent implements OnInit {
   @ViewChildren('messageElements') messageElements: QueryList<ElementRef>;
-  allParticipants
+  allParticipants;
   unReadMessage;
-  channel = new Channel;
+  channel = new Channel();
   UserName = this.Start.UserName;
   message: string = '';
   allUsers = [];
@@ -54,22 +71,23 @@ export class SingleChannelComponent implements OnInit {
   allImages = [];
   singleMessageToDelete: any;
   singleMessageToDeleteId: any;
+  threadMessages = [];
   constructor(
     public storage: Storage,
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     public dialog: MatDialog,
     public Start: StartscreenComponent
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.route.paramMap.subscribe(paramMap => {
+    this.route.paramMap.subscribe((paramMap) => {
       this.channelID = paramMap.get('id');
       this.getChannel();
     });
     this.loadAllMessages();
     this.sortsMessages();
-    this.loadAllMessages2()
+    this.loadAllMessages2();
   }
 
   ngAfterViewInit() {
@@ -77,17 +95,18 @@ export class SingleChannelComponent implements OnInit {
       this.scrollMessageListToBottom();
     });
   }
-  
 
   test() {
-    console.log(this.messageElements.length)
+    console.log(this.messageElements.length);
   }
 
   scrollMessageListToBottom(): void {
     try {
-      this.messageElements.last.nativeElement.scrollIntoView({ behavior: "auto" });
-    } catch (err) { }
-    console.log(this.messageElements.length)
+      this.messageElements.last.nativeElement.scrollIntoView({
+        behavior: 'auto',
+      });
+    } catch (err) {}
+    console.log(this.messageElements.length);
   }
 
   openDialog(): void {
@@ -100,24 +119,28 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .valueChanges()
       .subscribe((channel: any) => {
-        this.channel = channel,
-          this.loadAllMessages()
-        this.loadAllParticipants()
-      }
-      )
+        (this.channel = channel), this.loadAllMessages();
+        this.loadAllParticipants();
+      });
   }
 
-
-
+  answerInThread(index) {
+    document.getElementById('all-messages').classList.add('smaller-width');
+    document.getElementById('editor').classList.add('smaller-width');
+    document.getElementById('statusbar').classList.add('smaller-width');
+    document.getElementById('thread').classList.remove('d-none2');
+    document.getElementById('inputfield-2').classList.remove('d-none2');
+    console.log(this.allMessages[index]);
+    this.threadMessages.push(this.allMessages[index]);
+  }
 
   openCurrentUser(userID) {
     this.dialog.open(UserDetailComponent, {
-      data:
-      {
+      data: {
         UserID: userID,
-        docIDfromUser: this.Start.docIDfromUser
-      }
-    })
+        docIDfromUser: this.Start.docIDfromUser,
+      },
+    });
   }
 
   loadAllMessages() {
@@ -126,10 +149,10 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .collection('channelMessages')
       .valueChanges()
-      .subscribe(docs => {
-        this.allMessages = docs
-        console.log(this.allMessages, 'these are all messages')
-        this.sortsMessages()
+      .subscribe((docs) => {
+        this.allMessages = docs;
+        console.log(this.allMessages, 'these are all messages');
+        this.sortsMessages();
       });
   }
 
@@ -139,10 +162,10 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .collection('channelMessages')
       .snapshotChanges()
-      .subscribe(docs => {
-        this.allMessages2 = docs
-        console.log(this.allMessages2, 'these are all messages with docs')
-        this.sortsMessages()
+      .subscribe((docs) => {
+        this.allMessages2 = docs;
+        console.log(this.allMessages2, 'these are all messages with docs');
+        this.sortsMessages();
       });
   }
 
@@ -152,10 +175,9 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.channelID)
       .collection('test')
       .valueChanges()
-      .subscribe(allParticipants => {
-        this.allParticipants = allParticipants,
-          this.irgendwas2()
-      })
+      .subscribe((allParticipants) => {
+        (this.allParticipants = allParticipants), this.irgendwas2();
+      });
   }
 
   irgendwas2() {
@@ -170,10 +192,9 @@ export class SingleChannelComponent implements OnInit {
           .doc(element.UserChannelID)
           .update({
             unReadMessage: 0,
-            unread: false
-          })
+            unread: false,
+          });
       }
-
     }
   }
 
@@ -194,8 +215,8 @@ export class SingleChannelComponent implements OnInit {
         userName: this.Start.UserName,
         timestampe: new Date().getTime(),
         imgAvailable: this.imgAvailable,
-        allImages: this.allImages
-      })
+        allImages: this.allImages,
+      });
     this.message = '';
     this.unreadMessage();
     this.ngAfterViewInit();
@@ -216,16 +237,15 @@ export class SingleChannelComponent implements OnInit {
           .doc(element.UserChannelID)
           .get()
           .toPromise()
-          .then(doc => {
-            this.irgendwas(element, doc)
-          })
+          .then((doc) => {
+            this.irgendwas(element, doc);
+          });
       }
     }
   }
 
-
   irgendwas(element, doc) {
-    let newUnread = doc.data()["unReadMessage"];
+    let newUnread = doc.data()['unReadMessage'];
     newUnread++; // increase newUnread by 1
     return this.firestore
       .collection('users')
@@ -235,7 +255,7 @@ export class SingleChannelComponent implements OnInit {
       .update({
         unread: true,
         unReadMessage: newUnread,
-      })
+      });
   }
 
   chooseFile(event: any) {
@@ -246,24 +266,30 @@ export class SingleChannelComponent implements OnInit {
   addData() {
     const StorageRef = ref(this.storage, this.file.name);
     this.allFiles.push(this.file);
-    console.log(this.allFiles)
-    const uploadTask = uploadBytesResumable(StorageRef, this.file)
-    uploadTask.on('state_changed', (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-    }, (error) => {
-      console.log(error.message)
-    }, () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
-        if (downloadURL) {
-          this.imgDownloadURL = downloadURL;
-          this.allImages.push(this.imgDownloadURL);
-          this.imgAvailable = true;
-          console.log(this.allImages);
-        }
-      });
-    })
+    console.log(this.allFiles);
+    const uploadTask = uploadBytesResumable(StorageRef, this.file);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          if (downloadURL) {
+            this.imgDownloadURL = downloadURL;
+            this.allImages.push(this.imgDownloadURL);
+            this.imgAvailable = true;
+            console.log(this.allImages);
+          }
+        });
+      }
+    );
   }
 
   deletePicture(index) {
@@ -274,24 +300,29 @@ export class SingleChannelComponent implements OnInit {
 
   deleteMessage(index) {
     //console.log(this.allMessages)
-    console.log(this.allMessages2[0].payload.doc.data(), 'all messages in docs bla')
-    this.allMessages2.forEach(singleMessage2 => {
-      if (singleMessage2.payload.doc.data().text == this.allMessages[index].text) {
-        console.log(singleMessage2.payload.doc.data(), this.allMessages[index])
-        console.log('it worked!')
-        console.log(singleMessage2.payload.doc.data())
+    console.log(
+      this.allMessages2[0].payload.doc.data(),
+      'all messages in docs bla'
+    );
+    this.allMessages2.forEach((singleMessage2) => {
+      if (
+        singleMessage2.payload.doc.data().text == this.allMessages[index].text
+      ) {
+        console.log(singleMessage2.payload.doc.data(), this.allMessages[index]);
+        console.log('it worked!');
+        console.log(singleMessage2.payload.doc.data());
         this.singleMessageToDelete = singleMessage2.payload.doc;
         const docId = this.singleMessageToDelete.id;
         console.log('THATS THE ID', docId);
         this.singleMessageToDeleteId = docId;
       }
     });
-    this.allMessages.splice(index, 1)
+    this.allMessages.splice(index, 1);
     this.firestore
       .collection('channels')
       .doc(this.channelID)
       .collection('channelMessages')
       .doc(this.singleMessageToDeleteId)
-      .delete()
+      .delete();
   }
 }

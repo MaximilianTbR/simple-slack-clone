@@ -51,6 +51,7 @@ import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
+import { ThreadComponent } from './thread/thread.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { ImagePreviewComponent } from './image-preview/image-preview.component';
     EditUserComponent,
     KeyboardComponent,
     ImagePreviewComponent,
+    ThreadComponent,
   ],
   imports: [
     BrowserModule,

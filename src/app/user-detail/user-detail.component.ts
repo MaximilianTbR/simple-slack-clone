@@ -31,16 +31,17 @@ export class UserDetailComponent implements OnInit {
   allChannels: any = [];
   docIDfromUser;
   UserMail;
-  UserName;
+  UserName = '';
   UserChannels = [];
   profileImg = './../../assets/img/blank-pp.webp';
   userPP;
   userPP2 = "https://firebasestorage.googleapis.com/v0/b/simple-slack-clone.appspot.com/o/users%2FpK6Y7WqHSQUzWvuBj9Hi38iDfWy2%2Fportfolio.png?alt=media&token=ac8c669c-adb9-48a2-8998-e7c43ecf4f7a";
   activeUser = false;
-
+  userNameTest = 'Hallo Welt'
   async ngOnInit(): Promise<void> {
     await this.getUserId();
     await this.UserDetail();
+    await this.currentUser();
   }
 
   async getUserId() {
@@ -157,7 +158,7 @@ export class UserDetailComponent implements OnInit {
       data:
       {
         UserID: this.data.UserID,
-        docIDfromUser: this.data.docIDfromUser,
+        docIDfromUser: this.data.docIDfromUser
       }
     })
 
@@ -167,7 +168,8 @@ export class UserDetailComponent implements OnInit {
   openEditUser() {
     let dialog = this.dialog.open(EditUserComponent, {
       data: {
-        docIDfromUser: this.data.docIDfromUser,
+        //docIDfromUser: this.data.docIDfromUser,
+        docIDfromUser2: this.userNameTest
       }
     })
     dialog.componentInstance.user = new User(this.User);

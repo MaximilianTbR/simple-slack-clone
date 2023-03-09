@@ -95,6 +95,7 @@ export class EditUserComponent implements OnInit {
 
   test() {
     console.log(this.data.docIDfromUser)
+    console.log(this.userId)
   }
 
   saveUser() {
@@ -139,7 +140,7 @@ export class EditUserComponent implements OnInit {
         console.log(this.profileImg)
         this.firestore
           .collection('users')
-          .doc(this.userId)
+          .doc(this.docIDfromUser)
           .update({
             userPP: this.profileImg
           })
