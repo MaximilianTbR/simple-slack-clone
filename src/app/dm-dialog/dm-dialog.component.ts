@@ -27,68 +27,9 @@ export class DmDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.User()
   }
 
-  async User() {
-    this.firestore
-      .collection('users')
-      .snapshotChanges()
-      .subscribe((docs: any) => {
-        this.allUsers = docs;
-        console.log(this.allUsers);
-      })
-  }
 
-  searchForUser() {
-    this.allUsers.forEach((user) => {
-      if (this.userId == user.payload.doc.data().userId) {
-        this.currentUser();
-        console.log(this.userIsNotKnown)
-      } else {
-        this.userIsNotKnown++;
-        if (this.userIsNotKnown == this.allUsers.length) {
-
-          console.log(this.userIsNotKnown, this.allUsers)
-          this.openDialogNewUser();
-          this.userIsNotKnown = 0;
-        }
-      }
-    })
-    this.allUsers.forEach((user) => {
-      if (this.userId == user.payload.doc.data().userId) {
-        this.currentUser();
-        console.log(this.userIsNotKnown)
-      } else {
-        this.userIsNotKnown++;
-        if (this.userIsNotKnown == this.allUsers.length) {
-
-          console.log(this.userIsNotKnown, this.allUsers)
-          this.openDialogNewUser();
-          this.userIsNotKnown = 0;
-        }
-      }
-    })
-  }
-
-  currentUser() {
-    for (let i = 0; i < this.allUsers.length; i++) {
-      let user = this.allUsers[i];
-      if (this.userId == user.payload.doc.data().userId) {
-        this.docIDfromUser = user.payload.doc.id
-        this.UserMail = user.payload.doc.data().userMail;
-        this.UserName = user.payload.doc.data().userName;
-        this.UserChannels = user.payload.doc.data().userChannels;
-        this.userPP = user.payload.doc.data().userPP;
-        this.userStatus = user.payload.doc.data().status
-      }
-    }
-    this.userIsNotKnown = 0;
-  }
-
-  openDialogNewUser() {
-    this.dialog.open(NameDialogComponent);
-  }
   test() {
     console.log(this.data.UserID, this.data.docIDfromUser)
   }
@@ -96,8 +37,7 @@ export class DmDialogComponent implements OnInit {
 
   newPrivateChat() {
     const participants = [this.data.docIDfromUser, this.data.UserID]
-    const participantNames = [this.data, this.data.UserID]
-    console.log(participantNames)
+    const participantName = []
     const chatMessages = []
     const newChat = new privateChat({ participants, chatMessages })
 
@@ -120,7 +60,6 @@ export class DmDialogComponent implements OnInit {
         .add({
           ChatID: ref,
           participants: participants,
-          participantNames: participants
         })
     }
   }

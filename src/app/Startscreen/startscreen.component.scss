@@ -9,6 +9,13 @@
     display: flex;
 }
 
+mat-option {
+    background-color: #3f51b5;
+    &:hover {
+        background-color: #6e7bc5 !important;
+    }
+}
+
 .unread {
     color: white;
 }
@@ -42,6 +49,17 @@
      :hover {
         background-color: rgb(247, 240, 240);
     }
+}
+
+mat-form-field {
+    height: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-option {
+    overflow: scroll !important;
 }
 
 .all-messages {

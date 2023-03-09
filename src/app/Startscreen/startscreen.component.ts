@@ -69,7 +69,9 @@ export class StartscreenComponent implements OnInit {
     })
   }
 
-
+  test(){
+    console.log(this.chats)
+  }
 
   // alle user werden in allUsers gespeichert
   async User() {
@@ -211,6 +213,7 @@ export class StartscreenComponent implements OnInit {
       this.searchUsers(),
       this.searchChannels()
     }
+    console.log(this.filteredUsers, this.filteredChannels)
   }
 
   

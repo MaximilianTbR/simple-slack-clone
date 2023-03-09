@@ -70,7 +70,7 @@ export class SingleChannelComponent implements OnInit {
     });
     this.loadAllMessages();
     this.sortsMessages();
-    this.loadAllMessages2()
+   // this.loadAllMessages2()
   }
 
   ngAfterViewInit() {
@@ -79,9 +79,22 @@ export class SingleChannelComponent implements OnInit {
     });
   }
   
+  
+ /* loadAllMessages2() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelID)
+      .collection('channelMessages')
+      .snapshotChanges()
+      .subscribe(docs => {
+        this.allMessages2 = docs
+        console.log(this.allMessages2, 'these are all messages with docs')
+        this.sortsMessages()
+      });
+  } */
 
   test() {
-    console.log(this.messageElements.length)
+    console.log(this.darkMode)
   }
 
   scrollMessageListToBottom(): void {
@@ -134,18 +147,6 @@ export class SingleChannelComponent implements OnInit {
       });
   }
 
-  loadAllMessages2() {
-    this.firestore
-      .collection('channels')
-      .doc(this.channelID)
-      .collection('channelMessages')
-      .snapshotChanges()
-      .subscribe(docs => {
-        this.allMessages2 = docs
-        console.log(this.allMessages2, 'these are all messages with docs')
-        this.sortsMessages()
-      });
-  }
 
   loadAllParticipants() {
     this.firestore
@@ -295,4 +296,8 @@ export class SingleChannelComponent implements OnInit {
       .doc(this.singleMessageToDeleteId)
       .delete()
   }
+
+  
+
+  
 }

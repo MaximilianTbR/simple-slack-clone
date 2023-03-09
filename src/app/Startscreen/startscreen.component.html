@@ -4,6 +4,8 @@
             <span [routerLink]="['']" class="material-icons">
             logout
             </span>
+
+            <button (click)="test()">test</button>
         </div>
         <div class="logo-container">
             <!-- <img src="../../assets/img/1.png"> -->
@@ -30,7 +32,7 @@
             </p>
             <ul class="menu-items">
                 <li *ngIf="viewAllPrivateChats">
-                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let chat of chats; let i = index" [channelName]="this.chats[0].participants.userName"></app-single-channel-sidenav-link>
+                    <app-single-channel-sidenav-link class="single-channel" *ngFor="let chat of chats; let i = index" [channelName]="chat.ChatID"></app-single-channel-sidenav-link>
                 </li>
             </ul>
         </div>
@@ -48,7 +50,6 @@
 
 
     <div class="example-sidenav-content">
-
         <mat-toolbar color="primary" [class.darkmode]="this.darkmode">
             <div class="test">
                 <button (click)=" drawer.toggle() " mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
@@ -70,6 +71,7 @@
                 <mat-option *ngFor="let option of filteredUsers" (click)="openCurrentUser(option.payload.doc.id)">
                     {{option.payload.doc.data().userName}}
                 </mat-option>
+
                 <span (click)="this.onlyUserSearch()" class="material-icons" title="search only users" [class.btn-black]="this.onlySearchUsers">
                     person
                  </span>

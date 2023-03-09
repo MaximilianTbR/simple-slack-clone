@@ -175,7 +175,7 @@ export class UserDetailComponent implements OnInit {
 
 
   test() {
-    console.log(this.User)
+    console.log(this.data)
   }
 
 }

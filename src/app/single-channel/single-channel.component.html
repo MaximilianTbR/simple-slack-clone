@@ -1,4 +1,5 @@
-<div class="router-container">
+<div class class="router-container" [class.darkmode]="this.darkMode">
+
     <mat-card class="channel-name-div">
         <div class="single-div header">
             <mat-icon>lock</mat-icon>
@@ -19,8 +20,11 @@
             <p [innerHTML]="message.text"></p>
             <img *ngFor="let img of message.allImages" style="height: 50px; width: auto;" src="{{img}}" alt="">
             <div class="message-menu">
-                <button (click)="deleteMessage(i)">Delete Message</button>
-                <button>Answer in a Thread</button>
+                <button (click)="deleteMessage(i)">
+                    <span class="material-icons">
+                    clear
+                    </span>
+                </button>
             </div>
         </div>
     </div>
@@ -31,9 +35,9 @@
             selector: 'textarea',
             menubar: '',
             plugins: [
-            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-            'media', 'table', 'emoticons', 'template', 'help', 'codesample'
+            'link', 'lists', 'anchor', 
+            'wordcount', 'visualblocks', 'visualchars', 'code', 'insertdatetime',
+             'table', 'emoticons', 'codesample'
           ],
             toolbar: 'undo redo | emoticons | bold italic underline | codesample | blockquote | link | numlist bullist',
             statusbar: false,
